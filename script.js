@@ -11,5 +11,3 @@ function httpGet(theUrl)
 		return "Unable to load file";
 	}
 }
-
-console.log(httpGet("http://google.com"))
