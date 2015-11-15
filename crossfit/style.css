@@ -1,0 +1,29 @@
+.container {
+	background-color: green;
+	padding: 2em;
+	height:30em;
+	max-height: 90%;
+	max-width:50%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.card {
+	margin: 2em auto;
+	display: inline-block;
+	background-image:url("images/flashcard.png");
+	background-size:30em 20em;
+	width: 30em;
+	height: 20em;
+	background-color: red;
+}
+
+.card p {
+	text-align: center;
+	position: relative;
+	top: 50%;
+	font-family: "Helvetica";
+	font-size: 24;
+	transform: translateY(-50%);
+  	margin: 0 auto;
+}

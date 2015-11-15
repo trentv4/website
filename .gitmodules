@@ -1,0 +1,3 @@
+[submodule "crossfit-workout-generator"]
+	path = crossfit-workout-generator
+	url = git@bitbucket.org:trentv4/crossfit-workout-generator.git

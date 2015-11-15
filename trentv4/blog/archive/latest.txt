@@ -1,0 +1,1 @@
+<div class='container'><p>This is my first blog post. I officially launched this site redesign on 6/23/2015 (June 24, 2015). The previous site has been nuked. You may be interested in my <a href="/trentv4/projects/">projects</a>. </p><div class="signature"><p>- Trentv4</p><p>Posted at 5:07 on June 23, 2015</p></div></div>
