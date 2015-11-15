@@ -1,6 +1,6 @@
-[submodule "ap-calculus-review"]
-	path = web-cards
-	url = git@bitbucket.org:trentv4/ap-calculus-review.git
 [submodule "operating-system.js"]
-	path = operating-system
+	path = operating-system.js
 	url = git@bitbucket.org:trentv4/operating-system.js.git
+[submodule "ap-calculus-review"]
+	path = ap-calculus-review
+	url = git@bitbucket.org:trentv4/ap-calculus-review.git
