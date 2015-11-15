@@ -1,3 +1,6 @@
-[submodule "crossfit-workout-generator"]
-	path = crossfit-workout-generator
-	url = git@bitbucket.org:trentv4/crossfit-workout-generator.git
+[submodule "ap-calculus-review"]
+	path = web-cards
+	url = git@bitbucket.org:trentv4/ap-calculus-review.git
+[submodule "operating-system.js"]
+	path = operating-system
+	url = git@bitbucket.org:trentv4/operating-system.js.git
