@@ -29,6 +29,8 @@ body {
 }
 
 .link {
+	min-width:20px;
+	min-height:20px;
 	width: 25vw;
 	height: 25vw;
 	max-width:15em;
