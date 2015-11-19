@@ -1,0 +1,37 @@
+body {
+	background-color: #87A96B;
+}
+
+.header {
+    border-radius: 0.2em;
+	width: 48em;
+	padding: 10px;
+	background-color: #FFFFFF;
+	border: 1px solid;
+	margin: 1em auto;
+}
+
+.header p {
+	font-family: "Impact";
+	text-align: center;
+	font-size: 24px;
+}
+
+.container {
+    border-radius: 0.2em;
+	width: 85vw;
+	max-width:65em;
+	padding: 2vw;
+	background-color: #FFFFFF;
+	text-align: center;
+	border: 1px solid;
+	margin: 0 auto;
+}
+
+.link {
+	width: 25vw;
+	height: 25vw;
+	max-width:15em;
+	max-height:15em;
+	display: inline-block;
+}
