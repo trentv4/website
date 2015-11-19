@@ -3,22 +3,23 @@ body {
 }
 
 .header {
-    border-radius: 0.2em;
-	width: 48em;
+    border-radius: 0.5em;
+	width: 75vw;
+	max-width: 50em;
 	padding: 10px;
 	background-color: #FFFFFF;
 	border: 1px solid;
-	margin: 1em auto;
+	margin: 1vh auto;
 }
 
 .header p {
 	font-family: "Impact";
 	text-align: center;
-	font-size: 24px;
+	font-size: 1.5em;
 }
 
 .container {
-    border-radius: 0.2em;
+    border-radius: 0.5em;
 	width: 85vw;
 	max-width:65em;
 	padding: 2vw;
