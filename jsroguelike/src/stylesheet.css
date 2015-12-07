@@ -29,6 +29,11 @@ body {
 	margin: 0 auto;
 }
 
+.container canvas {
+	width:80vw;
+	background-color:red;	
+}
+
 .link {
 	min-width:20px;
 	min-height:20px;
