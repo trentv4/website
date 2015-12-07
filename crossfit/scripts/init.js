@@ -1,15 +1,21 @@
-var spreadsheetURL = "https://docs.google.com/spreadsheets/d/1yOgfwOgjLeefXId2eBFB1N8G0iZMIvs1Q7jUClnz1S4/pubhtml"
+var spreadsheetURL = "https://docs.google.com/spreadsheets/d/1sW3SaI26uAAiRylGc2fLqQcZBO_I7gIGieyq78Do2rs/pubhtml"
 Tabletop.init({
 	key: spreadsheetURL,
 	callback: showInfo,
 	simpleSheet: true
 })
 
-var data;
-
-
 function showInfo(d, tabletop)
 {
-	data = d;
-}
+	var genRFT
+	var genAMRAP
+	var genChipper
 
+	var amrap_timeRange
+	var amrap_exerciseCount
+	var amrap_reps
+
+	var chipper_count
+	var chipper_reps
+	var chipper_repsMod
+}
