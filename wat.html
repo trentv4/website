@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>w8 m8 check r8</title>
+	</head>
+
+	<body>
+		<p class="wat">\[T]/</p>
+		<p class="wat">\[T]/</p>
+		<p class="wat">\[T]/</p>
+		<p class="wat">\[T]/</p>
+		<p class="wat">\[T]/</p>
+		<p class="wat">\[T]/</p>
+		<p class="wat">\[T]/</p>
+		<p class="wat">\[T]/</p>
+		<p class="wat">\[T]/</p>
+		<p class="wat">\[T]/</p>
+		<p class="wat">\[T]/</p>
+		<p class="wat">\[T]/</p>
+		<p class="wat">\[T]/</p>
+		<p class="wat">\[T]/</p>
+		<p class="wat">\[T]/</p>
+		<script>
+		var b = document.getElementsByClassName("wat");
+		var num = 0;
+		function set()
+		{
+			num++;
+			for(var i = 0; i < b.length; i++)
+			{
+				var a = b[i];
+				if(num == 0)
+				{
+					a.innerHTML = "\\[T]/";
+				}
+				else if(num == 1)
+				{
+					a.innerHTML = "\\[T]\\";				
+				}
+				else if(num == 2)
+				{
+					a.innerHTML = "/[T]\\";
+				}
+				else if(num == 3)
+				{
+					a.innerHTML = "\\[T]\\";
+				}
+				if(num == 3)
+				{
+					num = -1;
+				}
+			}
+		}
+		setInterval(set, 250);
+
+		</script>
+	</body>
+</html>
