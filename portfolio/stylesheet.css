@@ -1,40 +1,41 @@
+@import url(https://fonts.googleapis.com/css?family=Coming+Soon);
+
 body {
-	background-color: #87A96B;
+	background-color: rgb(243,254,220);
 }
 
 .header {
-    border-radius: 0.5em;
-	width: 75vw;
-	max-width: 50em;
-	padding: 10px;
+	width:100%;
+	padding: 1vh;
+	height: 10vh;
+	margin: -1vh -1vw;
 	background-color: #FFFFFF;
-	border: 1px solid;
-	margin: 1vh auto;
 }
 
 .header p {
 	font-family: "Impact";
 	text-align: center;
 	font-size: 1.2em;
+	margin: auto;
 }
 
 .container {
-    border-radius: 0.5em;
 	width: 85vw;
 	max-width:65em;
 	padding: 2vw;
 	background-color: #FFFFFF;
 	text-align: center;
-	border: 1px solid;
-	margin: 0 auto;
+	margin: 1vh auto 1vh;
 }
 
-.link {
-	min-width:20px;
-	min-height:20px;
-	width: 25vw;
-	height: 25vw;
-	max-width:15em;
-	max-height:15em;
-	display: inline-block;
+h2 {
+	font-size: 3em;
+	font-family: 'Impact';
+	color: rgb(77,77,77);
+}
+
+p {
+	font-size: 2em;
+	font-family: 'Coming Soon', cursive;
+	color: rgb(77,77,77);
 }
