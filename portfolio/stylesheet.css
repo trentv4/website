@@ -52,6 +52,7 @@ h2 {
 
 p {
 	font-size: 2em;
+	padding:.5em;
 	font-family: 'Coming Soon', cursive;
 	color: rgb(255,255,255);
 	-webkit-text-stroke: .2px black;
