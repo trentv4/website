@@ -1,5 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Coming+Soon);
-@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
+@import url(https://fonts.googleapis.com/css?family=Coming+Soon|Source+Sans+Pro);
 
 * {
 	margin:0;
@@ -15,7 +14,7 @@ body {
 }
 
 .header p {
-	font-family: "Source Sans Pro";
+	font-family: "Source Sans Pro", "Impact";
 	text-align: center;
 	font-size: 3em;
 	color: rgb(255,255,255);
@@ -45,20 +44,13 @@ img {
 h2 {
 	padding:.5em;
 	font-size: 3em;
-	font-family: "Source Sans Pro";
+	font-family: "Source Sans Pro", "Impact";
 	color: rgb(255,255,255);
 }
 
 p {
 	font-size: 2em;
 	padding:.5em;
-	font-family: 'Coming Soon', cursive;
-	color: rgb(255,255,255);
-}
-
-li {
-	font-size: 2em;
-	padding:.5em;
-	font-family: 'Coming Soon', cursive;
+	font-family: "Coming Soon", "Arial";
 	color: rgb(255,255,255);
 }
