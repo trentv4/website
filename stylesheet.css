@@ -1,35 +1,39 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
+
+* {
+	margin:0;
+}
+
 body {
-	background-color: #87A96B;
+	background-color: rgb(62,96,111);
 }
 
-.header {
-    border-radius: 0.5em;
-	width: 75vw;
-	max-width: 50em;
-	padding: 10px;
-	background-color: #FFFFFF;
-	border: 1px solid;
-	margin: 1vh auto;
-}
-
-.header p {
-	font-family: "Impact";
+#header {
 	text-align: center;
-	font-size: 1.2em;
+	background-color: rgb(209,219,189);
+}
+
+#header p {
+	font-family: "Source Sans Pro", "Impact";
+	font-size: 2em;
+}
+
+p {
+	font-size: 1em;
+	padding:.5vw;
+	font-family: "Source Sans Pro", "Impact";
 }
 
 .container {
-    border-radius: 0.5em;
 	width: 85vw;
-	max-width:65em;
 	padding: 2vw;
-	background-color: #FFFFFF;
+	background-color: rgb(145,170,157);
 	text-align: center;
-	border: 1px solid;
 	margin: 0 auto;
 }
-
-.link {
+/*252,255,245*/
+/*255,52,65*/
+.container img {
 	min-width:20px;
 	min-height:20px;
 	width: 25vw;
