@@ -13,6 +13,9 @@ router.get('/', function(req, res) {
   res.json({message: 'horray'});
 })
 
+router.route('/').post(function(req, res){
+  console.log(req.body.name);
+})
 app.use('/api', router);
 
 app.listen(port);
