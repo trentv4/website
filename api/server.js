@@ -1,13 +1,19 @@
 var http = require('http');
 var express = require('express');
 var app = express()
+var bodyParser = require('body-parser')
 
-app.get('/api/watch', function (req, res) {
-  res.end("fuck off");
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
+var port = process.env.PORT || 8080;
+var router = express.Router();
+
+router.get('/', function(req, res) {
+  res.json({message: 'horray'});
 })
 
-var server = app.listen(3000, function () {
-  var host = server.address().address
-  var port = server.address().port
-  console.log("Example app listening at http://%s:%s", host, port)
-})
+app.use('/api', router);
+
+app.listen(port);
+console.log("running");
