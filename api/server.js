@@ -14,7 +14,7 @@ router.get('/', function(req, res) {
 })
 
 router.route('/').post(function(req, res){
-  console.log(req.body.name);
+  console.log(req);
 })
 app.use('/api', router);
 
