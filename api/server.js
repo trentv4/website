@@ -12,6 +12,6 @@ router.route('/navyseal/')
 	res.status(404).end();
 })
 ///////////////////
-app.use('/api', router);
+app.use('/api/', router);
 app.listen(port);
 console.log("running");

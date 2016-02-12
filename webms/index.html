@@ -11,6 +11,17 @@
 			<a href="../index.html"><p>../</p></a>
 			<p>TrentV.net : Trent VanSlyke</p>
 		</div>
+		<script>
+			var r = new XMLHttpRequest();
+			r.open("GET", "http://localhost:8080/api/navyseal/")
+			r.send()
+
+			if(r.status == 200)
+			{
+				var output = r.responseText;
+			}
+
+		</script>
 		<div class="container">
 
 		</div>
