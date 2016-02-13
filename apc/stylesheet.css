@@ -1,0 +1,49 @@
+body {
+	background-color: #87A96B;
+}
+
+.container {
+    border-radius: 0.5em;
+	background-color:white;
+	padding: 2vw;
+	text-align: center;
+	border: 1px solid;
+	margin: 0 auto;
+
+	width: 85vw;
+	max-width: 65em;
+	height: 60vh;
+	max-height: 35em;
+}
+
+body {
+	background-image: url("images/background.png");
+}
+
+.card {
+	margin: 1vh auto;
+	display: inline-block;
+	background-image:url("images/flashcard.png");
+
+	width: 70vw;
+	max-width: 60em;
+	height: 50vh;
+	max-height:50em;
+}
+
+.card img {
+	width: 70vw;
+	max-width: 60em;
+	height: 50vh;
+	max-height:50em;
+}
+
+.card p {
+	text-align: center;
+	position: relative;
+	top: 50%;
+	font-family: "Helvetica";
+	font-size: 24;
+	transform: translateY(-50%);
+  	margin: 0 auto;
+}
