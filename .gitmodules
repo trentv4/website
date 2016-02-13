@@ -1,9 +1,0 @@
-[submodule "js-platformer"]
-	path = js-platformer
-	url = git@bitbucket.org:trentv4/js-platformer.git
-[submodule "operating-system.js"]
-	path = operating-system.js
-	url = git@bitbucket.org:trentv4/operating-system.js.git
-[submodule "ap-calculus-review"]
-	path = ap-calculus-review
-	url = git@bitbucket.org:trentv4/ap-calculus-review.git
