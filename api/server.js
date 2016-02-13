@@ -13,4 +13,4 @@ router.route('/navyseal/')
 ///////////////////
 app.use('/api/', router);
 app.listen(port);
-console.log("running");
+console.log("NodeJS Backend API running.");
