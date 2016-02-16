@@ -4,6 +4,7 @@
 		<title>Index</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" type="text/css" href="../stylesheet.css">
+		<link rel="stylesheet" type="text/css" href="stylesheet.css">
 	</head>
 
 	<body>
@@ -11,20 +12,51 @@
 			<a href="../index.html"><p>../</p></a>
 			<p>TrentV.net : Trent VanSlyke</p>
 		</div>
-		<div class="container">
+		<div class="container" style="display: flex">
+			<video id="player" controls></video>
+			<div id="related">
+
+			</div>
+
 			<script>
-				var name = "hack";
-				var a = new XMLHttpRequest();
-				a.open("GET", "/api/webm/?v=" + name, true)
-				a.send();
-				a.onreadystatechange = function() {
-					if(a.readyState == 4 && a.status == 200)
-					{
-						var b = JSON.parse(a.responseText)
-						console.log(b);
+				function setVideo(name)
+				{
+					var a = new XMLHttpRequest();
+					a.open("GET", "/api/webm/?v=" + name, true)
+					a.send();
+					a.onreadystatechange = function() {
+						if(a.readyState == 4 && a.status == 200)
+						{
+							var b = JSON.parse(a.responseText)
+							console.log(b);
+							player.src = b.path;
+						}
 					}
 				}
+
+				var c = new XMLHttpRequest();
+				c.open("GET", "/api/webm/?v=" + name, true)
+				c.send();
+				c.onreadystatechange = function() {
+					if(c.readyState == 4 && c.status == 200)
+					{
+						var d = JSON.parse(c.responseText)
+						var rel = document.getElementById("related");
+						var relatedvideo = document.createElement("div");
+						relatedvideo.className = "related-video"
+						rel.appendChild(relatedvideo);
+					}
+				}
+				setVideo("hack")
 			</script>
 		</div>
 	</body>
 </html>
+<!--
+<div class="related-video">
+	<div class="related-video-text">
+		<p>Name</p>
+		<p>tags</p>
+	</div>
+</div>
+!-->

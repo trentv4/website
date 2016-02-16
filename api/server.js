@@ -22,6 +22,8 @@ router.route('/navyseal/')
 	res.send();
 	res.end();
 })
+
+
 router.route('/webm/')
 .get(function(req, res){
 	process.stdout.write("Webm request: " + req.query.v + ". Searching...");
@@ -43,6 +45,12 @@ router.route('/webm/')
 		res.end();
 	}
 	process.stdout.write("\n")
+})
+
+router.route('/webm/all/')
+.get(function(req, res){
+	res.send(webm);
+	res.end();
 })
 ////LISTEN////
 app.use('/api/', router);
