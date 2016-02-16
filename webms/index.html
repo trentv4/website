@@ -35,7 +35,7 @@
 				}
 
 				var c = new XMLHttpRequest();
-				c.open("GET", "/api/webm/?v=" + name, true)
+				c.open("GET", "/api/webm/all" + name, true)
 				c.send();
 				c.onreadystatechange = function() {
 					if(c.readyState == 4 && c.status == 200)
