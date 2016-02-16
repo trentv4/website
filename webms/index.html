@@ -12,7 +12,19 @@
 			<p>TrentV.net : Trent VanSlyke</p>
 		</div>
 		<div class="container">
-			
+			<script>
+				var name = "hack";
+				var a = new XMLHttpRequest();
+				a.open("GET", "/api/webm/?v=" + name, true)
+				a.send();
+				a.onreadystatechange = function() {
+					if(a.readyState == 4 && a.status == 200)
+					{
+						var b = JSON.parse(a.responseText)
+						console.log(b);
+					}
+				}
+			</script>
 		</div>
 	</body>
 </html>
