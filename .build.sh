@@ -2,5 +2,5 @@ rm -rf ../../trentv.net/
 cp -r ../ ../../trentv.net/
 rm -rf ../../trentv.net/.*
 killall -KILL node
-ds node ../../trentv.net/api/server.js
+node ../../trentv.net/api/server.js >> /dev/null &
 echo "Build succeeded. Maybe."
