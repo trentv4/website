@@ -18,45 +18,7 @@
 
 			</div>
 
-			<script>
-				function setVideo(name)
-				{
-					var a = new XMLHttpRequest();
-					a.open("GET", "/api/webm/?v=" + name, true)
-					a.send();
-					a.onreadystatechange = function() {
-						if(a.readyState == 4 && a.status == 200)
-						{
-							var b = JSON.parse(a.responseText)
-							console.log(b);
-							player.src = b.path;
-						}
-					}
-				}
-
-				var c = new XMLHttpRequest();
-				c.open("GET", "/api/webm/all" + name, true)
-				c.send();
-				c.onreadystatechange = function() {
-					if(c.readyState == 4 && c.status == 200)
-					{
-						var d = JSON.parse(c.responseText)
-						var rel = document.getElementById("related");
-						var relatedvideo = document.createElement("div");
-						relatedvideo.className = "related-video"
-						rel.appendChild(relatedvideo);
-					}
-				}
-				setVideo("hack2")
-			</script>
+			<script src="webm.js" type="text/javascript"></script>
 		</div>
 	</body>
 </html>
-<!--
-<div class="related-video">
-	<div class="related-video-text">
-		<p>Name</p>
-		<p>tags</p>
-	</div>
-</div>
-!-->

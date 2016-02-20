@@ -14,6 +14,7 @@ var webm = [
 	{name: "hack4", path: "hack4.webm", tags:["leet", "dank", "4chin"]},
 	{name: "hack5", path: "hack5.webm", tags:["leet", "dank", "4chin"]},
 	{name: "hack6", path: "hack6.webm", tags:["leet", "dank", "4chin"]},
+	{name: "hack7", path: "hack7.webm", tags:["leet", "dank", "4chin"]}
 ]
 ////ROUTES////
 router.route('/navyseal/')
@@ -49,6 +50,7 @@ router.route('/webm/')
 
 router.route('/webm/all/')
 .get(function(req, res){
+	console.log("Webm request: ALL");
 	res.send(webm);
 	res.end();
 })
