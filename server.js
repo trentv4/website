@@ -52,6 +52,11 @@ api_router.route('/webm/all/')
 	res.send(webm);
 	res.end();
 })
+////ROUTES////
+video_router.route('/')
+.get(function(req, res){
+	res.end()
+});
 ////LISTEN////
 app.use('/api/', api_router);
 app.use('/video/', video_router);
