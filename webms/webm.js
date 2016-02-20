@@ -28,10 +28,16 @@ c.onreadystatechange = function() {
 		var s = "";
 		for(var i = 0; i < d.length; i++)
 		{
-			var q = "set('"+d[i].path+"')"
-			s += '<div onclick="'+q+'" class="related-video"><div class="related-video-text">' + d[i].name + '</p><p>'+ d[i].tags + '</p></div></div>'
+			s +=`
+			<div onclick="set('` + d[i].path +`')" class="related-video">
+				<img src="` + d[i].img + `"/>
+				<div class="related-video-text">
+					<p>` + d[i].name + `</p>
+					<p>Tags: ` + d[i].tags + `</p>
+				</div>
+			</div>`
 		}
 		f.innerHTML = s;
 	}
 }
-setVideo("hack2")
+setVideo("")
