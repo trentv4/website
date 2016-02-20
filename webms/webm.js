@@ -28,12 +28,17 @@ c.onreadystatechange = function() {
 		var s = "";
 		for(var i = 0; i < d.length; i++)
 		{
+			var tags = d[i].tags[0];
+			for(var g = 1; g < d[i].tags.length; g++)
+			{
+				tags += ", " + d[i].tags[g];
+			}
 			s +=`
 			<div onclick="set('` + d[i].path +`')" class="related-video">
 				<img src="` + d[i].img + `"/>
 				<div class="related-video-text">
 					<p>` + d[i].name + `</p>
-					<p>Tags: ` + d[i].tags + `</p>
+					<p>Tags: ` + tags + `</p>
 				</div>
 			</div>`
 		}

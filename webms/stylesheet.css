@@ -12,7 +12,7 @@ video {
 .related-video {
 	width:18vw;
 	display: flex;
-	height: 10vh;
+	min-height: 10vh;
 	margin:1vh auto;
 	background-color: rgb(0,0,0);
 }
