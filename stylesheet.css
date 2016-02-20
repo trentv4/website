@@ -57,13 +57,3 @@ a:hover {
 	text-align: center;
 	margin: 0 auto;
 }
-
-.container img {
-	min-width:20px;
-	min-height:20px;
-	width: 25vw;
-	height: 25vw;
-	max-width:15em;
-	max-height:15em;
-	display: inline-block;
-}
