@@ -1,14 +1,31 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
+
 body {
 	background-color: #87A96B;
+	margin:0;
+}
+
+#header {
+	text-align: center;
+	display: flex;
+	background-color: rgb(209,219,189);
+}
+
+#header p {
+	font-family: "Source Sans Pro", "Impact";
+	font-size: 2em;
+	padding: .5vw;
+	color:#444;
+	margin: 0 auto;
 }
 
 .container {
-    border-radius: 0.5em;
 	background-color:white;
 	padding: 2vw;
 	text-align: center;
 	border: 1px solid;
 	margin: 0 auto;
+	margin-top: 1vh;
 
 	width: 85vw;
 	max-width: 65em;
@@ -42,7 +59,7 @@ body {
 	text-align: center;
 	position: relative;
 	top: 50%;
-	font-family: "Helvetica";
+	font-family: "Source Sans Pro", sans-serif;
 	font-size: 24;
 	transform: translateY(-50%);
   	margin: 0 auto;

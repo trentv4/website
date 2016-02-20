@@ -14,14 +14,14 @@ body {
 	background-color: rgb(209,219,189);
 }
 
-#table a {
-	display:inline-block;
-}
-
 #header p {
 	font-family: "Source Sans Pro", "Impact";
 	font-size: 2em;
 	margin: 0 auto;
+}
+
+#table a {
+	display:inline-block;
 }
 
 p {
