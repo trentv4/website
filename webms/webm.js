@@ -1,10 +1,11 @@
 function setVideo(name)
 {
 	var a = new XMLHttpRequest();
-	a.open("GET", "/webm/?v=" + name, true)
+	a.open("GET", "/webms/req/?v=" + name, true)
+	console.log("Sending request for: " + name)
 	a.send();
 	a.onreadystatechange = function() {
-		if(a.readyState == 4 && a.status == 200)
+		if(a.readyState == 4)
 		{
 			var b = JSON.parse(a.responseText)
 			player.src = b.path;
@@ -18,10 +19,10 @@ function set(name)
 }
 
 var c = new XMLHttpRequest();
-c.open("GET", "/webm/all" + name, true)
+c.open("GET", "/webms/all/" + name, true)
 c.send();
 c.onreadystatechange = function() {
-	if(c.readyState == 4 && c.status == 200)
+	if(c.readyState == 4)
 	{
 		var d = JSON.parse(c.responseText)
 		var f = document.getElementById("related");

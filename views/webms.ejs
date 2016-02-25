@@ -13,12 +13,13 @@
 			<p>TrentV.net : Trent VanSlyke</p>
 		</div>
 		<div class="container" style="display: flex">
-			<video id="player" src="<%= video %>" controls></video>
+			<video id="player" controls></video>
 			<div id="related">
 
 			</div>
 
 			<script src="webm.js" type="text/javascript"></script>
+			<script>setVideo("<%= video %>")</script>
 		</div>
 	</body>
 </html>

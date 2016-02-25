@@ -17,12 +17,7 @@ var webm = [
 ]
 //store in a database!
 ////ROUTES////
-router.route('/SEALS/')
-.get(function(req, res){
-	res.end()
-})
-
-router.route('/webm/')
+router.route('/webms/req')
 .get(function(req, res){
 	process.stdout.write("Webm request: " + req.query.v + ". Searching...");
 	var found = false;
@@ -45,11 +40,10 @@ router.route('/webm/')
 	process.stdout.write("\n")
 })
 
-router.route('/webm/all/')
+router.route('/webms/all/')
 .get(function(req, res){
 	console.log("Webm request: ALL");
 	res.send(webm);
-	res.end();
 })
 
 router.route('/webms/')
