@@ -3,7 +3,8 @@ var express = require('express');
 var app = express()
 
 var port = 3000;
-var api_router = express.Router();
+var router = express.Router();
+app.set('view engine', 'ejs');
 
 /////DATA/////
 var webm = [
@@ -16,13 +17,12 @@ var webm = [
 ]
 //store in a database!
 ////ROUTES////
-api_router.route('/navyseal/')
+router.route('/SEALS/')
 .get(function(req, res){
-	console.log("Navy seal request obtained.");
 	res.end()
 })
 
-api_router.route('/webm/')
+router.route('/webm/')
 .get(function(req, res){
 	process.stdout.write("Webm request: " + req.query.v + ". Searching...");
 	var found = false;
@@ -45,13 +45,20 @@ api_router.route('/webm/')
 	process.stdout.write("\n")
 })
 
-api_router.route('/webm/all/')
+router.route('/webm/all/')
 .get(function(req, res){
 	console.log("Webm request: ALL");
 	res.send(webm);
 	res.end();
 })
+
+router.route('/webms/')
+.get(function(req, res){
+	res.render("webms", {
+		video: req.query.v
+	})
+})
 ////LISTEN////
-app.use('/api/', api_router);
+app.use('/', router);
 app.listen(port);
 console.log("NodeJS Backend API running.");

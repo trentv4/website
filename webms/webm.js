@@ -1,7 +1,7 @@
 function setVideo(name)
 {
 	var a = new XMLHttpRequest();
-	a.open("GET", "/api/webm/?v=" + name, true)
+	a.open("GET", "/webm/?v=" + name, true)
 	a.send();
 	a.onreadystatechange = function() {
 		if(a.readyState == 4 && a.status == 200)
@@ -18,7 +18,7 @@ function set(name)
 }
 
 var c = new XMLHttpRequest();
-c.open("GET", "/api/webm/all" + name, true)
+c.open("GET", "/webm/all" + name, true)
 c.send();
 c.onreadystatechange = function() {
 	if(c.readyState == 4 && c.status == 200)
