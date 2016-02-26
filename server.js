@@ -8,12 +8,12 @@ app.set('view engine', 'ejs');
 
 /////DATA/////
 var webm = [
-	{name: "The Corn Cob hacker", path: "hack.webm", img: "hack.png", tags:["food"]},
-	{name: "The Hacker 4chan", path: "hack2.webm", img: "hack2.png", tags:["black mask", "loud", "4chin"]},
-	{name: "MORE TIME", path: "hack4.webm", img: "hack4.png", tags:["loud", "encrypted"]},
-	{name: "darude", path: "hack5.webm", img: "hack5.png", tags:["anonymous", "1337", "/b/"]},
-	{name: "Keyboard Warrior", path: "hack6.webm", img: "hack6.png", tags:["beard", "loud", "green"]},
-	{name: "what", path: "hack7.webm", img: "hack7.png", tags:["strange"]}
+	{name: "The Corn Cob hacker", path: "corncob/", tags:["food"]},
+	{name: "The Hacker 4chan", path: "thehacker4chan/", tags:["black mask", "loud", "4chin"]},
+	{name: "MORE TIME", path: "moretime/", tags:["loud", "encrypted"]},
+	{name: "darude", path: "darude/", tags:["anonymous", "1337", "/b/"]},
+	{name: "Keyboard Warrior", path: "keyboardwarrior/", tags:["beard", "loud", "green"]},
+	{name: "what", path: "strange/", tags:["strange"]}
 ]
 //store in a database!
 ////ROUTES////
@@ -48,7 +48,7 @@ router.route('/webms/all/')
 
 router.route('/webms/')
 .get(function(req, res){
-	res.render("webms", {
+	res.render("webms/index.ejs", {
 		video: req.query.v
 	})
 })

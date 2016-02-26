@@ -3,8 +3,8 @@
 	<head>
 		<title>Index</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" type="text/css" href="../stylesheet.css">
-		<link rel="stylesheet" type="text/css" href="stylesheet.css">
+		<link rel="stylesheet" type="text/css" href="/stylesheet.css">
+		<link rel="stylesheet" type="text/css" href="/views/webms/stylesheet.css">
 	</head>
 
 	<body>
@@ -15,10 +15,11 @@
 		<div class="container" style="display: flex">
 			<video id="player" controls></video>
 			<div id="related">
-				
+
 			</div>
 
-			<script src="webm.js" type="text/javascript"></script>
+			<script src="/views/webms/main.js" type="text/javascript"></script>
+			<script>setVideo("<%= video %>")</script>
 		</div>
 	</body>
 </html>
