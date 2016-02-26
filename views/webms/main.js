@@ -33,7 +33,7 @@ c.onreadystatechange = function() {
 				tags += ", " + d[i].tags[g];
 			}
 			s +=`
-			<div onclick="setVideo('`+d[i].name+`')" class="related-video">
+			<div style="cursor: pointer" onclick="setVideo('`+d[i].name+`')" class="related-video">
 				<img src="/views/webms/` + d[i].path + `thumbnail.png"/>
 				<div class="related-video-text">
 					<p>` + d[i].name + `</p>
