@@ -1,12 +1,18 @@
 video {
-	width: 64vw;
+	width: 65vw;
 	height: 36vw;
+	margin: 0 auto;
 }
 
 #related {
 	background-color: rgb(209,219,189);
 	width: 20vw;
 	margin-left: 1.5vw;
+}
+
+#video-container {
+	width: 65vw;
+	background-color: rgb(209,219,189)
 }
 
 .related-video {

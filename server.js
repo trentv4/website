@@ -8,12 +8,12 @@ app.set('view engine', 'ejs');
 
 /////DATA/////
 var webm = [
-	{name: "The Corn Cob hacker", path: "corncob/", tags:["food"]},
-	{name: "The Hacker 4chan", path: "thehacker4chan/", tags:["black mask", "loud", "4chin"]},
-	{name: "MORE TIME", path: "moretime/", tags:["loud", "encrypted"]},
-	{name: "darude", path: "darude/", tags:["anonymous", "1337", "/b/"]},
-	{name: "Keyboard Warrior", path: "keyboardwarrior/", tags:["beard", "loud", "green"]},
-	{name: "what", path: "strange/", tags:["strange"]}
+	{name: "The Corn Cob hacker", description: "This webm makes me hungry.", path: "corncob/", tags:["food"]},
+	{name: "The Hacker 4chan", description: "Who is this 4 chin?", path: "thehacker4chan/", tags:["black mask", "loud", "4chin"]},
+	{name: "MORE TIME", description: "Webm seller, I require your strongest webms.", path: "moretime/", tags:["loud", "encrypted"]},
+	{name: "darude", description: "DUDUDUDUDUUDUDUDUDUDUDUUDUDUDUUU", path: "darude/", tags:["anonymous", "1337", "/b/"]},
+	{name: "Keyboard Warrior", description: "I AM GREEN INCARNATE", path: "keyboardwarrior/", tags:["beard", "loud", "green"]},
+	{name: "what", description: "I don't even know what the hell is going on in this webm.", path: "strange/", tags:["strange"]}
 ]
 //store in a database!
 ////ROUTES////
