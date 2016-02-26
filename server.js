@@ -13,7 +13,7 @@ var webm = [
 	{name: "MORE TIME", description: "Webm seller, I require your strongest webms.", path: "moretime/", tags:["loud", "encrypted"]},
 	{name: "darude", description: "DUDUDUDUDUUDUDUDUDUDUDUUDUDUDUUU", path: "darude/", tags:["anonymous", "1337", "/b/"]},
 	{name: "Keyboard Warrior", description: "I AM GREEN INCARNATE", path: "keyboardwarrior/", tags:["beard", "loud", "green"]},
-	{name: "what", description: "I don't even know what the hell is going on in this webm.", path: "strange/", tags:["strange"]}
+	{name: "what", description: "I don't even know what the hell is going on in this webm.", path: "strange/", tags:["strange"]},
 	{name: "Curtain Call", description: "From: JonTron Clocktower episode. SCI-SCI-SCISSORMANNN", path: "joncorn/", tags:["BLURHURGHRUGHRGH", "JonTron", "Clocktower"]}
 ]
 //store in a database!
