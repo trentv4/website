@@ -1,14 +1,27 @@
 var __canvas = $("canvas")[0]
 var c = __canvas.getContext("2d")
-var width = __canvas.clientWidth;
-var height = __canvas.clientHeight;
+__canvas.width = __canvas.clientWidth;
+__canvas.height = __canvas.clientHeight;
+var width = __canvas.width
+var height = __canvas.height
 
-var r_textures = []
+var r_textures = {}
+
+function r_init()
+{
+    c.imageSmoothingEnabled = false;
+}
 
 function r_clear()
 {
     c.fillStyle = "rgb(0,0,0)"
     c.fillRect(0,0,width, height)
+}
+
+function r_draw(texture, x, y, xs, ys)
+{
+    if(r_textures[texture] == null) r_import(texture);
+    c.drawImage(r_textures[texture], x, y, xs, ys)
 }
 
 function r_import(name)
@@ -17,7 +30,7 @@ function r_import(name)
     {
         var img = new Image();
         img.src = "images/" + name + ".png";
-        r_textures.push({key: name, value: img})
+        r_textures[name] = img
         console.log("r_import: " + name)
     }
 }
