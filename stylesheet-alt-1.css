@@ -11,13 +11,13 @@ body {
 #header {
 	text-align: center;
 	display: flex;
-	background-color: #E74C3C;
+	background-color: #FF5942;
 }
 
 #header p {
 	font-family: "Source Sans Pro", "Impact";
 	font-size: 2em;
-	color: #F4E74F;
+	color: #444;
 	margin: 0 auto;
 }
 
