@@ -5,18 +5,19 @@
 }
 
 body {
-	background-color: #816D55;
+	background-color: #3498DB;
 }
 
 #header {
 	text-align: center;
 	display: flex;
-	background-color: #BD9F7C;
+	background-color: #E74C3C;
 }
 
 #header p {
 	font-family: "Source Sans Pro", "Impact";
 	font-size: 2em;
+	color: #F4E74F;
 	margin: 0 auto;
 }
 
@@ -26,7 +27,7 @@ body {
 
 p {
 	font-size: 1em;
-	color: #382B22;
+	color: #444;
 	padding:.5vw;
 	font-family: "Source Sans Pro", "Impact";
 }
@@ -37,7 +38,7 @@ p {
 
 h2 {
 	font-size: 2em;
-	color:#382B22;
+	color:#444;
 	padding: .5vw;
 	font-family: "Source Sans Pro", "Impact";
 }
@@ -53,7 +54,7 @@ a:hover {
 .container {
 	width: 85vw;
 	padding: 2vw;
-	background-color: #E7DBCD;
+	background-color: #ECF0F1;
 	text-align: center;
 	margin: 0 auto;
 }
