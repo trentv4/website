@@ -17,7 +17,7 @@ function r_draw_entities(entities)
     for(var i = 0; i < entities.length; i++)
     {
         var e = entities[i];
-        r_draw(e.texture, e.x, e.y, e.xs, e.ys, e.direction)
+        r_draw(e.texture + "_" + e.anim_frame, e.x, e.y, e.xs, e.ys, e.direction)
     }
 }
 
@@ -39,6 +39,26 @@ function r_draw(texture, x, y, xs, ys, direction)
     else
     {
         c.drawImage(r_textures[texture], x, y, xs, ys)
+    }
+}
+
+function r_advance_frame(ent)
+{
+    if(ent.anim_delay + 1 <= ent.anim_delay_length)
+    {
+        ent.anim_delay++;
+    }
+    else
+    {
+        if(ent.anim_frame + 1 <= ent.anim_length)
+        {
+            ent.anim_frame++;
+        }
+        else
+        {
+            ent.anim_frame = 0;
+        }
+        ent.anim_delay = 0;
     }
 }
 
