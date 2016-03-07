@@ -17,7 +17,7 @@ function r_draw_entities(entities)
     for(var i = 0; i < entities.length; i++)
     {
         var e = entities[i];
-        r_draw(e.texture + "_" + e.anim_frame, e.x, e.y, e.xs, e.ys, e.direction)
+        r_draw(e.texture + "_" + e.current_anim + "_" + e.anims[e.current_anim].frame, e.x, e.y, e.xs, e.ys, e.direction)
     }
 }
 
@@ -42,24 +42,24 @@ function r_draw(texture, x, y, xs, ys, direction)
     }
 }
 
-function r_advance_frame(ent)
+function r_advance_frame(anim)
 {
-    if(ent.anim_delay + 1 <= ent.anim_delay_length)
-    {
-        ent.anim_delay++;
-    }
-    else
-    {
-        if(ent.anim_frame + 1 <= ent.anim_length)
-        {
-            ent.anim_frame++;
-        }
-        else
-        {
-            ent.anim_frame = 0;
-        }
-        ent.anim_delay = 0;
-    }
+	if(anim.delay < anim.delay_length)
+	{
+		anim.delay++;
+	}
+	else
+	{
+		anim.delay = 0;
+		if(anim.frame < anim.frame_length)
+		{
+			anim.frame++;
+		}
+		else
+		{
+			anim.frame = 0
+		}
+	}
 }
 
 function r_import(name)

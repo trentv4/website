@@ -1,42 +1,44 @@
-var player = {
-    texture: "player",
-    x: 0,
-    y: 50,
-    xs: 12*5,
-    ys: 27*5,
-    speed: 4,
-    anim_frame: 0,
-    anim_delay: 0,
-    anim_delay_length: 4,
-    anim_length: 3,
-    direction: "left"
-}
 var entities = [player]
+
+var has_crashed = false
 
 function main()
 {
-    //render loop
-    r_clear();
-    r_draw_entities(entities)
+	if(!has_crashed)
+	{
+		//render loop
+	    r_clear();
+	    r_draw_entities(entities)
 
-    //logic loop
-    m_check_input()
+	    //logic loop
+	    m_check_input()
+	}
 }
 
 function m_check_input()
 {
+	var move = false
     if(i_key_status("A"))
     {
         player.x -= player.speed;
         player.direction = "left"
-        r_advance_frame(player)
+		player.current_anim = "walk"
+        r_advance_frame(player.anims.walk)
+		move = true
     }
     if(i_key_status("D"))
     {
         player.x += player.speed;
         player.direction = "right";
-        r_advance_frame(player)
+		player.current_anim = "walk"
+        r_advance_frame(player.anims.walk)
+		move = true
     }
+	if(!move)
+	{
+		player.current_anim = "idle"
+		r_advance_frame(player.anims.idle)
+	}
 }
 
 function m_run_once()
