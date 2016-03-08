@@ -17,20 +17,44 @@ function r_draw_entities(entities)
     for(var i = 0; i < entities.length; i++)
     {
         var e = entities[i];
-        r_draw(e.texture + "_" + e.current_anim + "_" + e.anims[e.current_anim].frame, e.x, e.y, e.xs, e.ys, e.direction)
+		var c = e.children;
+		for(var g = 0; g < c.length; g++)
+		{
+			if(e.direction == 0)
+			{
+				r_draw_ent(c[g], c[g].x + e.x, c[g].y + e.y, c[g].xs, c[g].ys, c[g].direction)
+			}
+			else
+			{
+				r_draw_ent(c[g], c[g].x + e.x + e.xs/2, c[g].y + e.y, c[g].xs, c[g].ys, c[g].direction)				
+			}
+		}
+		r_draw_ent(e, e.x, e.y, e.xs, e.ys, e.direction)
     }
+}
+
+function r_draw_ent(e, x, y, xs, ys, direction)
+{
+	if(e.current_anim != "")
+	{
+		r_draw(e.texture + "_" + e.current_anim + "_" + e.anims[e.current_anim].frame, x, y, xs, ys, direction)
+	}
+	else
+	{
+		r_draw(e.texture, x, y, xs, ys, direction)
+	}
 }
 
 function r_clear()
 {
-    c.fillStyle = "rgb(0,0,0)"
+    c.fillStyle = "rgb(50,50,50)"
     c.fillRect(0,0,width, height)
 }
 
 function r_draw(texture, x, y, xs, ys, direction)
 {
     if(r_textures[texture] == null) r_import(texture);
-    if(direction == "right")
+    if(direction == 0)
     {
         c.scale(-1,1)
         c.drawImage(r_textures[texture], -x-xs, y, xs, ys)

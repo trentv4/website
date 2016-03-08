@@ -20,16 +20,14 @@ function m_check_input()
 	var move = false
     if(i_key_status("A"))
     {
-        player.x -= player.speed;
-        player.direction = "left"
+		player.move(0, player.speed)
 		player.current_anim = "walk"
         r_advance_frame(player.anims.walk)
 		move = true
     }
     if(i_key_status("D"))
     {
-        player.x += player.speed;
-        player.direction = "right";
+		player.move(1, player.speed)
 		player.current_anim = "walk"
         r_advance_frame(player.anims.walk)
 		move = true
