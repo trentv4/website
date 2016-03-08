@@ -1,4 +1,4 @@
-var entities = [player]
+var entities = [spook, player]
 
 var has_crashed = false
 
@@ -7,7 +7,8 @@ function main()
 	if(!has_crashed)
 	{
 		//render loop
-	    r_clear();
+	    r_clear()
+		r_draw("terrain/floor_1", 0,0,1280,720,1)
 	    r_draw_entities(entities)
 
 	    //logic loop

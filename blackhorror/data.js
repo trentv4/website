@@ -1,14 +1,22 @@
 var torch = Object.create(_ent_basic)
-torch.texture = "torch"
-torch.x = -210,
-torch.y = -240,
-torch.xs = 180*3
-torch.ys = 180*3
+torch.texture = "overlay"
+torch.x = -1220
+torch.y = -700
+torch.xs = 2560
+torch.ys = 1440
+
+var spook = Object.create(_ent_basic)
+spook.texture = "spook"
+spook.x = 920
+spook.y = 120
+spook.xs = 80*4
+spook.ys = 120*4
+spook.direction = 1
 
 var player = Object.create(_ent_basic)
 player.texture = "player"
 player.x = 0
-player.y = 20
+player.y = 220
 player.xs = 80*3
 player.ys = 120*3
 player.speed = 4
