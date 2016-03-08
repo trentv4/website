@@ -1,7 +1,7 @@
 var torch = Object.create(_ent_basic)
 torch.texture = "torch"
-torch.x = -220,
-torch.y = -220,
+torch.x = -210,
+torch.y = -240,
 torch.xs = 180*3
 torch.ys = 180*3
 
