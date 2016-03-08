@@ -8,15 +8,17 @@ var _ent_basic = {
 	anims:[],
 	current_anim:"",
 	children:[],
-	move: function(direction, speed) {
+	move: function(direction) {
 		this.direction = direction
+		this.current_anim = "walk"
+		r_advance_frame(this.anims[this.current_anim])
 		if(direction == 1)
 		{
-			this.x += speed
+			this.x += this.speed
 		}
 		else
 		{
-			this.x -= speed
+			this.x -= this.speed
 		}
 	}
 }
