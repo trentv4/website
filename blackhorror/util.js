@@ -22,3 +22,8 @@ var _ent_basic = {
 		}
 	}
 }
+
+function get_entity()
+{
+	return Object.create(_ent_basic)
+}

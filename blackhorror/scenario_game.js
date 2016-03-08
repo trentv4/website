@@ -2,14 +2,16 @@ var scenario_game = {
 	main: main
 }
 
+var entities = [spook, player]
+
 function main()
 {
-	//render loop
+	//render
 	r_clear()
 	r_draw("terrain/floor_1", 0,0,1280,720,1)
 	r_draw_entities(entities)
 
-	//logic loop
+	//logic
 	m_check_input()
 }
 

@@ -1,6 +1,3 @@
-var entities = [spook, player]
-
-var has_crashed = false
 var scenario;
 
 function main()

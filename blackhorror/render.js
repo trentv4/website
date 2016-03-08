@@ -26,7 +26,7 @@ function r_draw_entities(entities)
 			}
 			else
 			{
-				r_draw_ent(c[g], c[g].x + e.x + e.xs/2, c[g].y + e.y, c[g].xs, c[g].ys, c[g].direction)				
+				r_draw_ent(c[g], c[g].x + e.x + e.xs/2, c[g].y + e.y, c[g].xs, c[g].ys, c[g].direction)
 			}
 		}
 		r_draw_ent(e, e.x, e.y, e.xs, e.ys, e.direction)
@@ -47,7 +47,7 @@ function r_draw_ent(e, x, y, xs, ys, direction)
 
 function r_clear()
 {
-    c.fillStyle = "rgb(50,50,50)"
+    c.fillStyle = "rgb(255,255,255)"
     c.fillRect(0,0,width, height)
 }
 

@@ -1,0 +1,119 @@
+util.js:
+------------------------------------------------------------
+:::::VARS:::::
+_ent_basic
+	basic entity, can be copied if you wished, please don't modify unless adding basic entity abilities
+
+:::::FUNCTIONS:::::
+get_entity()
+	returns a copy of the basic entity, which is later customized
+
+
+
+data.js
+------------------------------------------------------------
+:::::VARS:::::
+torch
+	entity that handles the 'cone of light', including the darkness generated.
+	if this entity does not exist, then restricted vision isn't enabled
+
+spook
+	very spooky entity
+	does nothing but be spooky
+
+player
+	obvious
+	if you remove this, many bad things happen
+
+
+
+input.js
+------------------------------------------------------------
+:::::VARS:::::
+i_keys
+	stored all the pressed keys and their current status
+
+i_mouse
+	stores mouse information
+
+:::::FUNCTIONS:::::
+
+i_key_status(capitalized key as string)
+	returns the status of the key (true if down)
+
+i_mouse(button as integer)
+	returns if the specified button is down
+
+:::::SYS:::::
+
+i_init()
+	system call, sets jquery events on the canvas to ensure input works
+
+i_set_status(keycode, status)
+	system call, handles events and stores them
+
+
+
+render.js
+------------------------------------------------------------
+:::::VARS:::::
+__canvas
+	DOM element of the canvas
+
+c
+	2d rendering context of the canvas
+	all render calls go to this
+
+width
+	properly adjusted canvas width
+
+height
+	properly adjusted canvas height
+
+r_textures
+	list of currently loaded image objects
+
+:::::FUNCTIONS:::::
+r_draw_entities(entity list)
+	iterates through an array of entities and draws them and their children
+	children drawn first
+
+r_draw_ent(ent, x, y, x size, y size, direction)
+	draws an entity
+	checks if it has an animation and renders it if appropriate
+
+r_clear()
+	clears the screen to white
+
+r_draw(texture, x, y, x size, y size, direction)
+	draws a raw image
+	underlying function for all rendering functions
+	direction determines if it is rendered backwards or not
+
+r_advance_frame(animation object)
+	advances the animation frame if the delay amount has been satisfied
+	increments/resets both the delay of an animation and the frames of an animation
+
+r_import(texture name)
+	imports and stores the image object
+
+:::::SYS:::::
+r_init()
+	initializes specialized canvas settings
+	turns off image smoothing (nearest neighbor ftw)
+
+
+
+main.js
+------------------------------------------------------------
+:::::VARS:::::
+scenario
+	currently loaded scenario
+
+:::::FUNCTIONS:::::
+main()
+	runs the current scenario's main()
+
+m_run_once()
+	initializes rendering system and input system
+	sets the current scenario
