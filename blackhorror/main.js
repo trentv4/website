@@ -44,4 +44,5 @@ function m_run_once()
 {
     r_init()
     i_init()
+	r_import("overlay")
 }
