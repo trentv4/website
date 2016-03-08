@@ -27,6 +27,12 @@ player.anims = {
 			delay:0,
 			delay_length:50
 		},
+		crouch_idle: {
+			frame: 0,
+			frame_length: 1,
+			delay:0,
+			delay_length: 50
+		},
 		walk: {
 			frame:0,
 			frame_length: 2,

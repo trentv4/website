@@ -30,6 +30,19 @@ function m_check_input()
         r_advance_frame(player.anims.walk)
 		move = true
     }
+	if(i_key_status("S"))
+	{
+		player.speed = 2
+		player.current_anim = "crouch_idle"
+		player.children[0].y = -650
+		r_advance_frame(player.anims.crouch_idle)
+		move = true
+	}
+	else
+	{
+		player.children[0].y = -700
+		player.speed = 4
+	}
 	if(!move)
 	{
 		player.current_anim = "idle"
