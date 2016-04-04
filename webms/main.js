@@ -1,6 +1,6 @@
 function setVideo(src)
 {
-	if(src != null)
+	if(src != "")
 	{
 		$.get("/webm/api/request?v=" + src, function(d, status){
 			$("#player")[0].src = "/webms/" + d.path + "video.webm";
