@@ -4,15 +4,10 @@ var _ent_basic = {
 	y:0,
 	xs:0,
 	ys:0,
-	direction:0,
-	anims:[],
-	current_anim:"",
-	children:[],
+	direction:"left",
 	move: function(direction) {
 		this.direction = direction
-		this.current_anim = "walk"
-		r_advance_frame(this.anims[this.current_anim])
-		if(direction == 1)
+		if(direction == "right")
 		{
 			this.x += this.speed
 		}

@@ -1,16 +1,16 @@
 $.get("/navyseal/api/", function(d, status){
-    for(var i = 0; i < d.length; i++)
+	for(var i = 0; i < d.length; i++)
     {
-        $("#table")
+		var obj = d[i];
+        $("#table-of-contents")
             .append(`<a href="#`+d[i].name+`"><p>`+d[i].name+`</p></a>`)
-        $("body")
-            .append("<div class='spacer'></div>")
+        $("#page")
             .append(`
-                <div class="container">
-                    <h2 id="`+d[i].name+`">`+d[i].name+`</h2>
-                    <p>`+d[i].content+`</p>
-                    <a href="#table"><p style="float:left">Back to Table of Contents</p></a>
-                </div>
-            `)
+				<div class="separator">
+					<h1>` + obj.name + `</h1>
+				</div>
+				<p>` + obj.content + `</p>
+				<a href="#table-of-contents"><p>Back to the table of contents</p></a>
+				`)
     }
 })

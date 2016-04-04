@@ -17,32 +17,13 @@ function r_draw_entities(entities)
     for(var i = 0; i < entities.length; i++)
     {
         var e = entities[i];
-		var c = e.children;
-		for(var g = 0; g < c.length; g++)
-		{
-			if(e.direction == 0)
-			{
-				r_draw_ent(c[g], c[g].x + e.x, c[g].y + e.y, c[g].xs, c[g].ys, c[g].direction)
-			}
-			else
-			{
-				r_draw_ent(c[g], c[g].x + e.x + e.xs/2, c[g].y + e.y, c[g].xs, c[g].ys, c[g].direction)
-			}
-		}
 		r_draw_ent(e, e.x, e.y, e.xs, e.ys, e.direction)
     }
 }
 
 function r_draw_ent(e, x, y, xs, ys, direction)
 {
-	if(e.current_anim != "")
-	{
-		r_draw(e.texture + "_" + e.current_anim + "_" + e.anims[e.current_anim].frame, x, y, xs, ys, direction)
-	}
-	else
-	{
-		r_draw(e.texture, x, y, xs, ys, direction)
-	}
+	r_draw(e.texture, x, y, xs, ys, direction)
 }
 
 function r_clear()

@@ -2,67 +2,96 @@
 
 * {
 	margin:0;
+	font-family: "Source Sans Pro", sans-serif;
+	color: #444;
 }
 
 body {
-	background-color: #3498DB;
+	background-color: #EDEDED;
 }
+
+#page {
+	width: 90%;
+	margin:0 auto;
+	max-width: 1000px;
+	padding: 10px;
+}
+
+/** Header */
 
 #header {
-	text-align: center;
-	display: flex;
-	background-color: #FF5942;
+	height: 2.5em;
+	padding: .5em;
+	background-color: #1E2636;
 }
 
-#header p {
-	font-family: "Source Sans Pro", "Impact";
-	font-size: 2em;
-	color: #444;
-	font-weight: bold;
-	margin: 0 auto;
+#header * {
+	color: #EDEDED;
 }
 
-#header h2 {
-	font-family: "Source Sans Pro", "Impact";
-	font-size: 2em;
-	color: #444;
-	margin: 0 auto;
+#header h1 {
+	float: left;
 }
 
-#table a {
+#header a {
+	float: right;
+}
+
+/** Image container */
+
+.image-container * {
+	width: 300px;
+	height: 150px;
+	margin: 0;
+	padding: 0;
+	background-color: #1E2636;
 	display:inline-block;
+	box-sizing: border-box;
+}
+
+.image-container .text {
+	margin: 0;
+	display: inline-block;
+}
+
+.image-container .text * {
+	color: #EDEDED;
+	display: table-cell;
+	margin: 0px;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.image-container {
+	text-align:center;
+}
+
+/** Separator*/
+
+.separator {
+	padding: 10px;
+}
+
+.separator * {
+	display: inline-block;
+	padding-right: 10px;
+}
+
+/** Misc */
+
+.invalid {
+	text-decoration: line-through;
 }
 
 p {
-	font-size: 1em;
-	color: #444;
-	padding:.5vw;
-	font-family: "Source Sans Pro", "Impact";
-}
-
-.spacer {
-	padding:2vh;
-}
-
-h2 {
-	font-size: 2em;
-	color:#444;
-	padding: .5vw;
-	font-family: "Source Sans Pro", "Impact";
+	padding: 0.5vw;
 }
 
 a {
 	text-decoration: none;
+	color: #777;
 }
 
 a:hover {
 	text-decoration: underline;
-}
-
-.container {
-	width: 85vw;
-	padding: 2vw;
-	background-color: #FFFFFF;
-	text-align: center;
-	margin: 0 auto;
 }

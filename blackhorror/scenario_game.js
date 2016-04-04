@@ -2,7 +2,7 @@ var scenario_game = {
 	main: main
 }
 
-var entities = [spook, player]
+var entities = [player]
 
 function main()
 {
@@ -20,32 +20,16 @@ function m_check_input()
 	var move = false
     if(i_key_status("A"))
     {
-		player.move(0)
-        r_advance_frame(player.anims.walk)
+		player.move("left")
 		move = true
     }
     if(i_key_status("D"))
     {
-		player.move(1)
-        r_advance_frame(player.anims.walk)
+		player.move("right")
 		move = true
     }
-	if(i_key_status("S"))
-	{
-		player.speed = 2
-		player.current_anim = "crouch_idle"
-		player.children[0].y = -650
-		r_advance_frame(player.anims.crouch_idle)
-		move = true
-	}
-	else
-	{
-		player.children[0].y = -700
-		player.speed = 4
-	}
 	if(!move)
 	{
-		player.current_anim = "idle"
-		r_advance_frame(player.anims.idle)
+		
 	}
 }
