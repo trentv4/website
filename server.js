@@ -78,6 +78,12 @@ router.route('/webm/api/all/')
 	res.send(webm);
 })
 
+router.route('/webm/api/refresh/')
+.get(function(req, res){
+	update_data();
+	res.send(webm);
+})
+
 ////REDIRECT ROUTES////
 router.route('/webm/')
 .get(function(req, res){
