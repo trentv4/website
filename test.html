@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Index</title>
+	</head>
+
+	<body>
+		<script>
+		function getColor()
+		{
+			var r = Math.floor(Math.random()*4)
+			if(r == 0)
+			{
+				return "container_green.png"
+			}
+			if(r == 1)
+			{
+				return "container_blue.png"
+			}
+			if(r == 2)
+			{
+				return "container_grey.png"
+			}
+			if(r == 3)
+			{
+				return "container_red.png"
+			}
+		}
+		var q = [
+				[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+				[1,0,0,0,1,0,0,0,1,1,0,0,0,0,1],
+				[0,0,1,0,1,0,1,0,0,1,0,0,1,0,1],
+				[1,1,0,0,1,0,1,0,2,1,0,0,1,0,1],
+				[0,1,0,0,1,0,1,0,2,0,1,0,1,0,0],
+				[0,1,0,1,0,0,0,1,1,0,1,0,0,1,1],
+				[0,1,0,0,0,1,0,1,0,0,1,0,0,1,1],
+				[0,1,1,1,0,0,0,1,1,0,2,0,0,1,1],
+				[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+				]
+		var a = ""
+		//first pass: translate array into terrain
+		for(var y = 0; y < q.length; y++)
+		{
+			for(var x = 0; x < q[y].length; x++)
+			{
+				if(q[y][x] == "2")
+				{
+					a += "\n//<nautical>"
+				}
+				if(q[y][x] == "1")
+				{
+					a += `\nnew Terrain("`+getColor()+`",container_x_pos*` + x + `, container_y_pos*` + y + `, container_x, container_y, 1).setSolid(true),`
+				}
+			}
+		}
+		function genRow(previous, level)
+		{
+			var b = ""
+			var q  =[
+					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+					];
+			for(var y = 0; y < q.length; y++)
+			{
+				for(var x = 0; x < q[y].length; x++)
+				{
+					if(previous[y][x] == 1)
+					{
+						if(Math.floor(Math.random()*6) != 0)
+						{
+							q[y][x] = 1;
+						} 
+					}
+				}
+			}
+			//third pass: outputting second floor
+					//first pass: translate array into terrain
+			for(var y = 0; y < q.length; y++)
+			{
+				for(var x = 0; x < q[y].length; x++)
+				{
+					if(q[y][x] == "1")
+					{
+						b += `new Terrain("`+getColor()+`",container_x_pos*` + x + ` - (scale * 6 * `+level+`), container_y_pos*` + y + ` - (scale * 6 * `+level+`), container_x, container_y, `+(level+1)+`).setSolid(true),`
+					}
+				}
+			}
+			document.body.innerHTML += "<br></br>" + (b)
+			return q;
+		}
+
+		document.body.innerHTML += (a)
+		genRow(genRow(genRow(genRow(q, 1), 2), 3), 4)
+		</script>
+	</body>
+</html>

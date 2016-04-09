@@ -15,6 +15,12 @@ function setVideo(src)
 	}
 }
 
+$("#player")[0].volume = localStorage.getItem("trentv-webms-volume");
+
+$("#player")[0].onvolumechange = function() {
+	localStorage.setItem("trentv-webms-volume", $("player")[0].volume)
+}
+
 //this sets the sidebar
 $.get("/webm/api/all", function(d, status){
 	var sidebar = $("#sidebar")
