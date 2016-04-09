@@ -14,8 +14,11 @@ function setVideo(src)
 		setVideo("Keyboard Warrior")
 	}
 }
-
-$("#player")[0].volume = localStorage.getItem("trentv-webms-volume");
+var a = localStorage.getItem("trentv-webms-volume");
+if(a != null)
+{
+	$("#player")[0].volume = a;
+}
 
 $("#player")[0].onvolumechange = function() {
 	localStorage.setItem("trentv-webms-volume", $("#player")[0].volume)
