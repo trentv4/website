@@ -15,7 +15,7 @@ function setVideo(src)
 	}
 }
 var a = localStorage.getItem("trentv-webms-volume");
-if(a != null)
+if(a != "undefined")
 {
 	$("#player")[0].volume = a;
 }
