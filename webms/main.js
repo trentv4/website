@@ -18,7 +18,7 @@ function setVideo(src)
 $("#player")[0].volume = localStorage.getItem("trentv-webms-volume");
 
 $("#player")[0].onvolumechange = function() {
-	localStorage.setItem("trentv-webms-volume", $("player")[0].volume)
+	localStorage.setItem("trentv-webms-volume", $("#player")[0].volume)
 }
 
 //this sets the sidebar
