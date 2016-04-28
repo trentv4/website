@@ -1,0 +1,16 @@
+.contact {
+    width: 400px;
+    height: 400px;
+    margin: 10px;
+    display: inline-block;
+    text-align: center;
+}
+
+.contact * {
+    margin: 0 auto;
+}
+
+.contact-container {
+    width: 850px;
+    margin: 0 auto;
+}
