@@ -1,4 +1,4 @@
-var output = $("#output")[0];
+//var output = $("#output")[0];
 
 var person = {
 	name: ["name", "lastName"],
@@ -23,23 +23,6 @@ var person = {
 	economics: 10 //rich:10, nothing: 0
 }
 
-var person = {
-	physical: {
-		hair: "brown",
-		eyes: "green",
-		height: [6,1],
-		build: "fat",
-		complexion: "white"
-	},
-	flaws: [ //two good, two bad
-		"heroic",
-		"lazy",
-		"quick to anger"
-	],
-	economics: 10 //rich:10, nothing: 0
-}
-
-
 function generatePerson(father, mother)
 {
 	var person = {}
@@ -47,6 +30,7 @@ function generatePerson(father, mother)
 	person.gender = ["male", "female"][Math.floor(Math.random()*2)]
 	person.role = role(father)
 	person.parents = [father, mother];
+	person.children = [];
 	father.children.push(person)
 	mother.children.push(person)
 	person.age = father.age - 18;
@@ -54,8 +38,18 @@ function generatePerson(father, mother)
 	{
 		father.heir = person;
 	}
-	person.physical = physical(father, mother, me)
+	person.physical = physical(father, mother, person)
+	person.flaws = flaws(person)
+	return person;
+}
+console.log(generatePerson(person, person))
+console.log(generatePerson(generatePerson(person, person), person))
 
+function flaws(me)
+{
+	var flaws = []
+	var chosen_flaws = []
+	return chosen_flaws;
 }
 
 function physical(father, mother, me)
@@ -69,7 +63,21 @@ function physical(father, mother, me)
 	var eyes_bonuses = getbonus(me);
 	var height_bonuses = getbonus(me);
 	var complexion_bonuses = getbonus(me);
-///////////////////////////////////////////////////////////////////////////////RESUME WORK HERE/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	if(hair_bonuses[0] < hair_bonuses[1])
+	{ stats.hair = _hair[1] } else { stats.hair = _hair[0];}
+
+	if(eyes_bonuses[0] < eyes_bonuses[1])
+	{ stats.eyes = _eyes[1] } else { stats.eyes = _eyes[0];}
+
+	if(height_bonuses[0] < height_bonuses[1])
+	{ stats.height = _height[1] } else { stats.height = _height[0];}
+
+	if(hair_bonuses[0] < hair_bonuses[1])
+	{ stats.complexion = _complexion[1] } else { stats.complexion = _complexion[0];}
+
+	stats.build = ["fat", "thin", "stocky", "strong", "tiny"][Math.floor(Math.random()*5)]
+	return stats;
 }
 
 function getbonus(me)

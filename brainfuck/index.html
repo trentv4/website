@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Index</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link id="style" rel="stylesheet" type="text/css" href="/stylesheet.css">
+	</head>
+
+	<body>
+		<div id="header">
+			<a href="/"><h1>Trentv.net</h1></a>
+			<a class="left" href="/contact/"><p>Contact</p></a>
+			<a class="left" href="/projects/"><p>All Projects</p></a>
+			<a class="left" href="/resume/"><p>Resume/CV</p></a>
+			<a class="left" href="/"><p>Home</p></a>
+		</div>
+		<div id="page">
+			<div id="spacer">
+				<h2>Brainfuck Interpreter</h2>
+			</div>
+			<p id="output">Output: </p>
+			<script type="text/javascript" src="brainfuck.js">
+			</script>
+			<script type="text/javascript">
+			brainfuck_load(`[]><[][]><[][]><[][]><[][]><[][]><[][]><[][]><[][]><[][]><[]
+			2 []>+>+>++>++<[>[->++++<<+++>]<<]>----.>->+.+++++++..+++.<+[]
+			3 [ This is hellbox, a 104 command Hello World               ]
+			4 [   >+>+>++>++<[>[->++++<<+++>]<<]>----.>>+.+++++++..+++   ]
+			5 [   .>.<<<+++++++++++++++.>>.+++.------.--------.>+.>++.   ]
+			6 [ -- Robert de Bath -- 2014                                ]
+			7 []>>.<<<+++++++++++++++.>>.+++.------.--------.>+.+>++.<<<[]
+			8 []><[][]><[][]><[][]><[][]><[][]><[][]><[][]><[][]><[][]><[]`);
+//			brainfuck_run();
+//			brainfuck_eval("++[-].>+++++.")
+			</script>
+		</div>
+	</body>
+</html>
