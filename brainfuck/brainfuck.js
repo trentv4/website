@@ -1,82 +1,75 @@
-var i = 0;
-var commands;
-var l = []
-var t = [0]
-var c = 0;
-var output = ""
+var halt = false;
+var autohalt = false;
+var commands_s;
+var commands = []
+var c_index = 0;
+var memory = [0]
+var m_index = 0;
+var loops = []
 
-function brainfuck_load(input)
-{
-	commands = input.split("")
-	commands.push('z')
-	console.log(commands)
+var loop_hardcap = 1000;
+var loop_cap_counter = 0;
+
+var add = function() { memory[m_index]++ }
+var sub = function() { if(memory[m_index] > 0) { memory[m_index]--; } }
+var shiftleft = function() { if(m_index > 0) {m_index--} }
+var shiftright = function() { if(memory.length >= m_index){memory.push(0)} m_index++ }
+var getinput = function() { }
+var print = function() { document.getElementById("output").value += memory[m_index] + " ";}
+var loopstart = function() { loops.push(c_index+1) }
+
+var loopend = function() {
+	if(memory[m_index] != 0 & loop_hardcap > loop_cap_counter) {
+		c_index = loops[loops.length-1]-1
+		loop_cap_counter++;
+	}
+	else {
+		loop_cap_counter = 0;
+		loops.pop()
+	}
 }
 
-function brainfuck_run()
-{
-
-	var status = true;
-	while(status)
-	{
-		status = !brainfuck_tick()
-		i++
-		console.log("running")
-	}
-	console.log(output)
+function bf_stop() {
+	autohalt = true;
 }
 
-function brainfuck_tick()
-{
-	lastcommand = i;
-	if(commands[i] == '>')
-	{
-		if(t.length <= c + 1)
-		{
-			t.push(0)
-		}
-		c++;
-	}
-	if(commands[i] == '<')
-	{
-		if(c > 0) c--;
-	}
-	if(commands[i] == '+')
-	{
-		t[c]++;
-	}
-	if(commands[i] == '-')
-	{
-		t[c]--;
-	}
-	if(commands[i] == '.')
-	{
-		output += (String.fromCharCode(t[c]));
-	}
-	if(commands[i] == ',')
-	{
+function bf_load_and_exec() {
+	console.log(document.getElementById("output").value)
+	document.getElementById("output").value = "";
+	bf_parse(document.getElementById("input").value)
+	bf_exec()
+}
 
-	}
-	if(commands[i] == '[')
-	{
-		l.push(i)
-	}
-	if(commands[i] == ']')
-	{
-		if(t[c] > 0)
-		{
-			i = l[l.length-1]
+var bf_exec = function() {
+	console.log("excecuting")
+	halt = false
+	while(commands[c_index] != "end" & halt == false) {
+		bf_tick()
+		if(autohalt) {
+			halt = true
 		}
-		else
-		{
-			l.pop()
-		}
-	}
-	if(commands[i] == 'z')
-	{
-		return true;
-	}
-	else
-	{
-		return false
 	}
 }
+
+var bf_tick = function() {
+	commands[c_index]();
+	c_index++;
+}
+
+var bf_parse = function(input) {
+	commands_s = input.split('')
+	for(var i = 0; i < commands_s.length; i++)
+	{
+		if(commands_s[i] == '+') { commands.push(add) }
+		if(commands_s[i] == '-') { commands.push(sub) }
+		if(commands_s[i] == '.') { commands.push(print) }
+		if(commands_s[i] == ',') { commands.push(getinput) }
+		if(commands_s[i] == '>') { commands.push(shiftright) }
+		if(commands_s[i] == '<') { commands.push(shiftleft) }
+		if(commands_s[i] == '[') { commands.push(loopstart) }
+		if(commands_s[i] == ']') { commands.push(loopend) }
+	}
+	commands.push("end")
+}
+//bf_parse("+++++[->+++++<]>.")
+//bf_exec()

@@ -9,7 +9,7 @@ $.get("/navyseal/api/", function(d, status){
 				<div class="separator">
 					<h1>` + obj.name + `</h1>
 				</div>
-				<p>` + obj.content + `</p>
+				<p id="`+obj.name+`">` + obj.content + `</p>
 				<a href="#table-of-contents"><p>Back to the table of contents</p></a>
 				`)
     }
