@@ -9,16 +9,50 @@ var interval_delay;
 [	Jump past the matching ] if the cell under the pointer is 0
 ]	Jump back to the matching [ if the cell under the pointer is nonzero
 */
+var loop = []
+var command_count = 0;
+var max_command_count = 1000;
 
 var command_list = {
-    ">": function() { if(memory.length > memory.index) { memory.index++ } else { memory.index++; memory.list.push(0) }},
+    ">": function() { if(memory.list.length > memory.index) { memory.index++ } else { memory.index++; memory.list.push(0) }},
     "<": function() { if(memory.index > 0) { memory.index-- } },
     "+": function() { memory.list[memory.index]++ },
     "-": function() { if(memory.list[memory.index] > 0) { memory.list[memory.index]-- } },
     ".": function() { document.getElementById("output").value += memory.list[memory.index] + " " },
     ",": function() { memory.list[memory.index] = parseInt(prompt("Enter a number")) },
-    "[": function() {  },
-    "]": function() {  }
+    "[": function() {
+		if(memory.list[memory.index] != 0)
+		{
+			var a = 0;
+			for(var i = commands.index+1; i < commands.list.length; i++)
+			{
+				if(commands.list[i] == command_list["["])
+				{
+					a++;
+				}
+				if(commands.list[i] == command_list["]"])
+				{
+					if(a == 0)
+					{
+						loop.push([commands.index, i])
+						console.log(loop[0])
+						break;
+					} else {
+						a--;
+					}
+				}
+
+			}
+		}
+	},
+    "]": function() {
+		if(memory.list[memory.index] > 0)
+		{
+			commands.index = loop[loop.length-1][0]
+		} else {
+			loop.pop()
+		}
+	}
 }
 
 var commands = {
@@ -43,8 +77,19 @@ function bf_load() {
 }
 
 function bf_step() {
-    commands.list[commands.index]()
-    commands.index++;
+	console.log("Stepping")
+	command_count++
+	if(command_count < max_command_count)
+	{
+		if(commands.list[commands.index] != null)
+		{
+			commands.list[commands.index]()
+		    commands.index++;
+		}
+	}
+	else {
+		commands.index = commands.list.length-1  //always nop
+	}
 }
 
 function bf_stop() {
@@ -52,15 +97,25 @@ function bf_stop() {
 }
 
 function bf_clear() {
+	console.clear()
+	console.log("Clearing")
+	loop = []
     commands = {
         index: 0,
         list: [],
     }
+	memory = {
+	    index: 0,
+	    list: [0],
+	}
+	document.getElementById("output").value = ""
 }
 
 function bf_run() {
+	console.log("Running")
     while(commands.list[commands.index] != "NOP")
     {
         bf_step()
     }
+	console.log("Finished running")
 }
