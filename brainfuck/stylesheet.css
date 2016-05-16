@@ -13,3 +13,14 @@ textarea {
 #bottom-bar * {
 	display:inline;
 }
+
+.left2 {
+	display: inline-block;
+	margin-top: 50px;
+	float:left;
+	text-align: left;
+}
+
+.right {
+	display: inline-block;
+}

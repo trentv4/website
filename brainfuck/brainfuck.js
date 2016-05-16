@@ -11,14 +11,16 @@ var interval_delay;
 */
 var loop = []
 var command_count = 0;
-var max_command_count = 1000;
+var max_command_count = 10000;
 
 var command_list = {
-    ">": function() { if(memory.list.length > memory.index) { memory.index++ } else { memory.index++; memory.list.push(0) }},
+    ">": function() { if(memory.list.length-1 > memory.index) { memory.index++ } else { memory.index++; memory.list.push(0) }},
     "<": function() { if(memory.index > 0) { memory.index-- } },
     "+": function() { memory.list[memory.index]++ },
     "-": function() { if(memory.list[memory.index] > 0) { memory.list[memory.index]-- } },
-    ".": function() { document.getElementById("output").value += memory.list[memory.index] + " " },
+	".": function() { document.getElementById("output").value += String.fromCharCode(memory.list[memory.index]) + " " },
+	"~": function() { document.getElementById("output").value += memory.list[memory.index] + " " },
+	"#": function() { for(var i = 0; i < memory.list.length; i++){document.getElementById("output").value += memory.list[i] + " " }},
     ",": function() { memory.list[memory.index] = parseInt(prompt("Enter a number")) },
     "[": function() {
 		if(memory.list[memory.index] != 0)
@@ -89,6 +91,7 @@ function bf_step() {
 	}
 	else {
 		commands.index = commands.list.length-1  //always nop
+		document.getElementById("output").value = "Too many operations! We suspect an infinite loop. If this is not the case, run 'max_command_count = 1000000' in your F12 console menu."
 	}
 }
 
@@ -118,4 +121,5 @@ function bf_run() {
         bf_step()
     }
 	console.log("Finished running")
+	console.log(memory)
 }

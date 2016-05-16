@@ -17,16 +17,34 @@
 		</div>
 		<div id="page">
 			<div id="spacer">
-				<h2>Brainfuck Interpreter</h2>
+				<h1>Brainfuck Interpreter</h1>
 			</div>
-			<div id="bottom-bar">
-				<img src="play.png" onclick="bf_clear(); bf_load(); bf_run()"></img>
-				<img src="step.png" onclick="bf_step()"></img>
-				<img src="stop.png" onclick="bf_stop()"></img>
+
+			<div class="left2">
+				<h2>Traditional Brainfuck</h2>
+				<ul>+ : increment</ul>
+				<ul>- : decrement</ul>
+				<ul>> : move pointer to right</ul>
+				<ul>< : move pointer to left</ul>
+				<ul>. : output character at pointer</ul>
+				<ul>, : input character and store at pointer</ul>
+
+				<h2>Extended Commands</h2>
+				<ul># : print entire tape</ul>
+				<ul>~ : print character at pointer as number</ul>
 			</div>
-			<textarea id="input">++++[.-].</textarea>
-			<p>Output: </p>
-			<textarea disabled id="output"></textarea>
+
+			<div class="right">
+				<div id="bottom-bar">
+					<img src="play.png" alt="play" onclick="bf_clear(); bf_load(); bf_run()"></img>
+					<img src="step.png" alt="step" onclick="bf_step()"></img>
+					<img src="stop.png" alt="stop" onclick="bf_stop()"></img>
+				</div>
+				<textarea id="input"></textarea>
+				<p>Output: </p>
+				<textarea disabled id="output"></textarea>
+			</div>
+
 			<script type="text/javascript" src="brainfuck.js"></script>
 		</div>
 	</body>
