@@ -95,10 +95,6 @@ function bf_step() {
 	}
 }
 
-function bf_stop() {
-    clearInterval(interval_delay)
-}
-
 function bf_clear() {
 	console.clear()
 	console.log("Clearing")
