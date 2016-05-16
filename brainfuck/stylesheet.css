@@ -4,6 +4,10 @@
 	text-align: center;
 }
 
+.bf_container {
+	display:flex;
+}
+
 textarea {
 	width: 500px;
 	height: 200px;
@@ -17,10 +21,11 @@ textarea {
 .left2 {
 	display: inline-block;
 	margin-top: 50px;
-	float:left;
+	width:500px;
 	text-align: left;
 }
 
 .right {
+	width:500px;
 	display: inline-block;
 }
