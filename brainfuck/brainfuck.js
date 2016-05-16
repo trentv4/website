@@ -21,7 +21,14 @@ var command_list = {
 	".": function() { document.getElementById("output").value += String.fromCharCode(memory.list[memory.index]) + " " },
 	"~": function() { document.getElementById("output").value += memory.list[memory.index] + " " },
 	"#": function() { for(var i = 0; i < memory.list.length; i++){document.getElementById("output").value += memory.list[i] + " " }},
-    ",": function() { memory.list[memory.index] = parseInt(prompt("Enter a number")) },
+    ",": function() {
+		var inp = parseInt(prompt("Enter a number"))
+		while(isNaN(inp))
+		{
+			inp = parseInt(prompt("Not a number, try again"))
+		}
+		memory.list[memory.index] = inp
+	},
     "[": function() {
 		if(memory.list[memory.index] != 0)
 		{
