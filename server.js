@@ -1,7 +1,6 @@
 var http = require('http');
 var express = require('express');
 var app = express()
-var watchr = require("watchr")
 var fs = require('fs')
 
 var webm;
@@ -13,11 +12,6 @@ function update_data()
 	navyseal = JSON.parse(fs.readFileSync("navyseal.data", "utf-8"))
 }
 update_data();
-watchr.watch(
-	{
-		paths: ["navyseal.data", "webm.data"],
-		listeners: {change: function(a,b,c,d){update_data()}}
-	});
 
 var port = 3000;
 var router = express.Router();
@@ -89,6 +83,13 @@ router.route('/webm/')
 .get(function(req, res){
 	res.render("webms/index.ejs", {
 		video: req.query.v
+	})
+})
+router.route('/review/')
+.get(function(req, res){
+	console.log(req.query.id)
+	res.render("review2/index.ejs", {
+		id: req.query.id
 	})
 })
 ////LISTEN////
