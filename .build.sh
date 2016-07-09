@@ -1,4 +1,3 @@
-rm -rf ../../trentv.net/
-cp -r ../../pre_deploy ../../trentv.net
-rm -rf ../../trentv.net/.*
-echo "Build succeeded."
+rm -rf /home/trentvanslyke/trentv.net/
+cp -r /home/trentvanslyke/pre_deploy /home/trentvanslyke/trentv.net
+rm -rf /home/trentvanslyke/trentv.net/.*

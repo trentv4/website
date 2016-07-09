@@ -1,22 +1,14 @@
-var http = require('http');
 var express = require('express');
-var app = express()
 var fs = require('fs')
 
-var webm;
-var navyseal;
+var webm = JSON.parse(fs.readFileSync("data", "utf-8")).webm;
+var navyseal = JSON.parse(fs.readFileSync("navyseal.data", "utf-8")).navyseal;
 
-function update_data()
-{
-	webm = JSON.parse(fs.readFileSync("webm.data", "utf-8"))
-	navyseal = JSON.parse(fs.readFileSync("navyseal.data", "utf-8"))
-}
-update_data();
-
-var port = 3000;
+var app = express()
 var router = express.Router();
 app.set('view engine', 'ejs');
 app.set('views', __dirname + "/")
+
 ////API ROUTES////
 router.route('/navyseal/api/')
 .get(function(req, res){
@@ -94,5 +86,5 @@ router.route('/review/')
 })
 ////LISTEN////
 app.use('/', router);
-app.listen(port);
+app.listen(3000);
 console.log("Trentv.net NodeJS server running");
