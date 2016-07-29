@@ -2,7 +2,7 @@ var express = require('express');
 var fs = require('fs')
 
 var webm = JSON.parse(fs.readFileSync("data", "utf-8")).webm;
-var navyseal = JSON.parse(fs.readFileSync("navyseal.data", "utf-8")).navyseal;
+var navyseal = JSON.parse(fs.readFileSync("data", "utf-8")).navyseal;
 
 var app = express()
 var router = express.Router();
