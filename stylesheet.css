@@ -44,12 +44,13 @@ body {
 	height: 150px;
 	margin: 0;
 	padding: 0;
-	background-color: #1E2636;
 	display:inline-block;
 	box-sizing: border-box;
+	background-size:contain;
 }
 
 .image-container .text {
+	background-color: #1E2636;
 	margin: 0;
 	display: inline-block;
 }

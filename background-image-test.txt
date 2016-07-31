@@ -1,0 +1,10 @@
+<a class="text" style="background-image:linear-gradient(to bottom, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.6) 100%),url('Roguelike.png');" href="/roguelike/">
+	<h1>Everwood Dungeon</h1>
+	<p>A traditional roguelike game, similar to Nethack but far smaller in scope.</p>
+</a>
+<a class="text" href="https://www.jamieswhiteshirt.com/minecraft/mods/gases/">
+	<h1>Glenn's Gases maintainer</h1>
+</a>
+<a class="text" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.6) 100%), url('Advanced-Darkness.png');" href="/advanced-darkness/">
+	<h1>Advanced Darkness</h1>
+</a>
