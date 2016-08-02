@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Inconsolata);
+
 body {
 	background-image: url("images/background.png");
 	background-size: cover;
@@ -11,5 +13,19 @@ body {
 	width:480px;
 	height:270px;
 }
+
+.codestyle {
+	padding-bottom: 5px;
+	background-color: #dadada;
+}
+
+.codestyle * {
+	font-family: 'Inconsolata', monospace;
+}
+
+.codestyle li {
+	padding-left: 1em;
+}
+
 /*::before { content: "Advanced " }
 //Advanced Advanced
