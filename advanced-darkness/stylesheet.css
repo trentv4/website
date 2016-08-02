@@ -15,7 +15,7 @@ body {
 }
 
 .codestyle {
-	padding-bottom: 5px;
+	padding-bottom: 10px;
 	background-color: #dadada;
 }
 
@@ -23,7 +23,7 @@ body {
 	font-family: 'Inconsolata', monospace;
 }
 
-.codestyle li {
+li {
 	padding-left: 1em;
 }
 
