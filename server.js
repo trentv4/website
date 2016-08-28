@@ -7,33 +7,16 @@ var navyseal = JSON.parse(fs.readFileSync("data", "utf-8")).navyseal;
 var app = express()
 var router = express.Router();
 app.set('view engine', 'ejs');
-app.set('views', __dirname + "/")
-app.use(express.static(__dirname + "/"))
+app.set('views', __dirname + "")
+app.use(express.static(__dirname + ""))
 
-////API ROUTES////
-router.route('/')
-.get(function(req, res) {
-	res.render("index")
+app.use(function(err, res, res, next) {
+	res.render("404")
 })
-
-
 
 router.route('/navyseal/api/')
 .get(function(req, res){
-	if(req.query.n != null)
-	{
-		for(var i = 0; i < navyseal.length; i++)
-		{
-			if(navyseal[i].name == req.query.n)
-			{
-				res.send(navyseal[i])
-			}
-		}
-	}
-	else
-	{
-		res.send(navyseal)
-	}
+	res.send(navyseal);
 })
 
 router.route('/webm/api/request')
@@ -72,27 +55,19 @@ router.route('/webm/api/all/')
 	res.send(webm);
 })
 
-router.route('/webm/api/refresh/')
-.get(function(req, res){
-	update_data();
-	res.send(webm);
-})
-
-////REDIRECT ROUTES////
 router.route('/webm/')
 .get(function(req, res){
 	res.render("webm/index.ejs", {
 		video: req.query.v
 	})
 })
-router.route('/review/')
-.get(function(req, res){
-	console.log(req.query.id)
-	res.render("review2/index.ejs", {
-		id: req.query.id
-	})
-})
-////LISTEN////
+
+router.get("*", function(req, res)
+{
+	console.log(req.originalUrl)
+	res.render(req.originalUrl.substring(1))
+});
+
 app.use('/', router);
 app.listen(3000);
 console.log("Trentv.net NodeJS server running");
