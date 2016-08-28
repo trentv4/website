@@ -8,8 +8,16 @@ var app = express()
 var router = express.Router();
 app.set('view engine', 'ejs');
 app.set('views', __dirname + "/")
+app.use(express.static(__dirname + "/"))
 
 ////API ROUTES////
+router.route('/')
+.get(function(req, res) {
+	res.render("index")
+})
+
+
+
 router.route('/navyseal/api/')
 .get(function(req, res){
 	if(req.query.n != null)
@@ -73,7 +81,7 @@ router.route('/webm/api/refresh/')
 ////REDIRECT ROUTES////
 router.route('/webm/')
 .get(function(req, res){
-	res.render("webms/index.ejs", {
+	res.render("webm/index.ejs", {
 		video: req.query.v
 	})
 })
