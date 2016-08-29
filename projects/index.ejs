@@ -8,13 +8,7 @@
 	</head>
 
 	<body>
-		<div id="header">
-			<a href="/"><h1>Trentv.net</h1></a>
-			<a class="left" href="/contact/"><p>Contact</p></a>
-			<a class="left" href="/projects/"><p>All Projects</p></a>
-			<a class="left" href="/resume/"><p>Resume/CV</p></a>
-			<a class="left" href="/"><p>Home</p></a>
-		</div>
+		<% include ../global/header.ejs %>
 		<div id="page">
 			<h1>Projects</h1>
 			<p>Here you can see every single one of my projects. If you want to see the ones I have selected for my portfolio, head to the <a href="/">index page</a> for the ones I'm currently showcasing.</p>
@@ -55,5 +49,6 @@
 				</a>
 			</div>
 		</div>
+		<% include ../global/footer.ejs %>
 	</body>
 </html>

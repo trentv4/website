@@ -8,13 +8,8 @@
 	</head>
 
 	<body>
-		<div id="header">
-			<a href="/"><h1>Trentv.net</h1></a>
-			<a class="left" href="/contact/"><p>Contact</p></a>
-			<a class="left" href="/projects/"><p>All Projects</p></a>
-			<a class="left" href="/resume/"><p>Resume/CV</p></a>
-			<a class="left" href="/"><p>Home</p></a>
-		</div>
+		<% include ../global/header.ejs %>
+
 		<div id="page">
 			<div class="separator">
 				<img src="mrb.png" class="bat"></img>
@@ -48,5 +43,6 @@
 			<li><p>Greatness isn't given to you from someone else, nor is it achieved from one event or scenario. Greatness is the consequence from many smaller choices one makes along the way. CHampions don't become great by winning the big game, they become great by putting in the work to put themselves in position to win the big game when that opportunity presents itself. Put in the time and effort along the way, and you will all do great things.</p></li>
 			</ol>
 		</div>
+		<% include ../global/footer.ejs %>
 	</body>
 </html>

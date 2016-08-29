@@ -7,13 +7,7 @@
 	</head>
 
 	<body>
-		<div id="header">
-			<a href="/"><h1>Trentv.net</h1></a>
-			<a class="left" href="/contact/"><p>Contact</p></a>
-			<a class="left" href="/projects/"><p>All Projects</p></a>
-			<a class="left" href="/resume/"><p>Resume/CV</p></a>
-			<a class="left" href="/"><p>Home</p></a>
-		</div>
+		<% include global/header.ejs %>
 		<div id="page">
 
 			<div class="separator">
@@ -55,5 +49,6 @@
 			<p>May 17, 2016</p>
 			<p>I just released two "new" projects on my website - Everwood Dungeon (a finally-branded roguelike) and my Brainfuck interpreter. The roguelike is one of my older, more successful projects. The brainfuck interpreter is one of my newest projects, which was actually really fun to make.</p>
 		</div>
+		<% include global/footer.ejs %>	
 	</body>
 </html>

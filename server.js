@@ -55,6 +55,15 @@ router.route('/webm/api/all/')
 	res.send(webm);
 })
 
+router.route("/webm/")
+.get(function(req, res){
+	console.log(req.originalUrl)
+	res.render("webm", {
+		req: req,
+		res: res
+	})
+})
+
 router.get("*", function(req, res)
 {
 	console.log(req.originalUrl)
