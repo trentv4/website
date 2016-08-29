@@ -55,17 +55,13 @@ router.route('/webm/api/all/')
 	res.send(webm);
 })
 
-router.route('/webm/')
-.get(function(req, res){
-	res.render("webm/index.ejs", {
-		video: req.query.v
-	})
-})
-
 router.get("*", function(req, res)
 {
 	console.log(req.originalUrl)
-	res.render(req.originalUrl.substring(1))
+	res.render(req.originalUrl.substring(1), {
+		req: req,
+		res: res
+	})
 });
 
 app.use('/', router);
