@@ -1,164 +1,235 @@
 var width = 800;
 var height = 800;
 var c = document.getElementById("c").getContext("2d");
-var mousex = 0;
-var mousey = 0;
-document.getElementById("c").addEventListener("mousemove", function(event){
-	mousex = event.offsetX;
-	mousey = event.offsetY;
-})
 c.strokeStyle = "black"
 c.font = "15px sans-serif"
+
 c.fillStyle = "white"
 c.fillRect(0,0,width,height);
 
-function generate_town(district_maxDistanceBetweenDistricts, district_maxDistrictSize, buildings_numberPerDistrict, buildings_distanceBetweenBuildings, road_maxDistanceBetweenBuildings, road_maxDistanceBetweenRoadNodes)
+var tileSize = 10;
+
+
+function generate_town()
 {
-	c.fillStyle = "white"
-	c.fillRect(0,0,width,height)
-	var q = ["Shops", "Working", "Government", "Residential (high)", "Residental (low)"]
-
-	var nodes = []
-	var districts = []
-	var road = []
-
-	//pregenerate 1, then we can run the regular calculation
-	districts.push({
-		x: r(width/8, width - width/8),
-		y: r(height/8, height - height/8)
-	})
-	for(var i = 1; i < q.length; i++)
-	{
-		var n = {}
-		do {
-			n.x = r(width/8, width - width/8)
-			n.y = r(height/8, height - height/8)
-		} while(!checkIfNothingInMaxDistance(n, district_maxDistanceBetweenDistricts*2, districts))
-
-		districts.push(n)
-		districts[i].text = q[i]
-	}
-
-	for(var i = 0; i < districts.length; i++)
-	{
-		for(var g = 0; g < buildings_numberPerDistrict; g++)
-		{
-			nodes.push(generateNode(nodes, districts[i].x, districts[i].y, district_maxDistrictSize, buildings_distanceBetweenBuildings))
-		}
-	}
-
-	for(var i = 0; i < nodes.length; i++)
-	{
-		for(var g = i; g < nodes.length; g++)
-		{
-			var dist_nodes = distN(nodes[i], nodes[g])
-			if(dist_nodes < road_maxDistanceBetweenBuildings && dist_nodes > 10)
-			{
-				road.push(
-					{
-						x: avg(nodes[i].x, nodes[g].x),
-						y: avg(nodes[i].y, nodes[g].y)
-					}
-				)
+	/*     Creating the map object     */
+	var map = {
+		data: [],
+		get: function(x,y) {
+			if(x < 0 | y < 0 | x >= this.sizeX | y >= this.sizeX) {
+				return
 			}
+			return this.data[x][y]
+		},
+		set: function(x,y,obj) {
+			if(x < 0 | y < 0 | x >= this.sizeX | y >= this.sizeX) {
+				return
+			}
+			else {
+				this.data[x][y] = obj;
+			}
+		},
+		sizeX: width/tileSize,
+		sizeY: height/tileSize
+	}
+
+	/*     Populating the map data     */
+	for(var x = 0; x < map.sizeX; x++)
+	{
+		map.data[x] = []
+		for(var y = 0; y < map.sizeY; y++)
+		{
+			map.set(x,y,{
+				x: x,
+				y: y,
+				color: "white",
+				type: "open"
+			})
 		}
 	}
 
-	c.fillStyle = "rgba(255, 0, 0, 0.25)" //red
-	draw(districts, district_maxDistrictSize)
-	c.fillStyle = "black"
-	draw(road, 5)
-//	drawRoad(road, 5, road_maxDistanceBetweenRoadNodes)
-	c.fillStyle = "red"
-	draw(nodes, 5)
+	/*     Creating nodes     */
+	var randomNodeCount = 275;
+	for(var i = 0; i < randomNodeCount; i++)
+	{
+		createTile(map)
+	}
+
+
+	/*     Drawing     */
+
+	for(var x = 0; x < map.sizeX; x++)
+	{
+		for(var y = 0; y < map.sizeY; y++)
+		{
+			var tile = map.get(x,y)
+			c.fillStyle = "black"
+			c.fillRect(tile.x*tileSize, tile.y*tileSize, tileSize, tileSize)
+			c.fillStyle = tile.color
+			var borderSize = 1;
+			c.fillRect(tile.x*tileSize+borderSize, tile.y*tileSize+borderSize, tileSize-borderSize, tileSize-borderSize)
+		}
+	}
+
+	console.log("Function exited. Logging pertinent information...")
+	console.log(map)
 }
 
-function generateNode(existingNodes, centerX, centerY, distFromCenter, distanceBetweenBuildings)
+/*     Tile creation     */
+
+function createTile(map)
 {
-	var n = {}
-	do {
-		n.x = r(centerX - distFromCenter, centerX + distFromCenter)
-		n.y = r(centerY - distFromCenter, centerY + distFromCenter)
-	} while(!checkIfNothingInMaxDistance(n, distanceBetweenBuildings, existingNodes))
-
-	n.text = gasdf();
-
-
-	return n
-}
-
-function gasdf()
-{
-	var type = [
-		["'s Home", "Shawna Moreno", "Ernestine Ford", "Ethel Sullivan", "Melody Beck", "Lorian Andrews", "Josh Gregory", "Monique Palmer"],
-		["Shop", "Alchemist ", "Tanner's ", "Blacksmith's ", "Mage's ", "General "]
+	var tileShapes = [
+		[
+			[0,0,1,1,1,1,0],
+			[0,0,1,4,3,4,4],
+			[0,0,1,3,2,2,4],
+			[4,4,4,4,2,2,4],
+			[4,2,2,2,2,2,4],
+			[4,4,3,4,4,4,4],
+			[0,1,1,1,0,0,0]
+		],
+		[
+			[0,1,1,1,0],
+			[4,4,3,4,4],
+			[4,2,2,2,4],
+			[4,2,2,2,4],
+			[4,2,2,2,4],
+			[4,4,4,4,4]
+		],
+		[
+			[4,4,4,4,4,1,0],
+			[4,2,2,2,4,1,1],
+			[4,3,4,2,4,3,4],
+			[1,1,4,2,2,2,4],
+			[0,1,4,4,3,4,4]
+		],
+		[
+			[4,4,4,4,4,1],
+			[4,2,2,2,4,1],
+			[4,2,4,4,4,1],
+			[4,2,3,1,1,1],
+			[4,2,3,1,1,1],
+			[4,2,4,4,4,1],
+			[4,2,2,2,4,1],
+			[4,4,4,4,4,1]
+		]
+		//4: wall
+		//3: door
+		//2: interior
+		//1: mandated empty
+		//0: can be overwritten
 	]
-	var building_type = ru(type.length)
-	var selection = ru(type[building_type].length)
-	return type[building_type][selection] + type[building_type][0]
-}
-
-function draw(list, radius)
-{
-	for(var i = 0; i < list.length; i++)
+	var tileShape = tileShapes[ru(tileShapes.length)]
+	tileShape = rotateShape(tileShape, ru(4))
+	var xRand = r(0, map.sizeX-1)
+	var yRand = r(0, map.sizeY-1)
+	var iterations = 0
+	do {
+		iterations++
+		var xRand = r(0, map.sizeX-1)
+		var yRand = r(0, map.sizeY-1)
+	} while(isTileSetAreaFull(tileShape, xRand, yRand, map) & iterations < 200)
+	if(iterations == 200)
 	{
-		c.lineWidth="1";
-		c.beginPath();
-		c.arc(list[i].x, list[i].y, radius, 2*Math.PI, false)
-		c.fill();
-		var prevStyle = c.fillStyle;
-		c.fillStyle = "black"
-		//c.fillText(list[i].text, list[i].x+15, list[i].y+5)
-		c.fillStyle = prevStyle
+		console.log("Iterations over max!")
+		return
 	}
-}
-
-function drawRoad(roads, lineWidth, roadMaxDistance)
-{
-	c.lineWidth = lineWidth;
-	for(var i = 0; i < roads.length; i++)
+	for(var x = 0; x < tileShape.length; x++)
 	{
-		for(var g = i; g < roads.length; g++)
+		for(var y = 0; y < tileShape[x].length; y++)
 		{
-			var dist_nodes = distN(roads[i], roads[g])
-			if(dist_nodes < roadMaxDistance && dist_nodes > 0)
+			if(tileShape[x][y] == 1)
 			{
-				console.log("drawing road: " + i + "/"+roads.length, roads[i].x, roads[i].y, roads[g].x, roads[g].y)
-				c.moveTo(roads[i].x, roads[i].y)
-				c.lineTo(roads[g].x, roads[g].y)
-				c.fill()
-				c.stroke()
-				c.closePath()
+				map.set(x + xRand, y + yRand,{
+					x:x + xRand,
+					y:y + yRand,
+					color: "white",
+					type: "open-space"
+				})
+			}
+			if(tileShape[x][y] == 2)
+			{
+				map.set(x + xRand, y + yRand,{
+					x:x + xRand,
+					y:y + yRand,
+					color: "green",
+					type: "building"
+				})
+			}
+			if(tileShape[x][y] == 3)
+			{
+				map.set(x + xRand, y + yRand,{
+					x:x + xRand,
+					y:y + yRand,
+					color: "grey",
+					type: "door"
+				})
+			}
+			if(tileShape[x][y] == 4)
+			{
+				map.set(x + xRand, y + yRand,{
+					x:x + xRand,
+					y:y + yRand,
+					color: "black",
+					type: "wall"
+				})
 			}
 		}
 	}
 }
 
-function checkIfNothingInMaxDistance(node, maxDist, existingNodes)
+/*     Map Analysis Utilities     */
+
+function doesTileExist(x, y, map)
 {
-	var a = true;
-	for(var i = 0; i < existingNodes.length; i++)
+	if(map.get(x,y) != undefined)
 	{
-//		console.log(dist(node.x, node.y, existingNodes[i].x, existingNodes[i].y), maxDist)
-		var d = dist(node.x, node.y, existingNodes[i].x, existingNodes[i].y);
-		if(d != 0 && d < maxDist)
+		if(map.get(x,y).type == "open")
 		{
-			a = false
-			return false
+			return false;
 		}
 	}
 	return true;
 }
 
-function avg(x, x2)
+function rotateShape(shape, rotateNumber)
 {
-	return (x+x2)/2
+	var s = shape;
+	for(var i = 0; i < rotateNumber; i++)
+	{
+		var newArray = s[0].map(function(col, i) {
+			return s.map(function(row) {
+				return row[i]
+			})
+		});
+		s = newArray
+	}
+	return s
 }
 
-function distN(node1, node2)
+function isTileSetAreaFull(shape, xBase, yBase, map)
 {
-	return dist(node1.x, node1.y, node2.x, node2.y)
+	for(var x = 0; x < shape.length; x++)
+	{
+		for(var y = 0; y < shape[x].length; y++)
+		{
+			if(shape[x][y] != 0)
+			{
+				if(map.get(x + xBase, y + yBase) != undefined)
+				{
+					if(doesTileExist(x + xBase,y + yBase,map))
+					{
+						return true;
+					}
+				}
+			}
+		}
+	}
+	return false
 }
+
+/*     Utilities     */
 
 function dist(x, y, x2, y2)
 {
@@ -170,7 +241,6 @@ function ru(rangeUpper)
 	return Math.floor(Math.random() * rangeUpper)
 }
 
-function r(rangeLower, rangeUpper)
-{ //inclusive both ways
-	return rangeLower + (Math.floor(Math.random() * (rangeUpper - rangeLower + 1)))
+function r(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
