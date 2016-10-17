@@ -7,29 +7,73 @@ c.font = "15px sans-serif"
 c.fillStyle = "white"
 c.fillRect(0,0,width,height);
 
+var tileSize = 10;
+
+
 function generate_town()
 {
-	var tileSize = 10;
+	/*     Creating the map object     */
 	var map = {
-		isValid: function(x,y) {
-			if(x < 0 | y < 0 | x >= this.sizeX | y >= this.sizeX) return false
-			return true
-		},
+		data: [],
 		get: function(x,y) {
-			if(this.isValid(x,y)) return this.data[x][y]
+			if(x < 0 | y < 0 | x >= this.sizeX | y >= this.sizeX) {
+				return
+			}
+			return this.data[x][y]
 		},
 		set: function(x,y,obj) {
-			if(this.isValid(x,y)) this.data[x][y] = obj
+			if(x < 0 | y < 0 | x >= this.sizeX | y >= this.sizeX) {
+				return
+			}
+			else {
+				this.data[x][y] = obj;
+			}
 		},
 		sizeX: width/tileSize,
 		sizeY: height/tileSize
 	}
-	map.data = Array.apply(null, new Array(map.sizeX)).map(function(a,b){return Array.apply(null, new Array(map.sizeY)).map(function(c,d){ return getTile(0, b, d)})})
-	createTile(map)
-	draw(map, tileSize, 1)
+
+	/*     Populating the map data     */
+	for(var x = 0; x < map.sizeX; x++)
+	{
+		map.data[x] = []
+		for(var y = 0; y < map.sizeY; y++)
+		{
+			map.set(x,y,{
+				x: x,
+				y: y,
+				color: "white",
+				type: "open"
+			})
+		}
+	}
+
+	/*     Creating nodes     */
+	var randomNodeCount = 275;
+	for(var i = 0; i < randomNodeCount; i++)
+	{
+		createTile(map)
+	}
+
+
+	/*     Drawing     */
+
+	for(var x = 0; x < map.sizeX; x++)
+	{
+		for(var y = 0; y < map.sizeY; y++)
+		{
+			var tile = map.get(x,y)
+			c.fillStyle = "black"
+			c.fillRect(tile.x*tileSize, tile.y*tileSize, tileSize, tileSize)
+			c.fillStyle = tile.color
+			var borderSize = 1;
+			c.fillRect(tile.x*tileSize+borderSize, tile.y*tileSize+borderSize, tileSize-borderSize, tileSize-borderSize)
+		}
+	}
+
+	console.log("Function exited. Logging pertinent information...")
+	console.log(map)
 }
-
-
 
 /*     Tile creation     */
 
@@ -133,4 +177,70 @@ function createTile(map)
 			}
 		}
 	}
+}
+
+/*     Map Analysis Utilities     */
+
+function doesTileExist(x, y, map)
+{
+	if(map.get(x,y) != undefined)
+	{
+		if(map.get(x,y).type == "open")
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+function rotateShape(shape, rotateNumber)
+{
+	var s = shape;
+	for(var i = 0; i < rotateNumber; i++)
+	{
+		var newArray = s[0].map(function(col, i) {
+			return s.map(function(row) {
+				return row[i]
+			})
+		});
+		s = newArray
+	}
+	return s
+}
+
+function isTileSetAreaFull(shape, xBase, yBase, map)
+{
+	for(var x = 0; x < shape.length; x++)
+	{
+		for(var y = 0; y < shape[x].length; y++)
+		{
+			if(shape[x][y] != 0)
+			{
+				if(map.get(x + xBase, y + yBase) != undefined)
+				{
+					if(doesTileExist(x + xBase,y + yBase,map))
+					{
+						return true;
+					}
+				}
+			}
+		}
+	}
+	return false
+}
+
+/*     Utilities     */
+
+function dist(x, y, x2, y2)
+{
+	return Math.hypot(x-x2, y-y2)
+}
+
+function ru(rangeUpper)
+{
+	return Math.floor(Math.random() * rangeUpper)
+}
+
+function r(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
