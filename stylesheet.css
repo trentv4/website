@@ -17,6 +17,25 @@ body {
 	padding: 10px;
 }
 
+pre {
+	white-space: pre-wrap;
+}
+
+.code {
+	margin-top: 1em;
+	padding: 15px;
+	tab-size: 4;
+	font-family: monospace;
+	background-color: #EADFD1;
+}
+
+.small-code {
+	display: inline-block;
+	padding: .25em;
+	background-color: #EADFD1;
+	font-family: monospace;
+}
+
 /** Header */
 
 #header {

@@ -1,0 +1,33 @@
+<title>The Comprehensive Guide to Forge in 1.10.2</title>
+<pre>
+<h2>Creative Tabs</h2>
+This could not be more simple. Create some class, name it whatever, make sure it extends CreativeTabs
+<pre class="code">
+	public class ModCreativeTab extends CreativeTabs
+	{
+		public ModCreativeTab(String label)
+		{
+			super(label);
+		}
+
+		@Override
+		public Item getTabIconItem()
+		{
+			return Mod.someitemBlock;
+		}
+	}
+</pre>
+The only thing of note right here is <div class="small-code">public Item getTabIconItem()</div>, which will be the icon that displays on the tab itself. You should probably set this to something in your mod, but hey, <div class="small-code">return Items.FISH;</div> will work just as well.
+
+Now, in your mod class, you're going to want to add this somewhere:
+<pre class="code">
+	public static final ModCreativeTab CREATIVE_TAB = new ModCreativeTab("creativeTabName");
+</pre>
+In <div class="small-code">src/main/resources/assets/lang/en_US.lang</div> (and in all of your other language files, if you're using more than en_US), you want to put down:
+<pre class="code">
+	itemGroup.creativeTabName=The Localized Creative Tab Name
+</pre>
+Also, whenever you register an item or block you want in the creative tab, call <div class="small-code">setCreativeTab(Mod.CREATIVE_TAB)</div>. If you don't, it won't show up in the tab.
+
+<a href="/forge_tutorial/">Take me back!</a>
+</pre>

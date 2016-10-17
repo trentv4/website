@@ -1,7 +1,9 @@
 var express = require('express');
 var fs = require('fs')
+var markdown = require('marked')
 
 var webm = JSON.parse(fs.readFileSync("data", "utf-8")).webm;
+var forge_tutorial = JSON.parse(fs.readFileSync("forge_tutorial/data", "utf-8"))
 var navyseal = JSON.parse(fs.readFileSync("data", "utf-8")).navyseal;
 
 var app = express()
@@ -53,6 +55,43 @@ router.route('/webm/api/all/')
 .get(function(req, res){
 	console.log("Webm request: ALL");
 	res.send(webm);
+})
+
+router.route('/forge_tutorial/')
+.get(function(req, res){
+	if(req.query.p != undefined)
+	{
+		if(req.query.p == "edit")
+		{
+			res.render("forge_tutorial/edit",{})
+		}
+		else {
+			process.stdout.write("Forge tutorial page request: " + req.query.p + ". Searching...")
+			var page = forge_tutorial[req.query.p];
+			if(page != undefined)
+			{
+				process.stdout.write(" found.\n")
+				res.render("forge_tutorial", {
+					content: fs.readFileSync("forge_tutorial/pages/" + page.content, "utf-8")
+				})
+			}
+			else {
+				process.stdout.write(" not found. Returning 404.\n")
+				page = forge_tutorial["404"]
+				res.render("forge_tutorial", {
+					content: fs.readFileSync("forge_tutorial/pages/" + page.content, "utf-8")
+				})
+			}
+		}
+	}
+	else
+	{
+		page = forge_tutorial["mainpage"]
+		res.render("forge_tutorial", {
+			content: fs.readFileSync("forge_tutorial/pages/" + page.content, "utf-8")
+		})
+		process.stdout.write("Forge tutorial page request: mainpage. Searching... found.\n")
+	}
 })
 
 router.route("/webm/")
