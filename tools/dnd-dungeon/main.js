@@ -14,7 +14,7 @@ for(var i = 0; i < _tools.length; i++)
 		obj.addEventListener("click", function(){
 			currentType = "wall"
 			console.log("setting type to: wall")
-			document.getElementById("current-tool").innerHTML = `<img src="images/wall.png"> Wall`
+			document.getElementById("current-tool").innerHTML = `Current tool: <img src="images/wall.png"> Wall`
 		})
 	}
 	else
@@ -22,10 +22,18 @@ for(var i = 0; i < _tools.length; i++)
 		obj.addEventListener("click", function(e){
 			currentType = this.src
 			console.log("setting type to: " + this.src)
-			document.getElementById("current-tool").innerHTML = `<img src="`+this.src+`"> `+this.id+``
+			document.getElementById("current-tool").innerHTML = `Current tool: <img src="`+this.src+`"> `+this.id+``
 		})
 	}
 }
+
+document.getElementById("save-btn").addEventListener("click", function(e){
+	document.getElementById("save-entry-form").value = getSaveData()
+})
+
+document.getElementById("load-btn").addEventListener("click", function(e){
+	loadData(document.getElementById("save-entry-form").value)
+})
 
 var data = []
 
@@ -109,6 +117,15 @@ function drawEmptyCells()
 
 		if(obj.type == "wall")
 		{
+			if(!render_walls & render_corner_dots)
+			{
+				c.fillStyle = colors.borders_room
+				c.fillRect(obj.x * cellSize, obj.y * cellSize, 1, 1)
+				c.fillRect(obj.x * cellSize + cellSize, obj.y * cellSize, 1, 1)
+				c.fillRect(obj.x * cellSize + cellSize, obj.y * cellSize + cellSize, 1, 1)
+				c.fillRect(obj.x * cellSize, obj.y * cellSize + cellSize, 1, 1)
+			}
+
 			if(render_walls)
 			{
 				c.fillStyle = colors.borders_room
@@ -199,7 +216,16 @@ function drawMouse()
 	}
 }
 
-function saveData()
+function message(color, str)
+{
+	document.getElementById("message").innerHTML = ""
+	setTimeout(function(){
+		document.getElementById("message").style = "color: " + color
+		document.getElementById("message").innerHTML = str
+	}, 500)
+}
+
+function getSaveData()
 {
 	var save = ""
 	save += render_walls + ";"
@@ -207,7 +233,31 @@ function saveData()
 	save += render_grid + ";"
 	save += render_stripes + ";"
 	save += JSON.stringify(data)
-	console.log(save)
+	message("green", "Success: saved!")
+	return save
+}
+
+function loadData(str)
+{
+	var d = str.split(';')
+	try
+	{
+		render_walls = JSON.parse(d[0])
+		render_corner_dots = JSON.parse(d[1])
+		render_grid = JSON.parse(d[2])
+		render_stripes = JSON.parse(d[3])
+		data = JSON.parse(d[4])
+		document.getElementById("render_walls").checked = render_walls
+		document.getElementById("render_corner_dots").checked = render_corner_dots
+		document.getElementById("render_grid").checked = render_grid
+		document.getElementById("render_stripes").checked = render_stripes
+		message("green", "Success: loaded!")
+	}
+	catch (e)
+	{
+		console.log(e)
+		message("red", "Error: malformed save data! Check console for details.")
+	}
 }
 
 function draw()
