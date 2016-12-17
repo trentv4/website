@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Index</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="/stylesheet.css">
+		<style>
+			img {
+				width: 15px;
+				height: 15px;
+			}
+
+			img.* {
+				font-family: "Helvetica";
+			}
+
+			.feature-list {
+				float: left;
+				font-family: monospace;
+				margin-left: 5px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<% include ../../global/header.ejs %>
+		<div id="page">
+			<canvas id="dungeon_creator" style="width: 1000px; height: 700px" width=1 height=2></canvas>
+			<div style="float:right">
+				<input type="checkbox" id="render_walls" checked>Render walls</input>
+				<input type="checkbox" id="render_corner_dots" >Render corner dots</input>
+				<input type="checkbox" id="render_grid" checked>Render grid</input>
+				<input type="checkbox" id="render_stripes" checked>Render stripes</input>
+			</div>
+			<div class="feature-list">
+				<pre>Current tool:</pre>
+				<pre id="current-tool"><img src="images/wall.png"> Wall</pre>
+			</div>
+			<div class="feature-list">
+				<pre>Objects: </pre>
+				<pre><img class="tool" id="Wall" src="images/wall.png"/> Wall</pre>
+				<pre><img class="tool" id="Boxes" src="images/boxes.png"/> Boxes</pre>
+				<pre><img class="tool" id="Crate" src="images/crate.png"/> Crate</pre>
+			</div>
+			<div class="feature-list">
+				<pre>Traps: </pre>
+				<pre><img class="tool" id="Spike Pit" src="images/spike-pit.png"/> Spike Pit</pre>
+				<pre><img class="tool" id="Pressure Plate" src="images/pressure-plate.png"/> Pressure Plate</pre>
+			</div>
+		</div>
+		<script src="settings.js" type="text/javascript"></script>
+		<script src="main.js" type="text/javascript"></script>
+		<% include ../../global/footer.ejs %>
+	</body>
+</html>
