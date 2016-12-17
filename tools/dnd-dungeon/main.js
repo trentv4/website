@@ -50,7 +50,7 @@ _c.onmousemove = function(x)
 	mouse.x = x.offsetX
 	mouse.y = x.offsetY
 	mouse.data_x = Math.floor(mouse.x / cellSize),
-	mouse.data_y = Math.floor((mouse.y - 58) / cellSize)
+	mouse.data_y = Math.floor((mouse.y) / cellSize)
 }
 
 function clone(obj)
@@ -197,6 +197,17 @@ function drawMouse()
 		}
 		c.strokeRect(mouse.data_x * cellSize, mouse.data_y * cellSize, cellSize, cellSize)
 	}
+}
+
+function saveData()
+{
+	var save = ""
+	save += render_walls + ";"
+	save += render_corner_dots + ";"
+	save += render_grid + ";"
+	save += render_stripes + ";"
+	save += JSON.stringify(data)
+	console.log(save)
 }
 
 function draw()
