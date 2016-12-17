@@ -36,6 +36,18 @@ document.getElementById("load-btn").addEventListener("click", function(e){
 	loadData(document.getElementById("save-entry-form").value)
 })
 
+document.getElementById("save-img-btn").addEventListener("click", function(e){
+    var image = _c.toDataURL();
+
+    aLink = document.createElement('a');
+    var evt = document.createEvent("HTMLEvents");
+    evt.initEvent("click");
+    aLink.download = 'image.png';
+    aLink.href = image;
+	aLink.click()
+	console.log("Should work")
+})
+
 var data = []
 
 var mouse = {
