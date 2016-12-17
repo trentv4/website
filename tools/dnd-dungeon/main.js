@@ -45,7 +45,6 @@ document.getElementById("save-img-btn").addEventListener("click", function(e){
     aLink.download = 'image.png';
     aLink.href = image;
 	aLink.click()
-	console.log("Should work")
 })
 
 var data = []
@@ -55,7 +54,9 @@ var mouse = {
 	y: 0,
 	data_x: 0,
 	data_y: 0,
-	isDown: false
+	isLeft: false,
+	isRight: false,
+	isMiddle: false
 }
 
 var baseObject = {
@@ -64,8 +65,26 @@ var baseObject = {
 	type:"wall"
 }
 
-_c.onmousedown = function(x) { mouse.isDown = true; }
-_c.onmouseup = function(x) { mouse.isDown = false; }
+_c.oncontextmenu = function(x)
+{
+	return false
+}
+
+_c.onmousedown = function(x)
+{
+	if(x.button == 0) mouse.isLeft = true;
+	if(x.button == 1) mouse.isMiddle = true;
+	if(x.button == 2) mouse.isRight = true;
+	x.preventDefault()
+}
+_c.onmouseup = function(x)
+{
+	if(x.button == 0) mouse.isLeft = false;
+	if(x.button == 1) mouse.isMiddle = false;
+	if(x.button == 2) mouse.isRight = false;
+	x.preventDefault()
+}
+
 _c.onmousemove = function(x)
 {
 	mouse.x = x.offsetX
@@ -97,6 +116,13 @@ function remove(type, x, y)
 	for(var q = 0; q < data.length; q++)
 	{
 		var i = data[q]
+		if(type == "object")
+		{
+			if(i.x == x & i.y == y & i.type != "wall")
+			{
+				continue
+			}
+		}
 		if(i.x == x & i.y == y & i.type == type)
 		{
 			continue
@@ -201,30 +227,41 @@ function drawMouse()
 	if(mouse.data_y >= 0)
 	{
 		c.strokeStyle = colors.mouse_outline
-		if(mouse.isDown)
+		if(mouse.isRight)
 		{
-			c.strokeStyle = "#FFFF00"
-			if(isDownStatus == null) isDownStatus = (get(currentType, mouse.data_x, mouse.data_y) != null)
-			if(isDownStatus)
+			if(currentType == "wall")
 			{
-				remove(currentType, mouse.data_x, mouse.data_y);
+				obj = clone(baseObject)
+				obj.type = currentType;
+				obj.x = mouse.data_x
+				obj.y = mouse.data_y
+				data.push(obj)
 			}
 			else
 			{
-				if(get(currentType, mouse.data_x, mouse.data_y) == null)
-				{
-					obj = clone(baseObject)
-					obj.type = currentType;
-					obj.x = mouse.data_x
-					obj.y = mouse.data_y
-					data.push(obj)
-				}
+				remove("object", mouse.data_x, mouse.data_y);
 			}
 		}
-		else
+		if(mouse.isLeft)
 		{
-			isDownStatus = null;
+			if(currentType == "wall" & get(currentType, mouse.data_x, mouse.data_y) != null)
+			{
+				remove(currentType, mouse.data_x, mouse.data_y);
+			}
+			else if(get(currentType, mouse.data_x, mouse.data_y) == null & currentType != "wall")
+			{
+				obj = clone(baseObject)
+				obj.type = currentType;
+				obj.x = mouse.data_x
+				obj.y = mouse.data_y
+				data.push(obj)
+			}
 		}
+		if(mouse.isMiddle)
+		{
+			//I dunno. Pan or something.
+		}
+		if(mouse.isRight | mouse.isLeft) c.strokeStyle = "#FFFF00"
 		c.strokeRect(mouse.data_x * cellSize, mouse.data_y * cellSize, cellSize, cellSize)
 	}
 }
