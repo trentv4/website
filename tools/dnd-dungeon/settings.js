@@ -5,6 +5,7 @@ var render_walls = true
 var render_corner_dots = true
 var render_grid = true
 var render_stripes = true
+var render_shadows = true
 
 var colors = {
 	background: "#ECE7E1",
@@ -21,5 +22,6 @@ function update()
 	render_corner_dots = document.getElementById("render_corner_dots").checked
 	render_grid = document.getElementById("render_grid").checked
 	render_stripes = document.getElementById("render_stripes").checked
+	render_shadows = document.getElementById("render_shadows").checked
 }
 setInterval(update, 10)

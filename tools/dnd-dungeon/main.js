@@ -29,6 +29,7 @@ for(var i = 0; i < _tools.length; i++)
 
 document.getElementById("save-btn").addEventListener("click", function(e){
 	document.getElementById("save-entry-form").value = getSaveData()
+	message("green", "Success: saved!")
 })
 
 document.getElementById("load-btn").addEventListener("click", function(e){
@@ -232,8 +233,8 @@ function getSaveData()
 	save += render_corner_dots + ";"
 	save += render_grid + ";"
 	save += render_stripes + ";"
+	save += render_shadows + ";"
 	save += JSON.stringify(data)
-	message("green", "Success: saved!")
 	return save
 }
 
@@ -246,17 +247,48 @@ function loadData(str)
 		render_corner_dots = JSON.parse(d[1])
 		render_grid = JSON.parse(d[2])
 		render_stripes = JSON.parse(d[3])
-		data = JSON.parse(d[4])
+		render_shadows = JSON.parse(d[4])
+		data = JSON.parse(d[5])
 		document.getElementById("render_walls").checked = render_walls
 		document.getElementById("render_corner_dots").checked = render_corner_dots
 		document.getElementById("render_grid").checked = render_grid
 		document.getElementById("render_stripes").checked = render_stripes
+		document.getElementById("render_shadows").checked = render_shadows
 		message("green", "Success: loaded!")
 	}
 	catch (e)
 	{
 		console.log(e)
 		message("red", "Error: malformed save data! Check console for details.")
+	}
+}
+
+function drawShadows()
+{
+	for(var i = 0; i < data.length; i++)
+	{
+		var obj = data[i]
+
+		if(obj.type == "wall")
+		{
+			c.fillStyle = colors.shadow
+			if(get("wall", obj.x, obj.y - 1) == null)
+			{
+				c.fillRect(obj.x*cellSize+3, obj.y*cellSize+1, cellSize-5, 3)
+				if(get("wall", obj.x - 1, obj.y - 1) == null)
+				{
+					c.fillRect(obj.x*cellSize+1, obj.y*cellSize+1, 3, 3)
+				}
+				if(get("wall", obj.x + 1, obj.y - 1) == null)
+				{
+					c.fillRect(obj.x*cellSize + cellSize - 2, obj.y*cellSize+1, 2, 3)
+					if(get("wall", obj.x + 1, obj.y) != null)
+					{
+						c.fillRect(obj.x * cellSize + cellSize, obj.y * cellSize + 1, 1, 3)
+					}
+				}
+			}
+		}
 	}
 }
 
@@ -268,8 +300,11 @@ function draw()
 	if(render_grid) drawGrid()
 	if(render_stripes) drawStripes()
 	drawEmptyCells()
+	if(render_shadows) drawShadows()
 	drawFeatures()
 	drawMouse()
+	docCookies.setItem("map", getSaveData())
 }
 
 setInterval(draw, 10);
+loadData(docCookies.getItem("map"))
