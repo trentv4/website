@@ -176,7 +176,7 @@ function drawFeatures()
 		{
 			var img = new Image()
 			img.src = obj.type
-			c.drawImage(img, obj.x*cellSize, obj.y * cellSize, cellSize, cellSize)
+			c.drawImage(img, obj.x*cellSize, obj.y * cellSize, cellSize+1, cellSize+1)
 		}
 	}
 }
@@ -315,8 +315,8 @@ function draw()
 	if(render_shadows) drawShadows()
 	drawFeatures()
 	drawMouse()
-	docCookies.setItem("map", getSaveData())
+	localStorage.map = getSaveData()
 }
 
 setInterval(draw, 10);
-loadData(docCookies.getItem("map"))
+if(localStorage.map != null) loadData(localStorage.map)
