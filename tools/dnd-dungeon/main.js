@@ -9,7 +9,7 @@ var _tools = document.getElementsByClassName("tool")
 for(var i = 0; i < _tools.length; i++)
 {
 	var obj = _tools[i]
-	if(obj.id == "wall")
+	if(obj.id == "Wall")
 	{
 		obj.addEventListener("click", function(){
 			currentType = "wall"
@@ -22,7 +22,6 @@ for(var i = 0; i < _tools.length; i++)
 		obj.addEventListener("click", function(e){
 			currentType = this.src
 			console.log("setting type to: " + this.src)
-			console.log(document.getElementById("current-tool").innerHTML)
 			document.getElementById("current-tool").innerHTML = `<img src="`+this.src+`"> `+this.id+``
 		})
 	}
@@ -200,56 +199,16 @@ function drawMouse()
 	}
 }
 
-function drawInterface()
-{
-	function drawBigBox(x, y, xSize, ySize)
-	{
-		c.beginPath()
-		c.fillStyle="#1E1F2D"
-		c.strokeStyle="#3A3D56"
-		c.lineWidth = 6;
-		c.rect(x, y, xSize, ySize)
-		c.stroke()
-		c.fill()
-		c.closePath()
-	}
-
-	function drawTextBox(x, y, text)
-	{
-		c.beginPath()
-		c.fillStyle="#424464"
-		c.strokeStyle="#53557E"
-		c.lineWidth = 6;
-		var length = c.measureText(text).width + 10
-		c.rect(x, y, length, 27)
-		c.stroke()
-		c.fill()
-		c.closePath()
-		c.font = "15px Arial"
-		c.fillStyle="#EBEBEE"
-		c.fillText(text, x + 5, y + 18)
-	}
-
-	drawBigBox(0,0,285,50)
-	drawTextBox(15,15,"Load Map")
-	drawTextBox(40 + c.measureText("Load Map").width ,15,"Save Map")
-	drawTextBox(65 + c.measureText("Save Map").width + c.measureText("Load Map").width ,15,"Export Map")
-}
-
 function draw()
 {
 	c.fillStyle = colors.background
 	c.fillRect(0,0,c.width, c.height)
-	drawInterface()
-	c.translate(0, 58)
 	c.lineWidth = 1;
 	if(render_grid) drawGrid()
 	if(render_stripes) drawStripes()
 	drawEmptyCells()
 	drawFeatures()
 	drawMouse()
-
-	c.translate(0, -58)
 }
 
 setInterval(draw, 10);
