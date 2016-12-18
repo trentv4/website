@@ -20,9 +20,11 @@ for(var i = 0; i < _tools.length; i++)
 	else
 	{
 		obj.addEventListener("click", function(e){
-			currentType = this.src
-			console.log("setting type to: " + this.src)
-			document.getElementById("current-tool").innerHTML = `Current tool: <img src="`+this.src+`"> `+this.id+``
+			var uri = this.src.replace(this.baseURI, "")
+
+			currentType = uri
+			console.log("setting type to: " + uri)
+			document.getElementById("current-tool").innerHTML = `Current tool: <img src="`+uri+`"> `+this.id+``
 		})
 	}
 }
@@ -59,12 +61,6 @@ var mouse = {
 	isMiddle: false
 }
 
-var baseObject = {
-	x:0,
-	y:0,
-	type:"wall"
-}
-
 _c.oncontextmenu = function(x)
 {
 	return false
@@ -93,9 +89,14 @@ _c.onmousemove = function(x)
 	mouse.data_y = Math.floor((mouse.y) / cellSize)
 }
 
-function clone(obj)
+function add(type, xx, yy)
 {
-	return JSON.parse(JSON.stringify(obj))
+	var obj = {
+		x:xx,
+		y:yy,
+		type: currentType
+	}
+	data.push(obj)
 }
 
 function get(type, x, y)
@@ -150,6 +151,7 @@ function drawGrid()
 
 function drawEmptyCells()
 {
+	if(data == null) return;
 	for(var i = 0; i < data.length; i++)
 	{
 		var obj = data[i]
@@ -195,6 +197,7 @@ function drawEmptyCells()
 
 function drawFeatures()
 {
+	if(data == null) return;
 	for(var i = 0; i < data.length; i++)
 	{
 		var obj = data[i]
@@ -231,11 +234,10 @@ function drawMouse()
 		{
 			if(currentType == "wall")
 			{
-				obj = clone(baseObject)
-				obj.type = currentType;
-				obj.x = mouse.data_x
-				obj.y = mouse.data_y
-				data.push(obj)
+				if(get(currentType, mouse.data_x, mouse.data_y) == null)
+				{
+					add(currentType, mouse.data_x, mouse.data_y)
+				}
 			}
 			else
 			{
@@ -250,11 +252,7 @@ function drawMouse()
 			}
 			else if(get(currentType, mouse.data_x, mouse.data_y) == null & currentType != "wall")
 			{
-				obj = clone(baseObject)
-				obj.type = currentType;
-				obj.x = mouse.data_x
-				obj.y = mouse.data_y
-				data.push(obj)
+				add(currentType, mouse.data_x, mouse.data_y)
 			}
 		}
 		if(mouse.isMiddle)
@@ -275,29 +273,71 @@ function message(color, str)
 	}, 500)
 }
 
+var save_format = {
+	bool: {
+		decode: function(a) { if(a == "T") {return true} if(a == "F") {return false}},
+		encode: function(a) { if(a == true) {return "T"} if(a == false) {return "F"}}
+	},
+	map: {
+		decode: function(str) {
+			var d = []
+			var data = str.split(";")
+
+			for(var i = 0; i < data.length-1; i++)
+			{
+				var obj = data[i].split("*")
+				var ntype = "images/" + obj[2]
+				if(obj[2] == "wall") ntype = "wall"
+				d.push({
+					x: JSON.parse(obj[0]),
+					y: JSON.parse(obj[1]),
+					type: ntype
+				})
+			}
+			return d;
+		},
+		encode: function(data) {
+			var str = ""
+			if(data == null) return "[]"
+			for(var i = 0; i < data.length; i++)
+			{
+				var obj = data[i]
+				str += obj.x + "*"
+				str += obj.y + "*"
+				str += obj.type.replace("images/", "") + ";"
+			}
+			return str
+		}
+	}
+}
+
 function getSaveData()
 {
 	var save = ""
-	save += render_walls + ";"
-	save += render_corner_dots + ";"
-	save += render_grid + ";"
-	save += render_stripes + ";"
-	save += render_shadows + ";"
-	save += JSON.stringify(data)
+	save += save_format.bool.encode(render_walls)
+	save += save_format.bool.encode(render_corner_dots)
+	save += save_format.bool.encode(render_grid)
+	save += save_format.bool.encode(render_stripes)
+	save += save_format.bool.encode(render_shadows)
+	save += " "
+
+	save += save_format.map.encode(data)
 	return save
 }
 
 function loadData(str)
 {
-	var d = str.split(';')
 	try
 	{
-		render_walls = JSON.parse(d[0])
-		render_corner_dots = JSON.parse(d[1])
-		render_grid = JSON.parse(d[2])
-		render_stripes = JSON.parse(d[3])
-		render_shadows = JSON.parse(d[4])
-		data = JSON.parse(d[5])
+		var a = str.split(" ")
+		data = save_format.map.decode(a[1])
+
+		render_walls =       save_format.bool.decode(a[0][0])
+		render_corner_dots = save_format.bool.decode(a[0][1])
+		render_grid =        save_format.bool.decode(a[0][2])
+		render_stripes =     save_format.bool.decode(a[0][3])
+		render_shadows =     save_format.bool.decode(a[0][4])
+
 		document.getElementById("render_walls").checked = render_walls
 		document.getElementById("render_corner_dots").checked = render_corner_dots
 		document.getElementById("render_grid").checked = render_grid
@@ -355,5 +395,5 @@ function draw()
 	localStorage.map = getSaveData()
 }
 
-setInterval(draw, 10);
+setInterval(draw, 10)
 if(localStorage.map != null) loadData(localStorage.map)
