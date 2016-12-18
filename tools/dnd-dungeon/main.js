@@ -3,7 +3,7 @@ _c.width = _c.clientWidth; _c.height = _c.clientHeight;
 var c = _c.getContext("2d")
 c.width = _c.clientWidth; c.height = _c.clientHeight;
 
-currentType = "wall"
+var currentType = "wall"
 
 var _tools = document.getElementsByClassName("tool")
 for(var i = 0; i < _tools.length; i++)
@@ -29,6 +29,21 @@ for(var i = 0; i < _tools.length; i++)
 	}
 }
 
+var _q = document.getElementsByClassName("checkbox")
+for(var i = 0; i < _q.length; i++)
+{
+	var elm = _q[i]
+	elm.onclick = function(e)
+	{
+		render_walls = document.getElementById("render_walls").checked
+		render_corner_dots = document.getElementById("render_corner_dots").checked
+		render_grid = document.getElementById("render_grid").checked
+		render_stripes = document.getElementById("render_stripes").checked
+		render_shadows = document.getElementById("render_shadows").checked
+		window.draw();
+	}
+}
+
 document.getElementById("save-btn").addEventListener("click", function(e){
 	document.getElementById("save-entry-form").value = getSaveData()
 	message("green", "Success: saved!")
@@ -36,6 +51,25 @@ document.getElementById("save-btn").addEventListener("click", function(e){
 
 document.getElementById("load-btn").addEventListener("click", function(e){
 	loadData(document.getElementById("save-entry-form").value)
+	draw()
+})
+
+document.getElementById("clear-btn").addEventListener("click", function(e){
+	data = []
+
+	render_walls =       true
+	render_corner_dots = true
+	render_grid =        true
+	render_stripes =     true
+	render_shadows =     true
+
+	document.getElementById("render_walls").checked = render_walls
+	document.getElementById("render_corner_dots").checked = render_corner_dots
+	document.getElementById("render_grid").checked = render_grid
+	document.getElementById("render_stripes").checked = render_stripes
+	document.getElementById("render_shadows").checked = render_shadows
+	draw()
+	message("green", "Success: cleared!")
 })
 
 document.getElementById("save-img-btn").addEventListener("click", function(e){
@@ -72,6 +106,7 @@ _c.onmousedown = function(x)
 	if(x.button == 1) mouse.isMiddle = true;
 	if(x.button == 2) mouse.isRight = true;
 	x.preventDefault()
+	updateMouse()
 }
 _c.onmouseup = function(x)
 {
@@ -79,6 +114,7 @@ _c.onmouseup = function(x)
 	if(x.button == 1) mouse.isMiddle = false;
 	if(x.button == 2) mouse.isRight = false;
 	x.preventDefault()
+	updateMouse()
 }
 
 _c.onmousemove = function(x)
@@ -87,6 +123,8 @@ _c.onmousemove = function(x)
 	mouse.y = x.offsetY
 	mouse.data_x = Math.floor(mouse.x / cellSize),
 	mouse.data_y = Math.floor((mouse.y) / cellSize)
+	updateMouse()
+	draw()
 }
 
 function add(type, xx, yy)
@@ -97,6 +135,7 @@ function add(type, xx, yy)
 		type: currentType
 	}
 	data.push(obj)
+	draw()
 }
 
 function get(type, x, y)
@@ -133,6 +172,7 @@ function remove(type, x, y)
 		}
 	}
 	data = newData
+	draw()
 }
 
 function drawGrid()
@@ -224,12 +264,10 @@ function drawStripes()
 	c.translate(-0.5, -0.5) //to de-alias shit
 }
 
-var isDownStatus = null;
-function drawMouse()
+function updateMouse()
 {
 	if(mouse.data_y >= 0)
 	{
-		c.strokeStyle = colors.mouse_outline
 		if(mouse.isRight)
 		{
 			if(currentType == "wall")
@@ -259,6 +297,14 @@ function drawMouse()
 		{
 			//I dunno. Pan or something.
 		}
+	}
+}
+
+function drawMouse()
+{
+	if(mouse.data_y >= 0)
+	{
+		c.strokeStyle = colors.mouse_outline
 		if(mouse.isRight | mouse.isLeft) c.strokeStyle = "#FFFF00"
 		c.strokeRect(mouse.data_x * cellSize, mouse.data_y * cellSize, cellSize, cellSize)
 	}
@@ -395,5 +441,9 @@ function draw()
 	localStorage.map = getSaveData()
 }
 
-setInterval(draw, 10)
-if(localStorage.map != null) loadData(localStorage.map)
+//setInterval(draw, 10)
+if(localStorage.map != undefined)
+{
+	loadData(localStorage.map)
+}
+draw()

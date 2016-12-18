@@ -15,13 +15,3 @@ var colors = {
 	mouse_outline: "#967654",
 	shadow: "#B4A797"
 }
-
-function update()
-{
-	render_walls = document.getElementById("render_walls").checked
-	render_corner_dots = document.getElementById("render_corner_dots").checked
-	render_grid = document.getElementById("render_grid").checked
-	render_stripes = document.getElementById("render_stripes").checked
-	render_shadows = document.getElementById("render_shadows").checked
-}
-setInterval(update, 10)
