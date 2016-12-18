@@ -441,7 +441,6 @@ function draw()
 	localStorage.map = getSaveData()
 }
 
-//setInterval(draw, 10)
 if(localStorage.map != undefined)
 {
 	loadData(localStorage.map)
