@@ -6,6 +6,8 @@ var webm = JSON.parse(fs.readFileSync("data", "utf-8")).webm;
 var forge_tutorial = JSON.parse(fs.readFileSync("forge_tutorial/data", "utf-8"))
 var navyseal = JSON.parse(fs.readFileSync("data", "utf-8")).navyseal;
 
+var siteStats = JSON.parse(fs.readFileSync("site-stats.json", "utf-8"))
+
 var app = express()
 var router = express.Router();
 app.set('view engine', 'ejs');
@@ -105,11 +107,28 @@ router.route("/webm/")
 
 router.get("*", function(req, res)
 {
-	console.log(req.originalUrl)
-	res.render(req.originalUrl.substring(1), {
+	console.log("Serving: " + req.url)
+	res.render(req._parsedUrl.pathname.substring(1), {
 		req: req,
 		res: res
 	})
+	if(siteStats[req.url] == null)
+	{
+		siteStats[req.url] = {}
+	}
+	var currentDate = new Date()
+
+	var datestr = currentDate.getMonth() + "-" + currentDate.getDate() + "-" + currentDate.getFullYear()
+	if(siteStats[req.url][datestr] == null)
+	{
+		siteStats[req.url][datestr] = 1
+	}
+	else
+	{
+		siteStats[req.url][datestr]++;
+	}
+
+	fs.writeFileSync("site-stats.json", JSON.stringify(siteStats), "utf-8")
 });
 
 app.use('/', router);
