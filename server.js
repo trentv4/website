@@ -118,7 +118,7 @@ router.get("*", function(req, res)
 	}
 	var currentDate = new Date()
 
-	var datestr = currentDate.getMonth() + "-" + currentDate.getDate() + "-" + currentDate.getFullYear()
+	var datestr = currentDate.getFullYear() + "-" + currentDate.getMonth() + "-" + currentDate.getDate()
 	if(siteStats[req.url][datestr] == null)
 	{
 		siteStats[req.url][datestr] = 1
