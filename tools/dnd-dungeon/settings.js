@@ -13,5 +13,7 @@ var colors = {
 	borders_room: "#786249",
 	wall_stripes: "#B49E84",
 	mouse_outline: "#967654",
-	shadow: "#B4A797"
+	shadow: "#B4A797",
+	select_fill: "#2D354D",
+	select_outline: "#9EA9C7"
 }

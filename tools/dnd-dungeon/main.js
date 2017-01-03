@@ -127,6 +127,43 @@ _c.onmousemove = function(x)
 	draw()
 }
 
+var keyboard = {
+	ctrl: false,
+	space: false,
+	shift: false,
+	delete: false,
+	z: false,
+	x: false,
+	c: false,
+	v: false,
+}
+
+document.addEventListener("keydown", function(x){
+	var value = true;
+	if(x.key == "Control") keyboard.ctrl = value;
+	if(x.code == "Space") keyboard.space = value;
+	if(x.key == "Shift") keyboard.shift = value;
+	if(x.code == "Delete") keyboard.delete = value;
+	if(x.code == "KeyZ") keyboard.z = value;
+	if(x.code == "KeyX") keyboard.x = value;
+	if(x.code == "KeyC") keyboard.c = value;
+	if(x.code == "KeyV") keyboard.v = value;
+	updateKeyboard()
+})
+
+document.addEventListener("keyup", function(x){
+	var value = false;
+	if(x.code == "Control") keyboard.ctrl = value;
+	if(x.code == "Space") keyboard.space = value;
+	if(x.code == "Shift") keyboard.shift = value;
+	if(x.code == "Delete") keyboard.delete = value;
+	if(x.code == "KeyZ") keyboard.z = value;
+	if(x.code == "KeyX") keyboard.x = value;
+	if(x.code == "KeyC") keyboard.c = value;
+	if(x.code == "KeyV") keyboard.v = value;
+	updateKeyboard()
+})
+
 function add(type, xx, yy)
 {
 	var obj = {
@@ -138,11 +175,29 @@ function add(type, xx, yy)
 	draw()
 }
 
+function addAll(ndata, x, y)
+{
+	for(var i = 0; i < ndata.length; i++)
+	{
+		var obj = {
+			x: ndata[i].x + x,
+			y: ndata[i].y + y,
+			type: ndata[i].type
+		}
+		data.push(obj)
+	}
+	draw()
+}
+
 function get(type, x, y)
 {
 	for(var q = 0; q < data.length; q++)
 	{
 		var i = data[q]
+		if(i.x == x & i.y == y & type == "all")
+		{
+			return i;
+		}
 		if(i.x == x & i.y == y & i.type == type)
 		{
 			return i;
@@ -150,26 +205,42 @@ function get(type, x, y)
 	}
 }
 
-function remove(type, x, y)
+function getFrom(type, fromX, fromY, toX, toY)
 {
 	var newData = []
 	for(var q = 0; q < data.length; q++)
 	{
 		var i = data[q]
-		if(type == "object")
+
+		if(i.x >= fromX & i.x <= toX & i.y >= fromY & i.y <= toY)
 		{
-			if(i.x == x & i.y == y & i.type != "wall")
-			{
-				continue
-			}
+			if(type == "object" & i.type != "wall") newData.push(i)
+			if(type == "all") newData.push(i)
+			if(type == i.type) newData.push(i)
 		}
-		if(i.x == x & i.y == y & i.type == type)
+	}
+	return newData
+}
+
+function remove(type, x, y)
+{
+	removeFrom(type, x, y, x, y)
+}
+
+function removeFrom(type, fromX, fromY, toX, toY)
+{
+	var newData = []
+	for(var q = 0; q < data.length; q++)
+	{
+		var i = data[q]
+
+		if(i.x >= fromX & i.x <= toX & i.y >= fromY & i.y <= toY)
 		{
-			continue
+			if(type == "object" & i.type != "wall") continue
+			if(type == "all") continue
+			if(type == i.type) continue
 		}
-		else {
-			newData.push(i)
-		}
+		newData.push(i)
 	}
 	data = newData
 	draw()
@@ -264,38 +335,133 @@ function drawStripes()
 	c.translate(-0.5, -0.5) //to de-alias shit
 }
 
+var selection = null
+var clipboard = null
+
+function updateKeyboard()
+{
+	if(selection != null)
+	{
+		var lowX = selection.data_x < selection.data_x2 ? selection.data_x : selection.data_x2
+		var highX = selection.data_x > selection.data_x2 ? selection.data_x : selection.data_x2
+		var lowY = selection.data_y < selection.data_y2 ? selection.data_y : selection.data_y2
+		var highY = selection.data_y > selection.data_y2 ? selection.data_y : selection.data_y2
+
+		if(keyboard.ctrl)
+		{
+			if(keyboard.c | keyboard.x)
+			{
+				var nd = getFrom("all", lowX, lowY, highX, highY)
+				var newD = []
+				var diffX = nd[0].x
+				var diffY = nd[0].y
+				for(var i = 0; i < nd.length; i++)
+				{
+					if(nd[i].x < diffX) diffX = nd[i].x
+					if(nd[i].y < diffY) diffY = nd[i].y
+				}
+				for(var i = 0; i < nd.length; i++)
+				{
+					newD.push({
+						x: nd[i].x - diffX,
+						y: nd[i].y - diffY,
+						type: nd[i].type
+					})
+				}
+				clipboard = {
+					sizeX: highX - lowX,
+					sizeY: highY - lowY,
+					data: newD
+				}
+				if(keyboard.x)
+				{
+					removeFrom("all",lowX, lowY, highX, highY)
+				}
+			}
+			if(keyboard.v)
+			{
+				addAll(clipboard.data, mouse.data_x, mouse.data_y)
+			}
+		}
+		if(keyboard.delete)
+		{
+			removeFrom("all", lowX, lowY, highX, highY)
+		}
+	}
+	if(keyboard.ctrl & keyboard.z)
+	{
+		if(keyboard.shift)
+		{
+
+		}
+	}
+	if(keyboard.space)
+	{
+		isSelecting = !isSelecting
+		if(!isSelecting) selection = null
+	}
+
+}
+
+var isSelecting = false;
+
 function updateMouse()
 {
 	if(mouse.data_y >= 0)
 	{
-		if(mouse.isRight)
+		if(isSelecting) // Selection mode
 		{
-			if(currentType == "wall")
+			if(mouse.isLeft)
 			{
-				if(get(currentType, mouse.data_x, mouse.data_y) == null)
+				if(selection == null || selection.active == false)
+				{
+					selection = {
+						data_x: mouse.data_x,
+						data_y: mouse.data_y,
+						data_x2: 0,
+						data_y2: 0,
+						active: true
+					}
+				}
+				selection.data_x2 = mouse.data_x
+				selection.data_y2 = mouse.data_y
+			}
+			if(!mouse.isLeft)
+			{
+				if(selection != null) selection.active = false
+			}
+		}
+		else
+		{
+			if(mouse.isRight)
+			{
+				if(currentType == "wall")
+				{
+					if(get(currentType, mouse.data_x, mouse.data_y) == null)
+					{
+						add(currentType, mouse.data_x, mouse.data_y)
+					}
+				}
+				else
+				{
+					remove("object", mouse.data_x, mouse.data_y);
+				}
+			}
+			if(mouse.isLeft)
+			{
+				if(currentType == "wall" & get(currentType, mouse.data_x, mouse.data_y) != null)
+				{
+					remove(currentType, mouse.data_x, mouse.data_y);
+				}
+				else if(get(currentType, mouse.data_x, mouse.data_y) == null & currentType != "wall")
 				{
 					add(currentType, mouse.data_x, mouse.data_y)
 				}
 			}
-			else
+			if(mouse.isMiddle)
 			{
-				remove("object", mouse.data_x, mouse.data_y);
+				//I dunno. Pan or something.
 			}
-		}
-		if(mouse.isLeft)
-		{
-			if(currentType == "wall" & get(currentType, mouse.data_x, mouse.data_y) != null)
-			{
-				remove(currentType, mouse.data_x, mouse.data_y);
-			}
-			else if(get(currentType, mouse.data_x, mouse.data_y) == null & currentType != "wall")
-			{
-				add(currentType, mouse.data_x, mouse.data_y)
-			}
-		}
-		if(mouse.isMiddle)
-		{
-			//I dunno. Pan or something.
 		}
 	}
 }
@@ -427,6 +593,32 @@ function drawShadows()
 	}
 }
 
+function drawSelection()
+{
+	if(selection != null)
+	{
+		c.strokeStyle = colors.select_outline
+		c.fillStyle = colors.select_fill
+
+		c.translate(0.5, 0.5) //to de-alias shit
+		var lowX = selection.data_x < selection.data_x2 ? selection.data_x : selection.data_x2
+		var highX = selection.data_x > selection.data_x2 ? selection.data_x : selection.data_x2
+		var lowY = selection.data_y < selection.data_y2 ? selection.data_y : selection.data_y2
+		var highY = selection.data_y > selection.data_y2 ? selection.data_y : selection.data_y2
+		for(var x = lowX; x <= highX; x++)
+		{
+			for(var y = lowY; y <= highY; y++)
+			{
+				c.globalAlpha = 0.2;
+				c.fillRect(x*cellSize, y*cellSize, cellSize, cellSize)
+				c.globalAlpha = 1;
+				c.strokeRect(x*cellSize, y*cellSize, cellSize, cellSize)
+			}
+		}
+		c.translate(-0.5, -0.5) //to de-alias shit
+	}
+}
+
 function draw()
 {
 	c.fillStyle = colors.background
@@ -438,6 +630,7 @@ function draw()
 	if(render_shadows) drawShadows()
 	drawFeatures()
 	drawMouse()
+	drawSelection()
 	localStorage.map = getSaveData()
 }
 
