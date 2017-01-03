@@ -3,7 +3,7 @@ _c.width = _c.clientWidth; _c.height = _c.clientHeight;
 var c = _c.getContext("2d")
 c.width = _c.clientWidth; c.height = _c.clientHeight;
 
-var currentType = "wall"
+///////////////////////// Assigning and interacting with the DOM /////////////////////////
 
 var _tools = document.getElementsByClassName("tool")
 for(var i = 0; i < _tools.length; i++)
@@ -83,18 +83,6 @@ document.getElementById("save-img-btn").addEventListener("click", function(e){
 	aLink.click()
 })
 
-var data = []
-
-var mouse = {
-	x: 0,
-	y: 0,
-	data_x: 0,
-	data_y: 0,
-	isLeft: false,
-	isRight: false,
-	isMiddle: false
-}
-
 _c.oncontextmenu = function(x)
 {
 	return false
@@ -127,17 +115,6 @@ _c.onmousemove = function(x)
 	draw()
 }
 
-var keyboard = {
-	ctrl: false,
-	space: false,
-	shift: false,
-	delete: false,
-	z: false,
-	x: false,
-	c: false,
-	v: false,
-}
-
 document.addEventListener("keydown", function(x){
 	var value = true;
 	if(x.key == "Control") keyboard.ctrl = value;
@@ -163,6 +140,35 @@ document.addEventListener("keyup", function(x){
 	if(x.code == "KeyV") keyboard.v = value;
 	updateKeyboard()
 })
+
+///////////////////////// Various objects /////////////////////////
+
+var currentType = "wall"
+
+var data = []
+
+var mouse = {
+	x: 0,
+	y: 0,
+	data_x: 0,
+	data_y: 0,
+	isLeft: false,
+	isRight: false,
+	isMiddle: false
+}
+
+var keyboard = {
+	ctrl: false,
+	space: false,
+	shift: false,
+	delete: false,
+	z: false,
+	x: false,
+	c: false,
+	v: false,
+}
+
+///////////////////////// Interaction /////////////////////////
 
 function add(type, xx, yy)
 {
@@ -194,13 +200,9 @@ function get(type, x, y)
 	for(var q = 0; q < data.length; q++)
 	{
 		var i = data[q]
-		if(i.x == x & i.y == y & type == "all")
+		if(i.x == x & i.y == y)
 		{
-			return i;
-		}
-		if(i.x == x & i.y == y & i.type == type)
-		{
-			return i;
+			if(i.type == type | type == "all") return i;
 		}
 	}
 }
@@ -224,7 +226,21 @@ function getFrom(type, fromX, fromY, toX, toY)
 
 function remove(type, x, y)
 {
-	removeFrom(type, x, y, x, y)
+	var newData = []
+	for(var q = 0; q < data.length; q++)
+	{
+		var i = data[q]
+
+		if(i.x == x & i.y == y)
+		{
+			if(type == "object" & i.type != "wall") continue
+			if(type == "all") continue
+			if(type == i.type) continue
+		}
+		newData.push(i)
+	}
+	data = newData
+	draw()
 }
 
 function removeFrom(type, fromX, fromY, toX, toY)
@@ -245,6 +261,8 @@ function removeFrom(type, fromX, fromY, toX, toY)
 	data = newData
 	draw()
 }
+
+///////////////////////// Drawing functions /////////////////////////
 
 function drawGrid()
 {
@@ -335,8 +353,76 @@ function drawStripes()
 	c.translate(-0.5, -0.5) //to de-alias shit
 }
 
+function drawMouse()
+{
+	if(mouse.data_y >= 0)
+	{
+		c.strokeStyle = colors.mouse_outline
+		if(mouse.isRight | mouse.isLeft) c.strokeStyle = "#FFFF00"
+		c.strokeRect(mouse.data_x * cellSize, mouse.data_y * cellSize, cellSize, cellSize)
+	}
+}
+
+function drawShadows()
+{
+	for(var i = 0; i < data.length; i++)
+	{
+		var obj = data[i]
+
+		if(obj.type == "wall")
+		{
+			c.fillStyle = colors.shadow
+			if(get("wall", obj.x, obj.y - 1) == null)
+			{
+				c.fillRect(obj.x*cellSize+3, obj.y*cellSize+1, cellSize-5, 3)
+				if(get("wall", obj.x - 1, obj.y - 1) == null)
+				{
+					c.fillRect(obj.x*cellSize+1, obj.y*cellSize+1, 3, 3)
+				}
+				if(get("wall", obj.x + 1, obj.y - 1) == null)
+				{
+					c.fillRect(obj.x*cellSize + cellSize - 2, obj.y*cellSize+1, 2, 3)
+					if(get("wall", obj.x + 1, obj.y) != null)
+					{
+						c.fillRect(obj.x * cellSize + cellSize, obj.y * cellSize + 1, 1, 3)
+					}
+				}
+			}
+		}
+	}
+}
+
+function drawSelection()
+{
+	if(selection != null)
+	{
+		c.strokeStyle = colors.select_outline
+		c.fillStyle = colors.select_fill
+
+		c.translate(0.5, 0.5) //to de-alias shit
+		var lowX = selection.data_x < selection.data_x2 ? selection.data_x : selection.data_x2
+		var highX = selection.data_x > selection.data_x2 ? selection.data_x : selection.data_x2
+		var lowY = selection.data_y < selection.data_y2 ? selection.data_y : selection.data_y2
+		var highY = selection.data_y > selection.data_y2 ? selection.data_y : selection.data_y2
+		for(var x = lowX; x <= highX; x++)
+		{
+			for(var y = lowY; y <= highY; y++)
+			{
+				c.globalAlpha = 0.2;
+				c.fillRect(x*cellSize, y*cellSize, cellSize, cellSize)
+				c.globalAlpha = 1;
+				c.strokeRect(x*cellSize, y*cellSize, cellSize, cellSize)
+			}
+		}
+		c.translate(-0.5, -0.5) //to de-alias shit
+	}
+}
+
+///////////////////////// Interactions (mouse and keyboard) /////////////////////////
+
 var selection = null
 var clipboard = null
+var isSelecting = false;
 
 function updateKeyboard()
 {
@@ -378,15 +464,15 @@ function updateKeyboard()
 					removeFrom("all",lowX, lowY, highX, highY)
 				}
 			}
-			if(keyboard.v)
-			{
-				addAll(clipboard.data, mouse.data_x, mouse.data_y)
-			}
 		}
 		if(keyboard.delete)
 		{
 			removeFrom("all", lowX, lowY, highX, highY)
 		}
+	}
+	if(keyboard.ctrl & keyboard.v & clipboard != null)
+	{
+		addAll(clipboard.data, mouse.data_x, mouse.data_y)
 	}
 	if(keyboard.ctrl & keyboard.z)
 	{
@@ -402,8 +488,6 @@ function updateKeyboard()
 	}
 
 }
-
-var isSelecting = false;
 
 function updateMouse()
 {
@@ -466,24 +550,7 @@ function updateMouse()
 	}
 }
 
-function drawMouse()
-{
-	if(mouse.data_y >= 0)
-	{
-		c.strokeStyle = colors.mouse_outline
-		if(mouse.isRight | mouse.isLeft) c.strokeStyle = "#FFFF00"
-		c.strokeRect(mouse.data_x * cellSize, mouse.data_y * cellSize, cellSize, cellSize)
-	}
-}
-
-function message(color, str)
-{
-	document.getElementById("message").innerHTML = ""
-	setTimeout(function(){
-		document.getElementById("message").style = "color: " + color
-		document.getElementById("message").innerHTML = str
-	}, 500)
-}
+///////////////////////// Saving and loading /////////////////////////
 
 var save_format = {
 	bool: {
@@ -564,59 +631,15 @@ function loadData(str)
 	}
 }
 
-function drawShadows()
+///////////////////////// Misc /////////////////////////
+
+function message(color, str)
 {
-	for(var i = 0; i < data.length; i++)
-	{
-		var obj = data[i]
-
-		if(obj.type == "wall")
-		{
-			c.fillStyle = colors.shadow
-			if(get("wall", obj.x, obj.y - 1) == null)
-			{
-				c.fillRect(obj.x*cellSize+3, obj.y*cellSize+1, cellSize-5, 3)
-				if(get("wall", obj.x - 1, obj.y - 1) == null)
-				{
-					c.fillRect(obj.x*cellSize+1, obj.y*cellSize+1, 3, 3)
-				}
-				if(get("wall", obj.x + 1, obj.y - 1) == null)
-				{
-					c.fillRect(obj.x*cellSize + cellSize - 2, obj.y*cellSize+1, 2, 3)
-					if(get("wall", obj.x + 1, obj.y) != null)
-					{
-						c.fillRect(obj.x * cellSize + cellSize, obj.y * cellSize + 1, 1, 3)
-					}
-				}
-			}
-		}
-	}
-}
-
-function drawSelection()
-{
-	if(selection != null)
-	{
-		c.strokeStyle = colors.select_outline
-		c.fillStyle = colors.select_fill
-
-		c.translate(0.5, 0.5) //to de-alias shit
-		var lowX = selection.data_x < selection.data_x2 ? selection.data_x : selection.data_x2
-		var highX = selection.data_x > selection.data_x2 ? selection.data_x : selection.data_x2
-		var lowY = selection.data_y < selection.data_y2 ? selection.data_y : selection.data_y2
-		var highY = selection.data_y > selection.data_y2 ? selection.data_y : selection.data_y2
-		for(var x = lowX; x <= highX; x++)
-		{
-			for(var y = lowY; y <= highY; y++)
-			{
-				c.globalAlpha = 0.2;
-				c.fillRect(x*cellSize, y*cellSize, cellSize, cellSize)
-				c.globalAlpha = 1;
-				c.strokeRect(x*cellSize, y*cellSize, cellSize, cellSize)
-			}
-		}
-		c.translate(-0.5, -0.5) //to de-alias shit
-	}
+	document.getElementById("message").innerHTML = ""
+	setTimeout(function(){
+		document.getElementById("message").style = "color: " + color
+		document.getElementById("message").innerHTML = str
+	}, 500)
 }
 
 function draw()
@@ -634,8 +657,5 @@ function draw()
 	localStorage.map = getSaveData()
 }
 
-if(localStorage.map != undefined)
-{
-	loadData(localStorage.map)
-}
+if(localStorage.map != undefined) loadData(localStorage.map)
 draw()
