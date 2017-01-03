@@ -1,5 +1,5 @@
 todo:
-selection-box based editing mode
 undo-redo
 draw lines between mouse buffers, to resolve missed spots when moving the mouse very fast
 allow loading from URL
+preview mode for pasting 
