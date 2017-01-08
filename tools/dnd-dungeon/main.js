@@ -170,43 +170,54 @@ var keyboard = {
 
 ///////////////////////// Interaction /////////////////////////
 
+// Adds a single object
 function add(type, xx, yy)
 {
+	if(get(type, xx, yy) != null) return;
+
 	var obj = {
 		x:xx,
 		y:yy,
 		type: currentType
 	}
+
 	data.push(obj)
 	draw()
 }
 
-function addAll(ndata, x, y)
+// Adds a collection of objects
+function addAll(dataIn, x, y)
 {
-	for(var i = 0; i < ndata.length; i++)
+	for(var i = 0; i < dataIn.length; i++)
 	{
-		var obj = {
-			x: ndata[i].x + x,
-			y: ndata[i].y + y,
-			type: ndata[i].type
+		var obj = dataIn[i]
+		if(get(obj.type, obj.x, obj.y) != null) continue;
+
+		var cloneObj = {
+			x: dataIn[i].x + x,
+			y: dataIn[i].y + y,
+			type: dataIn[i].type
 		}
-		data.push(obj)
+		data.push(cloneObj)
 	}
 	draw()
 }
 
+// Gets the object at x, y that matches type. If type is all, it'll pull everything.
 function get(type, x, y)
 {
+	var newData = []
 	for(var q = 0; q < data.length; q++)
 	{
 		var i = data[q]
-		if(i.x == x & i.y == y)
-		{
-			if(i.type == type | type == "all") return i;
-		}
+		if(i.x == x & i.y == y & (i.type == type | type == "all")) newData.push(i);
 	}
+	if(newData.length == 1) return newData[0]
+	if(newData.length == 0) return null
+	return newData
 }
 
+// Gets every object that matches type within fX, fY, tX, tY
 function getFrom(type, fromX, fromY, toX, toY)
 {
 	var newData = []
@@ -285,42 +296,34 @@ function drawEmptyCells()
 	{
 		var obj = data[i]
 
-		if(obj.type == "wall")
+		if(obj.type != "wall") continue;
+
+		c.translate(obj.x * cellSize, obj.y * cellSize)
+
+		c.fillStyle = colors.background
+		c.fillRect(1, 1, cellSize - 1, cellSize - 1)
+		if(!render_grid)
 		{
-			if(!render_walls & render_corner_dots)
-			{
-				c.fillStyle = colors.borders_room
-				c.fillRect(obj.x * cellSize, obj.y * cellSize, 1, 1)
-				c.fillRect(obj.x * cellSize + cellSize, obj.y * cellSize, 1, 1)
-				c.fillRect(obj.x * cellSize + cellSize, obj.y * cellSize + cellSize, 1, 1)
-				c.fillRect(obj.x * cellSize, obj.y * cellSize + cellSize, 1, 1)
-			}
-
-			if(render_walls)
-			{
-				c.fillStyle = colors.borders_room
-				c.fillRect(obj.x*cellSize, obj.y*cellSize, cellSize+1, cellSize+1)
-			}
-
-			c.fillStyle = colors.background
-			c.fillRect(obj.x*cellSize+1, obj.y*cellSize+1, cellSize-1, cellSize-1)
-
-			if(render_walls) //render walls
-			{
-				if(get("wall", obj.x, obj.y - 1) != null) c.fillRect(obj.x*cellSize+1, obj.y*cellSize-1, cellSize-1, 5)
-				if(get("wall", obj.x, obj.y + 1) != null) c.fillRect(obj.x*cellSize+1, obj.y*cellSize-1+cellSize, cellSize-1, 5)
-				if(get("wall", obj.x - 1, obj.y) != null) c.fillRect(obj.x*cellSize-1, obj.y*cellSize+1, 5, cellSize-1)
-				if(get("wall", obj.x + 1, obj.y) != null) c.fillRect(obj.x*cellSize-1 + cellSize, obj.y*cellSize+1, 5, cellSize-1)
-			}
-
-			if(!render_corner_dots) //render corner dots
-			{
-				if(get("wall", obj.x - 1, obj.y - 1) != null) c.fillRect(obj.x*cellSize, obj.y*cellSize, 1, 1)
-				if(get("wall", obj.x + 1, obj.y - 1) != null) c.fillRect(obj.x*cellSize + cellSize, obj.y*cellSize, 1, 1)
-				if(get("wall", obj.x + 1, obj.y + 1) != null) c.fillRect(obj.x*cellSize + cellSize, obj.y*cellSize + cellSize, 1, 1)
-				if(get("wall", obj.x - 1, obj.y + 1) != null) c.fillRect(obj.x*cellSize, obj.y*cellSize + cellSize, 1, 1)
-			}
+			c.fillRect(0, 0, cellSize, cellSize)
 		}
+
+		if(render_corner_dots)
+		{
+			c.fillStyle = colors.borders_room
+			if(render_grid) c.fillStyle = colors.borders_grid
+			c.fillRect(0,0,1,1)
+		}
+
+		if(render_walls)
+		{
+			c.fillStyle = colors.borders_room
+			if(get("wall", obj.x - 1, obj.y) == null) c.fillRect(0,0,          1,cellSize + 1)
+			if(get("wall", obj.x + 1, obj.y) == null) c.fillRect(cellSize,0,   1,cellSize + 1)
+			if(get("wall", obj.x, obj.y - 1) == null) c.fillRect(0,0,          cellSize + 1,1)
+			if(get("wall", obj.x, obj.y + 1) == null) c.fillRect(0,cellSize,   cellSize + 1,1)
+		}
+
+		c.translate(-obj.x * cellSize, -obj.y * cellSize)
 	}
 }
 
@@ -521,10 +524,7 @@ function updateMouse()
 			{
 				if(currentType == "wall")
 				{
-					if(get(currentType, mouse.data_x, mouse.data_y) == null)
-					{
-						add(currentType, mouse.data_x, mouse.data_y)
-					}
+					add(currentType, mouse.data_x, mouse.data_y)
 				}
 				else
 				{
@@ -647,8 +647,8 @@ function draw()
 	c.fillStyle = colors.background
 	c.fillRect(0,0,c.width, c.height)
 	c.lineWidth = 1;
-	if(render_grid) drawGrid()
 	if(render_stripes) drawStripes()
+	if(render_grid) drawGrid()
 	drawEmptyCells()
 	if(render_shadows) drawShadows()
 	drawFeatures()
