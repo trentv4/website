@@ -344,7 +344,6 @@ function drawFeatures()
 
 function drawStripes()
 {
-	c.translate(0.5, 0.5) //to de-alias shit
 	for(var x = 0; x < c.width/stripeDistance*2; x++)
 	{
 		c.strokeStyle = colors.wall_stripes
@@ -353,7 +352,6 @@ function drawStripes()
 		c.lineTo(0,x * stripeDistance)
 		c.stroke();
 	}
-	c.translate(-0.5, -0.5) //to de-alias shit
 }
 
 function drawMouse()
