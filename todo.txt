@@ -1,0 +1,3 @@
+create package.json and setup dependencies there
+gitignore node_modules
+make pages 404 properly
