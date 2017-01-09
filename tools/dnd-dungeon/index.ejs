@@ -71,6 +71,9 @@
 		</div>
 		<script src="settings.js" type="text/javascript"></script>
 		<script src="main.js" type="text/javascript"></script>
+		<% if(req.query.id != null) { %>
+			<script>loadData("<%= req.query.id %>")</script>
+		<% } %>
 		<% include ../../global/footer.ejs %>
 	</body>
 </html>

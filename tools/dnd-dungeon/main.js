@@ -596,6 +596,7 @@ var save_format = {
 	},
 	map: {
 		decode: function(str) {
+			if(str == null) return []
 			var d = []
 			var data = str.split(";")
 
