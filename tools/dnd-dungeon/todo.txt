@@ -1,5 +1,4 @@
 todo:
-undo-redo
 draw lines between mouse buffers, to resolve missed spots when moving the mouse very fast
 allow loading from URL
-preview mode for pasting 
+preview mode for pasting

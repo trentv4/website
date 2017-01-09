@@ -172,34 +172,39 @@ var keyboard = {
 }
 
 ///////////////////////// Manipulating history (undo/redo) /////////////////////////
-
+function upd()
+{
+	console.log(prevData)
+	console.log(prevDataIndex)
+	console.log("====")
+}
 function addPrevData()
 {
-	if(prevData.length == prevDataIndex + 1)
+	if(prevData.length != prevDataIndex + 1)
 	{
-		prevData.push(JSON.parse(JSON.stringify(data)))
-		prevDataIndex++
+		prevData.splice(prevDataIndex+1, Infinity)
 	}
-	else
-	{
-		console.log("This is supposed to reset")
-	}
+	prevData.push(JSON.parse(JSON.stringify(data)))
+	prevDataIndex++
+	upd()
 }
 
 function historyGoBack()
 {
 	if(prevDataIndex <= 0) return;
 	prevDataIndex--
-	data = prevData[prevDataIndex]
+	data = JSON.parse(JSON.stringify(prevData[prevDataIndex]))
 	draw()
+	upd()
 }
 
 function historyGoForward()
 {
 	if(prevDataIndex >= prevData.length - 1) return
 	prevDataIndex++
-	data = prevData[prevDataIndex]
+	data = JSON.parse(JSON.stringify(prevData[prevDataIndex]))
 	draw()
+	upd()
 }
 ///////////////////////// Interaction /////////////////////////
 
