@@ -130,9 +130,9 @@ document.addEventListener("keydown", function(x){
 
 document.addEventListener("keyup", function(x){
 	var value = false;
-	if(x.code == "Control") keyboard.ctrl = value;
+	if(x.key == "Control") keyboard.ctrl = value;
 	if(x.code == "Space") keyboard.space = value;
-	if(x.code == "Shift") keyboard.shift = value;
+	if(x.key == "Shift") keyboard.shift = value;
 	if(x.code == "Delete") keyboard.delete = value;
 	if(x.code == "KeyZ") keyboard.z = value;
 	if(x.code == "KeyX") keyboard.x = value;
@@ -146,6 +146,9 @@ document.addEventListener("keyup", function(x){
 var currentType = "wall"
 
 var data = []
+
+var prevData = []
+var prevDataIndex = -1
 
 var mouse = {
 	x: 0,
@@ -168,6 +171,36 @@ var keyboard = {
 	v: false,
 }
 
+///////////////////////// Manipulating history (undo/redo) /////////////////////////
+
+function addPrevData()
+{
+	if(prevData.length == prevDataIndex + 1)
+	{
+		prevData.push(JSON.parse(JSON.stringify(data)))
+		prevDataIndex++
+	}
+	else
+	{
+		console.log("This is supposed to reset")
+	}
+}
+
+function historyGoBack()
+{
+	if(prevDataIndex <= 0) return;
+	prevDataIndex--
+	data = prevData[prevDataIndex]
+	draw()
+}
+
+function historyGoForward()
+{
+	if(prevDataIndex >= prevData.length - 1) return
+	prevDataIndex++
+	data = prevData[prevDataIndex]
+	draw()
+}
 ///////////////////////// Interaction /////////////////////////
 
 // Adds a single object
@@ -182,6 +215,7 @@ function add(type, xx, yy)
 	}
 
 	data.push(obj)
+	addPrevData()
 	draw()
 }
 
@@ -200,6 +234,7 @@ function addAll(dataIn, x, y)
 		}
 		data.push(cloneObj)
 	}
+	addPrevData()
 	draw()
 }
 
@@ -251,6 +286,7 @@ function remove(type, x, y)
 		newData.push(i)
 	}
 	data = newData
+	addPrevData()
 	draw()
 }
 
@@ -270,6 +306,7 @@ function removeFrom(type, fromX, fromY, toX, toY)
 		newData.push(i)
 	}
 	data = newData
+	addPrevData()
 	draw()
 }
 
@@ -479,7 +516,11 @@ function updateKeyboard()
 	{
 		if(keyboard.shift)
 		{
-
+			historyGoForward()
+		}
+		else
+		{
+			historyGoBack()
 		}
 	}
 	if(keyboard.space)
@@ -620,6 +661,7 @@ function loadData(str)
 		document.getElementById("render_grid").checked = render_grid
 		document.getElementById("render_stripes").checked = render_stripes
 		document.getElementById("render_shadows").checked = render_shadows
+		addPrevData()
 		message("green", "Success: loaded!")
 	}
 	catch (e)
