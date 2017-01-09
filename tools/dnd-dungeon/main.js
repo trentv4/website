@@ -172,12 +172,7 @@ var keyboard = {
 }
 
 ///////////////////////// Manipulating history (undo/redo) /////////////////////////
-function upd()
-{
-	console.log(prevData)
-	console.log(prevDataIndex)
-	console.log("====")
-}
+
 function addPrevData()
 {
 	if(prevData.length != prevDataIndex + 1)
@@ -186,7 +181,6 @@ function addPrevData()
 	}
 	prevData.push(JSON.parse(JSON.stringify(data)))
 	prevDataIndex++
-	upd()
 }
 
 function historyGoBack()
@@ -195,7 +189,6 @@ function historyGoBack()
 	prevDataIndex--
 	data = JSON.parse(JSON.stringify(prevData[prevDataIndex]))
 	draw()
-	upd()
 }
 
 function historyGoForward()
@@ -204,8 +197,8 @@ function historyGoForward()
 	prevDataIndex++
 	data = JSON.parse(JSON.stringify(prevData[prevDataIndex]))
 	draw()
-	upd()
 }
+
 ///////////////////////// Interaction /////////////////////////
 
 // Adds a single object
