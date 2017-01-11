@@ -4,27 +4,7 @@
 		<title>Dungeon Mapper</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" type="text/css" href="/stylesheet.css">
-		<style>
-			img {
-				width: 16px;
-				height: 16px;
-			}
-
-			img.* {
-				font-family: "Helvetica";
-			}
-
-			.feature-list {
-				float: left;
-				font-family: monospace;
-				margin-left: 5px;
-			}
-
-			.float-right-all * {
-				float:right;
-				margin-left: 10px;
-			}
-		</style>
+		<link rel="stylesheet" type="text/css" href="stylesheet.css">
 	</head>
 
 	<body>
@@ -51,22 +31,11 @@
 					<textarea id="save-entry-form"></textarea>
 				</div>
 			</div>
-			<div style="float: left;">
+			<div id="tool-list" style="float: left;">
 				<div>
 					<pre id="current-tool">Current tool: <img src="images/wall.png"> Wall</pre>
 				</div>
-				<div class="feature-list">
-					<pre>Objects: </pre>
-					<pre><img class="tool" id="Wall" src="images/wall.png"/> Wall</pre>
-					<pre><img class="tool" id="Wall 2" src="images/wall.png"/> Wall (tile)</pre>
-					<pre><img class="tool" id="Boxes" src="images/boxes.png"/> Boxes</pre>
-					<pre><img class="tool" id="Crate" src="images/crate.png"/> Crate</pre>
-				</div>
-				<div class="feature-list">
-					<pre>Traps: </pre>
-					<pre><img class="tool" id="Spike Pit" src="images/spike-pit.png"/> Spike Pit</pre>
-					<pre><img class="tool" id="Pressure Plate" src="images/pressure-plate.png"/> Pressure Plate</pre>
-				</div>
+
 			</div>
 		</div>
 		<script src="settings.js" type="text/javascript"></script>

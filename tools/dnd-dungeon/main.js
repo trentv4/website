@@ -698,3 +698,61 @@ function draw()
 
 if(localStorage.map != undefined) loadData(localStorage.map)
 draw()
+
+var objects = [
+	{
+		catname: "Objects:",
+		objects: [
+			{	name: "Wall",
+				id:   0,
+				file: "wall" },
+
+			{	name: "Wall (tile)",
+				id:   1,
+				file: "images/wall.png" },
+
+			{	name: "Boxes",
+				id:   2,
+				file: "images/boxes.png" },
+
+			{	name: "Crate",
+				id:   3,
+				file: "images/crate.png" },
+		],
+	},
+	{
+		catname: "Traps:",
+		objects: [
+			{	name: "Spike Pit",
+				id:   4,
+				file: "images/spike-pit.png" },
+
+			{	name: "Pressure Plate",
+				id:   5,
+				file: "images/pressure-plate.png" },
+		],
+	},
+]
+
+var obj_ids = []
+for(var i = 0; i < objects.length; i++)
+{
+	var str = ""
+
+	var category = objects[i]
+	str += `<div class="feature-list">`
+	str += `<pre>` + category.catname + `</pre>`
+	for(var g = 0; g < category.objects.length; g++)
+	{
+		var obj = category.objects[g]
+		obj_ids[obj.id] = obj
+		if(obj.id == 0)
+		{
+			str += `<pre><img class="tool" id="`+obj.id+`" src="images/wall.png"/> `+obj.name+`</pre>`
+			continue
+		}
+		str += `<pre><img class="tool" id="`+obj.id+`" src="`+obj.file+`"/> `+obj.name+`</pre>`
+	}
+	str += "</div>"
+	document.getElementById("tool-list").insertAdjacentHTML("beforeend", str)
+}

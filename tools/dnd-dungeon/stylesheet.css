@@ -1,0 +1,19 @@
+img {
+	width: 16px;
+	height: 16px;
+}
+
+img.* {
+	font-family: "Helvetica";
+}
+
+.feature-list {
+	float: left;
+	font-family: monospace;
+	margin-left: 5px;
+}
+
+.float-right-all * {
+	float:right;
+	margin-left: 10px;
+}
