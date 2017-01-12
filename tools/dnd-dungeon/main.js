@@ -5,30 +5,6 @@ c.width = _c.clientWidth; c.height = _c.clientHeight;
 
 ///////////////////////// Assigning and interacting with the DOM /////////////////////////
 
-var _tools = document.getElementsByClassName("tool")
-for(var i = 0; i < _tools.length; i++)
-{
-	var obj = _tools[i]
-	if(obj.id == "Wall")
-	{
-		obj.addEventListener("click", function(){
-			currentType = "wall"
-			console.log("setting type to: wall")
-			document.getElementById("current-tool").innerHTML = `Current tool: <img src="images/wall.png"> Wall`
-		})
-	}
-	else
-	{
-		obj.addEventListener("click", function(e){
-			var uri = this.src.replace(this.baseURI, "")
-
-			currentType = uri
-			console.log("setting type to: " + uri)
-			document.getElementById("current-tool").innerHTML = `Current tool: <img src="`+uri+`"> `+this.id+``
-		})
-	}
-}
-
 var _q = document.getElementsByClassName("checkbox")
 for(var i = 0; i < _q.length; i++)
 {
@@ -109,10 +85,15 @@ _c.onmousemove = function(x)
 {
 	mouse.x = x.offsetX
 	mouse.y = x.offsetY
-	mouse.data_x = Math.floor(mouse.x / cellSize),
-	mouse.data_y = Math.floor((mouse.y) / cellSize)
-	updateMouse()
-	draw()
+	var newDataX = Math.floor(mouse.x / cellSize)
+	var newDataY = Math.floor(mouse.y / cellSize)
+	if(mouse.data_x != newDataX | mouse.data_y != newDataY)
+	{
+		mouse.data_x = newDataX
+		mouse.data_y = newDataY
+		updateMouse()
+		draw()
+	}
 }
 
 document.addEventListener("keydown", function(x){
@@ -140,6 +121,75 @@ document.addEventListener("keyup", function(x){
 	if(x.code == "KeyV") keyboard.v = value;
 	updateKeyboard()
 })
+
+///////////////////////// Creating objects and the tool list /////////////////////////
+
+var objects = [
+	{
+		catname: "Objects:",
+		objects: [
+			{	name: "Wall",
+				id:   0,
+				file: "wall" },
+
+			{	name: "Wall (tile)",
+				id:   1,
+				file: "images/wall.png" },
+
+			{	name: "Boxes",
+				id:   2,
+				file: "images/boxes.png" },
+
+			{	name: "Crate",
+				id:   3,
+				file: "images/crate.png" },
+		],
+	},
+	{
+		catname: "Traps:",
+		objects: [
+			{	name: "Spike Pit",
+				id:   4,
+				file: "images/spike-pit.png" },
+
+			{	name: "Pressure Plate",
+				id:   5,
+				file: "images/pressure-plate.png" },
+		],
+	},
+]
+
+var obj_ids = []
+for(var i = 0; i < objects.length; i++)
+{
+	var category = objects[i]
+	var div = document.createElement("div")
+	div.className = "feature-list"
+	var pr = document.createElement("pre")
+	pr.innerText = category.catname
+	div.appendChild(pr)
+	for(var g = 0; g < category.objects.length; g++)
+	{
+		var current_object = category.objects[g]
+		obj_ids[current_object.id] = current_object
+		var pre = document.createElement("pre")
+		var img = document.createElement("img")
+		img.className = "tool"
+		img.id = current_object.id
+		img.src = current_object.file
+		if(current_object.id == 0) img.src = "images/wall.png"
+		img.addEventListener("click", function(e){
+			console.log("Setting to: " + obj_ids[this.id].name)
+			currentType = this.id
+			if(this.id == 0) currentType = "wall"
+			document.getElementById("current-tool").innerHTML = `Current tool: <img src="` + obj_ids[this.id].file + `"> `+obj_ids[this.id].name+``
+		})
+		pre.appendChild(img)
+		pre.appendChild(document.createTextNode(" " + current_object.name))
+		div.appendChild(pre)
+	}
+	document.getElementById("tool-list").appendChild(div)
+}
 
 ///////////////////////// Various objects /////////////////////////
 
@@ -371,7 +421,8 @@ function drawFeatures()
 		if(obj.type != "wall")
 		{
 			var img = new Image()
-			img.src = obj.type
+			img.src = obj_ids[obj.type].file
+			c.fillStyle = "#FF00FF"
 			c.drawImage(img, obj.x*cellSize, obj.y * cellSize, cellSize+1, cellSize+1)
 		}
 	}
@@ -603,8 +654,8 @@ var save_format = {
 			for(var i = 0; i < data.length-1; i++)
 			{
 				var obj = data[i].split("*")
-				var ntype = "images/" + obj[2]
-				if(obj[2] == "wall") ntype = "wall"
+				var ntype = obj[2]
+				if(ntype == "0") ntype = "wall"
 				d.push({
 					x: JSON.parse(obj[0]),
 					y: JSON.parse(obj[1]),
@@ -621,7 +672,8 @@ var save_format = {
 				var obj = data[i]
 				str += obj.x + "*"
 				str += obj.y + "*"
-				str += obj.type.replace("images/", "") + ";"
+				if(obj.type == "wall") str += "0;"
+				if(obj.type != "wall") str += obj.type + ";"
 			}
 			return str
 		}
@@ -694,65 +746,10 @@ function draw()
 	drawMouse()
 	drawSelection()
 	localStorage.map = getSaveData()
+	console.log("Frame draw complete!")
 }
 
 if(localStorage.map != undefined) loadData(localStorage.map)
-draw()
-
-var objects = [
-	{
-		catname: "Objects:",
-		objects: [
-			{	name: "Wall",
-				id:   0,
-				file: "wall" },
-
-			{	name: "Wall (tile)",
-				id:   1,
-				file: "images/wall.png" },
-
-			{	name: "Boxes",
-				id:   2,
-				file: "images/boxes.png" },
-
-			{	name: "Crate",
-				id:   3,
-				file: "images/crate.png" },
-		],
-	},
-	{
-		catname: "Traps:",
-		objects: [
-			{	name: "Spike Pit",
-				id:   4,
-				file: "images/spike-pit.png" },
-
-			{	name: "Pressure Plate",
-				id:   5,
-				file: "images/pressure-plate.png" },
-		],
-	},
-]
-
-var obj_ids = []
-for(var i = 0; i < objects.length; i++)
-{
-	var str = ""
-
-	var category = objects[i]
-	str += `<div class="feature-list">`
-	str += `<pre>` + category.catname + `</pre>`
-	for(var g = 0; g < category.objects.length; g++)
-	{
-		var obj = category.objects[g]
-		obj_ids[obj.id] = obj
-		if(obj.id == 0)
-		{
-			str += `<pre><img class="tool" id="`+obj.id+`" src="images/wall.png"/> `+obj.name+`</pre>`
-			continue
-		}
-		str += `<pre><img class="tool" id="`+obj.id+`" src="`+obj.file+`"/> `+obj.name+`</pre>`
-	}
-	str += "</div>"
-	document.getElementById("tool-list").insertAdjacentHTML("beforeend", str)
+window.onload = function() {
+	draw()
 }
