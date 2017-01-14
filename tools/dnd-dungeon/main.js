@@ -812,9 +812,7 @@ var layers = {
 			c.fillStyle = colors.background
 			c.fillRect(0,0,c.width, c.height)
 
-			var image = new Image()
-			image.src = c.canvas.toDataURL()
-			this.cache = image
+			this.cache = c.canvas
 			console.log("Background redraw")
 		}
 	},
@@ -829,9 +827,7 @@ var layers = {
 
 			drawStripes(c)
 
-			var image = new Image()
-			image.src = c.canvas.toDataURL()
-			this.cache = image
+			this.cache = c.canvas
 			console.log("Stripes redraw")
 		}
 	},
@@ -846,9 +842,7 @@ var layers = {
 
 			drawGrid(c)
 
-			var image = new Image()
-			image.src = c.canvas.toDataURL()
-			this.cache = image
+			this.cache = c.canvas
 			console.log("Grid redraw")
 		}
 	},
@@ -863,9 +857,7 @@ var layers = {
 
 			drawEmptyCells(c)
 
-			var image = new Image()
-			image.src = c.canvas.toDataURL()
-			this.cache = image
+			this.cache = c.canvas
 			console.log("Empty cell redraw")
 		}
 	},
@@ -880,9 +872,7 @@ var layers = {
 
 			drawShadows(c)
 
-			var image = new Image()
-			image.src = c.canvas.toDataURL()
-			this.cache = image
+			this.cache = c.canvas
 			console.log("Shadows redraw")
 		}
 	},
@@ -897,9 +887,7 @@ var layers = {
 
 			drawFeatures(c)
 
-			var image = new Image()
-			image.src = c.canvas.toDataURL()
-			this.cache = image
+			this.cache = c.canvas
 			console.log("Features redraw")
 		}
 	},
@@ -914,9 +902,7 @@ var layers = {
 
 			drawMouse(c)
 
-			var image = new Image()
-			image.src = c.canvas.toDataURL()
-			this.cache = image
+			this.cache = c.canvas
 			console.log("Mouse redraw")
 		}
 	},
