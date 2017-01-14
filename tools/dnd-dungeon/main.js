@@ -798,7 +798,7 @@ var layers = {
 		this.mouse.draw(canvas)
 		this.selection.draw(canvas)
 		var time1 = performance.now()
-		console.log("Frame redrawn in " + (time1 - time0) + "ms")
+		console.log("Frame drawn in " + (time1 - time0) + "ms")
 	},
 	background: {
 		cache: null,
@@ -917,9 +917,7 @@ var layers = {
 
 			drawSelection(c)
 
-			var image = new Image()
-			image.src = c.canvas.toDataURL()
-			this.cache = image
+			this.cache = c.canvas
 			console.log("Selection redraw")
 		}
 	},
