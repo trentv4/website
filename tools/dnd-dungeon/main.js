@@ -1,7 +1,7 @@
 var _c = document.getElementById("dungeon_creator");
 _c.width = _c.clientWidth; _c.height = _c.clientHeight;
-var c = _c.getContext("2d")
-c.width = _c.clientWidth; c.height = _c.clientHeight;
+var c2 = _c.getContext("2d")
+c2.width = _c.clientWidth; c2.height = _c.clientHeight;
 
 ///////////////////////// Assigning and interacting with the DOM /////////////////////////
 
@@ -15,7 +15,8 @@ for(var i = 0; i < _q.length; i++)
 		render_corner_dots = document.getElementById("render_corner_dots").checked
 		render_grid = document.getElementById("render_grid").checked
 		render_stripes = document.getElementById("render_stripes").checked
-		render_shadows = document.getElementById("render_shadows").checked
+ 		render_shadows = document.getElementById("render_shadows").checked
+		layers.fullRedraw()
 		window.draw();
 	}
 }
@@ -27,6 +28,7 @@ document.getElementById("save-btn").addEventListener("click", function(e){
 
 document.getElementById("load-btn").addEventListener("click", function(e){
 	loadData(document.getElementById("save-entry-form").value)
+	layers.fullRedraw()
 	draw()
 })
 
@@ -44,6 +46,7 @@ document.getElementById("clear-btn").addEventListener("click", function(e){
 	document.getElementById("render_grid").checked = render_grid
 	document.getElementById("render_stripes").checked = render_stripes
 	document.getElementById("render_shadows").checked = render_shadows
+	layers.fullRedraw()
 	draw()
 	message("green", "Success: cleared!")
 })
@@ -92,6 +95,7 @@ _c.onmousemove = function(x)
 		mouse.data_x = newDataX
 		mouse.data_y = newDataY
 		updateMouse()
+		layers.mouse.redraw()
 		draw()
 	}
 }
@@ -238,6 +242,7 @@ function historyGoBack()
 	if(prevDataIndex <= 0) return;
 	prevDataIndex--
 	data = JSON.parse(JSON.stringify(prevData[prevDataIndex]))
+	layers.fullRedraw()
 	draw()
 }
 
@@ -246,6 +251,7 @@ function historyGoForward()
 	if(prevDataIndex >= prevData.length - 1) return
 	prevDataIndex++
 	data = JSON.parse(JSON.stringify(prevData[prevDataIndex]))
+	layers.fullRedraw()
 	draw()
 }
 
@@ -264,6 +270,15 @@ function add(type, xx, yy)
 
 	data.push(obj)
 	addPrevData()
+	if(type == "wall")
+	{
+		layers.shadows.redraw()
+		layers.emptyCells.redraw()
+	}
+	else
+	{
+		layers.features.redraw()
+	}
 	draw()
 }
 
@@ -283,6 +298,9 @@ function addAll(dataIn, x, y)
 		data.push(cloneObj)
 	}
 	addPrevData()
+	layers.shadows.redraw()
+	layers.emptyCells.redraw()
+	layers.features.redraw()
 	draw()
 }
 
@@ -335,6 +353,15 @@ function remove(type, x, y)
 	}
 	data = newData
 	addPrevData()
+	if(type == "wall")
+	{
+		layers.shadows.redraw()
+		layers.emptyCells.redraw()
+	}
+	else
+	{
+		layers.features.redraw()
+	}
 	draw()
 }
 
@@ -355,12 +382,15 @@ function removeFrom(type, fromX, fromY, toX, toY)
 	}
 	data = newData
 	addPrevData()
+	layers.shadows.redraw()
+	layers.emptyCells.redraw()
+	layers.features.redraw()
 	draw()
 }
 
 ///////////////////////// Drawing functions /////////////////////////
 
-function drawGrid()
+function drawGrid(c)
 {
 	c.translate(0.5, 0.5) //to de-alias shit
 	for(var x = 0; x < c.width/cellSize; x++)
@@ -374,7 +404,7 @@ function drawGrid()
 	c.translate(-0.5, -0.5) //to de-alias shit
 }
 
-function drawEmptyCells()
+function drawEmptyCells(c)
 {
 	if(data == null) return;
 	for(var i = 0; i < data.length; i++)
@@ -412,7 +442,7 @@ function drawEmptyCells()
 	}
 }
 
-function drawFeatures()
+function drawFeatures(c)
 {
 	if(data == null) return;
 	for(var i = 0; i < data.length; i++)
@@ -428,7 +458,7 @@ function drawFeatures()
 	}
 }
 
-function drawStripes()
+function drawStripes(c)
 {
 	for(var x = 0; x < c.width/stripeDistance*2; x++)
 	{
@@ -440,7 +470,7 @@ function drawStripes()
 	}
 }
 
-function drawMouse()
+function drawMouse(c)
 {
 	if(mouse.data_y >= 0)
 	{
@@ -450,7 +480,7 @@ function drawMouse()
 	}
 }
 
-function drawShadows()
+function drawShadows(c)
 {
 	for(var i = 0; i < data.length; i++)
 	{
@@ -479,7 +509,7 @@ function drawShadows()
 	}
 }
 
-function drawSelection()
+function drawSelection(c)
 {
 	if(selection != null)
 	{
@@ -733,20 +763,186 @@ function message(color, str)
 	}, 500)
 }
 
+function getCanvas(width, height)
+{
+	var canvas = document.createElement("canvas")
+	canvas.width = width
+	canvas.height = height
+	var context = canvas.getContext("2d")
+	context.width = width
+	context.height = height
+	return context
+}
+
+var layers = {
+	fullRedraw: function() {
+		this.background.redraw()
+		this.stripes.redraw()
+		this.grid.redraw()
+		this.emptyCells.redraw()
+		this.shadows.redraw()
+		this.features.redraw()
+		this.mouse.redraw()
+		this.selection.redraw()
+		draw()
+	},
+	draw: function() {
+		var canvas = c2
+		var time0 = performance.now()
+		this.background.draw(canvas)
+		if(render_stripes) this.stripes.draw(canvas)
+		if(render_grid) this.grid.draw(canvas)
+		this.emptyCells.draw(canvas)
+		if(render_shadows) this.shadows.draw(canvas)
+		this.features.draw(canvas)
+		this.mouse.draw(canvas)
+		this.selection.draw(canvas)
+		var time1 = performance.now()
+		console.log("Frame redrawn in " + (time1 - time0) + "ms")
+	},
+	background: {
+		cache: null,
+		draw: function(c) {
+			if(this.cache == null) this.redraw()
+			c.drawImage(this.cache, 0, 0)
+		},
+		redraw: function() {
+			var c = getCanvas(c2.width, c2.height)
+
+			c.fillStyle = colors.background
+			c.fillRect(0,0,c.width, c.height)
+
+			var image = new Image()
+			image.src = c.canvas.toDataURL()
+			this.cache = image
+			console.log("Background redraw")
+		}
+	},
+	stripes: {
+		cache: null,
+		draw: function(c) {
+			if(this.cache == null) this.redraw()
+			c.drawImage(this.cache, 0, 0)
+		},
+		redraw: function() {
+			var c = getCanvas(c2.width, c2.height)
+
+			drawStripes(c)
+
+			var image = new Image()
+			image.src = c.canvas.toDataURL()
+			this.cache = image
+			console.log("Stripes redraw")
+		}
+	},
+	grid: {
+		cache: null,
+		draw: function(c) {
+			if(this.cache == null) this.redraw()
+			c.drawImage(this.cache, 0, 0)
+		},
+		redraw: function() {
+			var c = getCanvas(c2.width, c2.height)
+
+			drawGrid(c)
+
+			var image = new Image()
+			image.src = c.canvas.toDataURL()
+			this.cache = image
+			console.log("Grid redraw")
+		}
+	},
+	emptyCells: {
+		cache: null,
+		draw: function(c) {
+			if(this.cache == null) this.redraw()
+			c.drawImage(this.cache, 0, 0)
+		},
+		redraw: function() {
+			var c = getCanvas(c2.width, c2.height)
+
+			drawEmptyCells(c)
+
+			var image = new Image()
+			image.src = c.canvas.toDataURL()
+			this.cache = image
+			console.log("Empty cell redraw")
+		}
+	},
+	shadows: {
+		cache: null,
+		draw: function(c) {
+			if(this.cache == null) this.redraw()
+			c.drawImage(this.cache, 0, 0)
+		},
+		redraw: function() {
+			var c = getCanvas(c2.width, c2.height)
+
+			drawShadows(c)
+
+			var image = new Image()
+			image.src = c.canvas.toDataURL()
+			this.cache = image
+			console.log("Shadows redraw")
+		}
+	},
+	features: {
+		cache: null,
+		draw: function(c) {
+			if(this.cache == null) this.redraw()
+			c.drawImage(this.cache, 0, 0)
+		},
+		redraw: function() {
+			var c = getCanvas(c2.width, c2.height)
+
+			drawFeatures(c)
+
+			var image = new Image()
+			image.src = c.canvas.toDataURL()
+			this.cache = image
+			console.log("Features redraw")
+		}
+	},
+	mouse: {
+		cache: null,
+		draw: function(c) {
+			if(this.cache == null) this.redraw()
+			c.drawImage(this.cache, 0, 0)
+		},
+		redraw: function() {
+			var c = getCanvas(c2.width, c2.height)
+
+			drawMouse(c)
+
+			var image = new Image()
+			image.src = c.canvas.toDataURL()
+			this.cache = image
+			console.log("Mouse redraw")
+		}
+	},
+	selection: {
+		cache: null,
+		draw: function(c) {
+			if(this.cache == null) this.redraw()
+			c.drawImage(this.cache, 0, 0)
+		},
+		redraw: function() {
+			var c = getCanvas(c2.width, c2.height)
+
+			drawSelection(c)
+
+			var image = new Image()
+			image.src = c.canvas.toDataURL()
+			this.cache = image
+			console.log("Selection redraw")
+		}
+	},
+}
+
 function draw()
 {
-	c.fillStyle = colors.background
-	c.fillRect(0,0,c.width, c.height)
-	c.lineWidth = 1;
-	if(render_stripes) drawStripes()
-	if(render_grid) drawGrid()
-	drawEmptyCells()
-	if(render_shadows) drawShadows()
-	drawFeatures()
-	drawMouse()
-	drawSelection()
+	layers.draw()
 	localStorage.map = getSaveData()
-	console.log("Frame draw complete!")
 }
 
 if(localStorage.map != undefined) loadData(localStorage.map)
