@@ -22,10 +22,6 @@ for(var i = 0; i < _q.length; i++)
 		render_grid = document.getElementById("render_grid").checked
 		render_stripes = document.getElementById("render_stripes").checked
  		render_shadows = document.getElementById("render_shadows").checked
-		document.getElementById("emptyCells").style.display = val(render_walls)
-		document.getElementById("grid").style.display = val(render_grid)
-		document.getElementById("stripes").style.display = val(render_stripes)
-		document.getElementById("shadows").style.display = val(render_shadows)
 		localStorage.map = getSaveData()
 		display.fullRedraw()
 	}
@@ -108,7 +104,7 @@ _c.onmousemove = function(x)
 		updateMouse()
 		localStorage.map = getSaveData()
 		display.layers.mouse.draw(display.layers.mouse.canvas)
-	}
+ 	}
 }
 
 document.addEventListener("keydown", function(x){
@@ -196,8 +192,15 @@ for(var i = 0; i < objects.length; i++)
 		img.addEventListener("click", function(e){
 			console.log("Setting to: " + obj_ids[this.id].name)
 			currentType = this.id
-			if(this.id == 0) currentType = "wall"
-			document.getElementById("current-tool").innerHTML = `Current tool: <img src="` + obj_ids[this.id].file + `"> `+obj_ids[this.id].name+``
+			if(this.id == 0)
+			{
+				currentType = "wall"
+				document.getElementById("current-tool").innerHTML = `Current tool: <img src="images/ wall.png"> `+obj_ids[this.id].name+``
+			}
+			else
+			{
+				document.getElementById("current-tool").innerHTML = `Current tool: <img src="` + obj_ids[this.id].file + `"> `+obj_ids[this.id].name+``
+			}
 		})
 		pre.appendChild(img)
 		pre.appendChild(document.createTextNode(" " + current_object.name))
@@ -462,9 +465,9 @@ function updateKeyboard()
 	}
 	if(keyboard.space)
 	{
-		console.log(isSelecting)
 		isSelecting = !isSelecting
 		if(!isSelecting) selection = null
+		display.layers.selection.draw(display.layers.selection.canvas)
 	}
 
 }
@@ -486,9 +489,12 @@ function updateMouse()
 						data_y2: 0,
 						active: true
 					}
+					console.log("What")
+					display.layers.selection.draw(display.layers.selection.canvas)
 				}
 				selection.data_x2 = mouse.data_x
 				selection.data_y2 = mouse.data_y
+				display.layers.selection.draw(display.layers.selection.canvas)
 			}
 			if(!mouse.isLeft)
 			{
@@ -624,6 +630,11 @@ function message(color, str)
 
 var display = {
 	fullRedraw: function() {
+		document.getElementById("emptyCells").style.display = val(render_walls)
+		document.getElementById("grid").style.display = val(render_grid)
+		document.getElementById("stripes").style.display = val(render_stripes)
+		document.getElementById("shadows").style.display = val(render_shadows)
+
 		this.layers.background.draw(this.layers.background.canvas)
 		this.layers.stripes.draw(this.layers.stripes.canvas)
 		this.layers.grid.draw(this.layers.grid.canvas)

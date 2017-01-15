@@ -2,3 +2,7 @@ todo:
 draw lines between mouse buffers, to resolve missed spots when moving the mouse very fast
 preview mode for pasting
 don't render mouse cursor when it's not on the canvas
+
+bugs:
+save image is broken
+selection behaves incorrectly when selecting large areas to copy and paste
