@@ -1,9 +1,15 @@
-var _c = document.getElementById("dungeon_creator");
+var _c = document.getElementById("input_layer");
 _c.width = _c.clientWidth; _c.height = _c.clientHeight;
 var c2 = _c.getContext("2d")
 c2.width = _c.clientWidth; c2.height = _c.clientHeight;
 
 ///////////////////////// Assigning and interacting with the DOM /////////////////////////
+
+function val(inp)
+{
+	if(inp == false) return "none"
+	if(inp == true) return "inline"
+}
 
 var _q = document.getElementsByClassName("checkbox")
 for(var i = 0; i < _q.length; i++)
@@ -16,20 +22,25 @@ for(var i = 0; i < _q.length; i++)
 		render_grid = document.getElementById("render_grid").checked
 		render_stripes = document.getElementById("render_stripes").checked
  		render_shadows = document.getElementById("render_shadows").checked
-		layers.fullRedraw()
-		window.draw();
+		document.getElementById("emptyCells").style.display = val(render_walls)
+		document.getElementById("grid").style.display = val(render_grid)
+		document.getElementById("stripes").style.display = val(render_stripes)
+		document.getElementById("shadows").style.display = val(render_shadows)
+		localStorage.map = getSaveData()
+		display.fullRedraw()
 	}
 }
 
 document.getElementById("save-btn").addEventListener("click", function(e){
 	document.getElementById("save-entry-form").value = getSaveData()
+	localStorage.map = getSaveData()
 	message("green", "Success: saved!")
 })
 
 document.getElementById("load-btn").addEventListener("click", function(e){
 	loadData(document.getElementById("save-entry-form").value)
-	layers.fullRedraw()
-	draw()
+	localStorage.map = getSaveData()
+	display.fullRedraw()
 })
 
 document.getElementById("clear-btn").addEventListener("click", function(e){
@@ -46,8 +57,8 @@ document.getElementById("clear-btn").addEventListener("click", function(e){
 	document.getElementById("render_grid").checked = render_grid
 	document.getElementById("render_stripes").checked = render_stripes
 	document.getElementById("render_shadows").checked = render_shadows
-	layers.fullRedraw()
-	draw()
+	localStorage.map = getSaveData()
+	display.fullRedraw()
 	message("green", "Success: cleared!")
 })
 
@@ -95,8 +106,8 @@ _c.onmousemove = function(x)
 		mouse.data_x = newDataX
 		mouse.data_y = newDataY
 		updateMouse()
-		layers.mouse.redraw()
-		draw()
+		localStorage.map = getSaveData()
+		display.layers.mouse.draw(display.layers.mouse.canvas)
 	}
 }
 
@@ -242,8 +253,7 @@ function historyGoBack()
 	if(prevDataIndex <= 0) return;
 	prevDataIndex--
 	data = JSON.parse(JSON.stringify(prevData[prevDataIndex]))
-	layers.fullRedraw()
-	draw()
+	display.fullRedraw()
 }
 
 function historyGoForward()
@@ -251,8 +261,7 @@ function historyGoForward()
 	if(prevDataIndex >= prevData.length - 1) return
 	prevDataIndex++
 	data = JSON.parse(JSON.stringify(prevData[prevDataIndex]))
-	layers.fullRedraw()
-	draw()
+	display.fullRedraw()
 }
 
 ///////////////////////// Interaction /////////////////////////
@@ -272,14 +281,13 @@ function add(type, xx, yy)
 	addPrevData()
 	if(type == "wall")
 	{
-		layers.shadows.redraw()
-		layers.emptyCells.redraw()
+		display.layers.shadows.draw(display.layers.shadows.canvas)
+		display.layers.emptyCells.draw(display.layers.emptyCells.canvas)
 	}
 	else
 	{
-		layers.features.redraw()
+		display.layers.features.draw(display.layers.features.canvas)
 	}
-	draw()
 }
 
 // Adds a collection of objects
@@ -298,10 +306,9 @@ function addAll(dataIn, x, y)
 		data.push(cloneObj)
 	}
 	addPrevData()
-	layers.shadows.redraw()
-	layers.emptyCells.redraw()
-	layers.features.redraw()
-	draw()
+	display.layers.shadows.draw(display.layers.shadows.canvas)
+	display.layers.emptyCells.draw(display.layers.emptyCells.canvas)
+	display.layers.features.draw(display.layers.features.canvas)
 }
 
 // Gets the object at x, y that matches type. If type is all, it'll pull everything.
@@ -355,15 +362,14 @@ function remove(type, x, y)
 	addPrevData()
 	if(type == "wall")
 	{
-		layers.shadows.redraw()
-		layers.emptyCells.redraw()
+		display.layers.shadows.draw(display.layers.shadows.canvas)
+		display.layers.emptyCells.draw(display.layers.emptyCells.canvas)
 	}
 	else
 	{
-		layers.features.redraw()
+		display.layers.features.draw(display.layers.features.canvas)
 	}
-	draw()
-}
+ }
 
 function removeFrom(type, fromX, fromY, toX, toY)
 {
@@ -382,157 +388,9 @@ function removeFrom(type, fromX, fromY, toX, toY)
 	}
 	data = newData
 	addPrevData()
-	layers.shadows.redraw()
-	layers.emptyCells.redraw()
-	layers.features.redraw()
-	draw()
-}
-
-///////////////////////// Drawing functions /////////////////////////
-
-function drawGrid(c)
-{
-	c.translate(0.5, 0.5) //to de-alias shit
-	for(var x = 0; x < c.width/cellSize; x++)
-	{
-		for(var y = 0; y < c.height/cellSize; y++)
-		{
-			c.strokeStyle = colors.borders_grid
-			c.strokeRect(x*cellSize, y*cellSize, cellSize, cellSize)
-		}
-	}
-	c.translate(-0.5, -0.5) //to de-alias shit
-}
-
-function drawEmptyCells(c)
-{
-	if(data == null) return;
-	for(var i = 0; i < data.length; i++)
-	{
-		var obj = data[i]
-
-		if(obj.type != "wall") continue;
-
-		c.translate(obj.x * cellSize, obj.y * cellSize)
-
-		c.fillStyle = colors.background
-		c.fillRect(1, 1, cellSize - 1, cellSize - 1)
-		if(!render_grid)
-		{
-			c.fillRect(0, 0, cellSize, cellSize)
-		}
-
-		if(render_corner_dots)
-		{
-			c.fillStyle = colors.borders_room
-			if(render_grid) c.fillStyle = colors.borders_grid
-			c.fillRect(0,0,1,1)
-		}
-
-		if(render_walls)
-		{
-			c.fillStyle = colors.borders_room
-			if(get("wall", obj.x - 1, obj.y) == null) c.fillRect(0,0,          1,cellSize + 1)
-			if(get("wall", obj.x + 1, obj.y) == null) c.fillRect(cellSize,0,   1,cellSize + 1)
-			if(get("wall", obj.x, obj.y - 1) == null) c.fillRect(0,0,          cellSize + 1,1)
-			if(get("wall", obj.x, obj.y + 1) == null) c.fillRect(0,cellSize,   cellSize + 1,1)
-		}
-
-		c.translate(-obj.x * cellSize, -obj.y * cellSize)
-	}
-}
-
-function drawFeatures(c)
-{
-	if(data == null) return;
-	for(var i = 0; i < data.length; i++)
-	{
-		var obj = data[i]
-		if(obj.type != "wall")
-		{
-			var img = new Image()
-			img.src = obj_ids[obj.type].file
-			c.fillStyle = "#FF00FF"
-			c.drawImage(img, obj.x*cellSize, obj.y * cellSize, cellSize+1, cellSize+1)
-		}
-	}
-}
-
-function drawStripes(c)
-{
-	for(var x = 0; x < c.width/stripeDistance*2; x++)
-	{
-		c.strokeStyle = colors.wall_stripes
-		c.beginPath();
-		c.moveTo(x * stripeDistance, 0)
-		c.lineTo(0,x * stripeDistance)
-		c.stroke();
-	}
-}
-
-function drawMouse(c)
-{
-	if(mouse.data_y >= 0)
-	{
-		c.strokeStyle = colors.mouse_outline
-		if(mouse.isRight | mouse.isLeft) c.strokeStyle = "#FFFF00"
-		c.strokeRect(mouse.data_x * cellSize, mouse.data_y * cellSize, cellSize, cellSize)
-	}
-}
-
-function drawShadows(c)
-{
-	for(var i = 0; i < data.length; i++)
-	{
-		var obj = data[i]
-
-		if(obj.type == "wall")
-		{
-			c.fillStyle = colors.shadow
-			if(get("wall", obj.x, obj.y - 1) == null)
-			{
-				c.fillRect(obj.x*cellSize+3, obj.y*cellSize+1, cellSize-5, 3)
-				if(get("wall", obj.x - 1, obj.y - 1) == null)
-				{
-					c.fillRect(obj.x*cellSize+1, obj.y*cellSize+1, 3, 3)
-				}
-				if(get("wall", obj.x + 1, obj.y - 1) == null)
-				{
-					c.fillRect(obj.x*cellSize + cellSize - 2, obj.y*cellSize+1, 2, 3)
-					if(get("wall", obj.x + 1, obj.y) != null)
-					{
-						c.fillRect(obj.x * cellSize + cellSize, obj.y * cellSize + 1, 1, 3)
-					}
-				}
-			}
-		}
-	}
-}
-
-function drawSelection(c)
-{
-	if(selection != null)
-	{
-		c.strokeStyle = colors.select_outline
-		c.fillStyle = colors.select_fill
-
-		c.translate(0.5, 0.5) //to de-alias shit
-		var lowX = selection.data_x < selection.data_x2 ? selection.data_x : selection.data_x2
-		var highX = selection.data_x > selection.data_x2 ? selection.data_x : selection.data_x2
-		var lowY = selection.data_y < selection.data_y2 ? selection.data_y : selection.data_y2
-		var highY = selection.data_y > selection.data_y2 ? selection.data_y : selection.data_y2
-		for(var x = lowX; x <= highX; x++)
-		{
-			for(var y = lowY; y <= highY; y++)
-			{
-				c.globalAlpha = 0.2;
-				c.fillRect(x*cellSize, y*cellSize, cellSize, cellSize)
-				c.globalAlpha = 1;
-				c.strokeRect(x*cellSize, y*cellSize, cellSize, cellSize)
-			}
-		}
-		c.translate(-0.5, -0.5) //to de-alias shit
-	}
+	display.layers.features.draw(display.layers.features.canvas)
+	display.layers.shadows.draw(display.layers.shadows.canvas)
+	display.layers.emptyCells.draw(display.layers.emptyCells.canvas)
 }
 
 ///////////////////////// Interactions (mouse and keyboard) /////////////////////////
@@ -604,6 +462,7 @@ function updateKeyboard()
 	}
 	if(keyboard.space)
 	{
+		console.log(isSelecting)
 		isSelecting = !isSelecting
 		if(!isSelecting) selection = null
 	}
@@ -763,173 +622,197 @@ function message(color, str)
 	}, 500)
 }
 
-function getCanvas(width, height)
-{
-	var canvas = document.createElement("canvas")
-	canvas.width = width
-	canvas.height = height
-	var context = canvas.getContext("2d")
-	context.width = width
-	context.height = height
-	return context
-}
-
-var layers = {
+var display = {
 	fullRedraw: function() {
-		this.background.redraw()
-		this.stripes.redraw()
-		this.grid.redraw()
-		this.emptyCells.redraw()
-		this.shadows.redraw()
-		this.features.redraw()
-		this.mouse.redraw()
-		this.selection.redraw()
-		draw()
+		this.layers.background.draw(this.layers.background.canvas)
+		this.layers.stripes.draw(this.layers.stripes.canvas)
+		this.layers.grid.draw(this.layers.grid.canvas)
+		this.layers.emptyCells.draw(this.layers.emptyCells.canvas)
+		this.layers.shadows.draw(this.layers.shadows.canvas)
+		this.layers.features.draw(this.layers.features.canvas)
+		this.layers.mouse.draw(this.layers.mouse.canvas)
+		this.layers.selection.draw(this.layers.selection.canvas)
 	},
-	draw: function() {
-		var canvas = c2
-		var time0 = performance.now()
-		this.background.draw(canvas)
-		if(render_stripes) this.stripes.draw(canvas)
-		if(render_grid) this.grid.draw(canvas)
-		this.emptyCells.draw(canvas)
-		if(render_shadows) this.shadows.draw(canvas)
-		this.features.draw(canvas)
-		this.mouse.draw(canvas)
-		this.selection.draw(canvas)
-		var time1 = performance.now()
-		console.log("Frame drawn in " + (time1 - time0) + "ms")
-	},
-	background: {
-		cache: null,
-		draw: function(c) {
-			if(this.cache == null) this.redraw()
-			c.drawImage(this.cache, 0, 0)
+	layers: {
+		background: {
+			canvas: document.getElementById("background").getContext("2d"),
+			draw: function(c) {
+				c.clearRect(0, 0, c.canvas.width, c.canvas.height)
+				c.fillStyle = colors.background
+				c.fillRect(0, 0, c.canvas.width, c.canvas.height)
+				console.log("Background drawn")
+			}
 		},
-		redraw: function() {
-			var c = getCanvas(c2.width, c2.height)
-
-			c.fillStyle = colors.background
-			c.fillRect(0,0,c.width, c.height)
-
-			this.cache = c.canvas
-			console.log("Background redraw")
-		}
-	},
-	stripes: {
-		cache: null,
-		draw: function(c) {
-			if(this.cache == null) this.redraw()
-			c.drawImage(this.cache, 0, 0)
+		stripes: {
+			canvas: document.getElementById("stripes").getContext("2d"),
+			draw: function(c) {
+				c.clearRect(0, 0, c.canvas.width, c.canvas.height)
+				for(var x = 0; x < c.canvas.width/stripeDistance*2; x++)
+				{
+					c.strokeStyle = colors.wall_stripes
+					c.beginPath();
+					c.moveTo(x * stripeDistance, 0)
+					c.lineTo(0,x * stripeDistance)
+					c.stroke();
+				}
+				console.log("Stripes drawn")
+			}
 		},
-		redraw: function() {
-			var c = getCanvas(c2.width, c2.height)
-
-			drawStripes(c)
-
-			this.cache = c.canvas
-			console.log("Stripes redraw")
-		}
-	},
-	grid: {
-		cache: null,
-		draw: function(c) {
-			if(this.cache == null) this.redraw()
-			c.drawImage(this.cache, 0, 0)
+		grid: {
+			canvas: document.getElementById("grid").getContext("2d"),
+			draw: function(c) {
+				c.clearRect(0, 0, c.canvas.width, c.canvas.height)
+				c.translate(0.5, 0.5) //to de-alias shit
+				for(var x = 0; x < c.canvas.width/cellSize; x++)
+				{
+					for(var y = 0; y < c.canvas.height/cellSize; y++)
+					{
+						c.strokeStyle = colors.borders_grid
+						c.strokeRect(x*cellSize, y*cellSize, cellSize, cellSize)
+					}
+				}
+				c.translate(-0.5, -0.5) //to de-alias shit
+				console.log("Grid drawn")
+			}
 		},
-		redraw: function() {
-			var c = getCanvas(c2.width, c2.height)
+		emptyCells: {
+			canvas: document.getElementById("emptyCells").getContext("2d"),
+			draw: function(c) {
+				c.clearRect(0, 0, c.canvas.width, c.canvas.height)
+				if(data == null) return;
+				for(var i = 0; i < data.length; i++)
+				{
+					var obj = data[i]
 
-			drawGrid(c)
+					if(obj.type != "wall") continue;
 
-			this.cache = c.canvas
-			console.log("Grid redraw")
-		}
-	},
-	emptyCells: {
-		cache: null,
-		draw: function(c) {
-			if(this.cache == null) this.redraw()
-			c.drawImage(this.cache, 0, 0)
+					c.translate(obj.x * cellSize, obj.y * cellSize)
+
+					c.fillStyle = colors.background
+					c.fillRect(1, 1, cellSize - 1, cellSize - 1)
+					if(!render_grid)
+					{
+						c.fillRect(0, 0, cellSize, cellSize)
+					}
+
+					if(render_corner_dots)
+					{
+						c.fillStyle = colors.borders_room
+						if(render_grid) c.fillStyle = colors.borders_grid
+						c.fillRect(0,0,1,1)
+					}
+
+					if(render_walls)
+					{
+						c.fillStyle = colors.borders_room
+						if(get("wall", obj.x - 1, obj.y) == null) c.fillRect(0,0,          1,cellSize + 1)
+						if(get("wall", obj.x + 1, obj.y) == null) c.fillRect(cellSize,0,   1,cellSize + 1)
+						if(get("wall", obj.x, obj.y - 1) == null) c.fillRect(0,0,          cellSize + 1,1)
+						if(get("wall", obj.x, obj.y + 1) == null) c.fillRect(0,cellSize,   cellSize + 1,1)
+					}
+
+					c.translate(-obj.x * cellSize, -obj.y * cellSize)
+				}
+				console.log("Empty cells drawn")
+			}
 		},
-		redraw: function() {
-			var c = getCanvas(c2.width, c2.height)
+		shadows: {
+			canvas: document.getElementById("shadows").getContext("2d"),
+			draw: function(c) {
+				c.clearRect(0, 0, c.canvas.width, c.canvas.height)
+				for(var i = 0; i < data.length; i++)
+				{
+					var obj = data[i]
 
-			drawEmptyCells(c)
-
-			this.cache = c.canvas
-			console.log("Empty cell redraw")
-		}
-	},
-	shadows: {
-		cache: null,
-		draw: function(c) {
-			if(this.cache == null) this.redraw()
-			c.drawImage(this.cache, 0, 0)
+					if(obj.type == "wall")
+					{
+						c.fillStyle = colors.shadow
+						if(get("wall", obj.x, obj.y - 1) == null)
+						{
+							c.fillRect(obj.x*cellSize+3, obj.y*cellSize+1, cellSize-5, 3)
+							if(get("wall", obj.x - 1, obj.y - 1) == null)
+							{
+								c.fillRect(obj.x*cellSize+1, obj.y*cellSize+1, 3, 3)
+							}
+							if(get("wall", obj.x + 1, obj.y - 1) == null)
+							{
+								c.fillRect(obj.x*cellSize + cellSize - 2, obj.y*cellSize+1, 2, 3)
+								if(get("wall", obj.x + 1, obj.y) != null)
+								{
+									c.fillRect(obj.x * cellSize + cellSize, obj.y * cellSize + 1, 1, 3)
+								}
+							}
+						}
+					}
+				}
+				console.log("Shadows drawn")
+			}
 		},
-		redraw: function() {
-			var c = getCanvas(c2.width, c2.height)
-
-			drawShadows(c)
-
-			this.cache = c.canvas
-			console.log("Shadows redraw")
-		}
-	},
-	features: {
-		cache: null,
-		draw: function(c) {
-			if(this.cache == null) this.redraw()
-			c.drawImage(this.cache, 0, 0)
+		features: {
+			canvas: document.getElementById("features").getContext("2d"),
+			draw: function(c) {
+				c.clearRect(0, 0, c.canvas.width, c.canvas.height)
+				if(data == null) return;
+				for(var i = 0; i < data.length; i++)
+				{
+					var obj = data[i]
+					if(obj.type != "wall")
+					{
+						var img = new Image()
+						img.src = obj_ids[obj.type].file
+						c.fillStyle = "#FF00FF"
+						c.drawImage(img, obj.x*cellSize, obj.y * cellSize, cellSize+1, cellSize+1)
+					}
+				}
+				console.log("Features drawn")
+			}
 		},
-		redraw: function() {
-			var c = getCanvas(c2.width, c2.height)
-
-			drawFeatures(c)
-
-			this.cache = c.canvas
-			console.log("Features redraw")
-		}
-	},
-	mouse: {
-		cache: null,
-		draw: function(c) {
-			if(this.cache == null) this.redraw()
-			c.drawImage(this.cache, 0, 0)
+		mouse: {
+			canvas: document.getElementById("mouse").getContext("2d"),
+			draw: function(c) {
+				c.clearRect(0, 0, c.canvas.width, c.canvas.height)
+				if(mouse.data_y >= 0)
+				{
+					c.strokeStyle = colors.mouse_outline
+					if(mouse.isRight | mouse.isLeft) c.strokeStyle = "#FFFF00"
+					c.strokeRect(mouse.data_x * cellSize, mouse.data_y * cellSize, cellSize, cellSize)
+				}
+				console.log("Mouse drawn")
+			}
 		},
-		redraw: function() {
-			var c = getCanvas(c2.width, c2.height)
+		selection: {
+			canvas: document.getElementById("selection").getContext("2d"),
+			draw: function(c) {
+				c.clearRect(0, 0, c.canvas.width, c.canvas.height)
+				if(selection != null)
+				{
+					c.strokeStyle = colors.select_outline
+					c.fillStyle = colors.select_fill
 
-			drawMouse(c)
-
-			this.cache = c.canvas
-			console.log("Mouse redraw")
-		}
-	},
-	selection: {
-		cache: null,
-		draw: function(c) {
-			if(this.cache == null) this.redraw()
-			c.drawImage(this.cache, 0, 0)
+					c.translate(0.5, 0.5) //to de-alias shit
+					var lowX = selection.data_x < selection.data_x2 ? selection.data_x : selection.data_x2
+					var highX = selection.data_x > selection.data_x2 ? selection.data_x : selection.data_x2
+					var lowY = selection.data_y < selection.data_y2 ? selection.data_y : selection.data_y2
+					var highY = selection.data_y > selection.data_y2 ? selection.data_y : selection.data_y2
+					for(var x = lowX; x <= highX; x++)
+					{
+						for(var y = lowY; y <= highY; y++)
+						{
+							c.globalAlpha = 0.2;
+							c.fillRect(x*cellSize, y*cellSize, cellSize, cellSize)
+							c.globalAlpha = 1;
+							c.strokeRect(x*cellSize, y*cellSize, cellSize, cellSize)
+						}
+					}
+					c.translate(-0.5, -0.5) //to de-alias shit
+				}
+				console.log("Selection drawn")
+			}
 		},
-		redraw: function() {
-			var c = getCanvas(c2.width, c2.height)
-
-			drawSelection(c)
-
-			this.cache = c.canvas
-			console.log("Selection redraw")
-		}
-	},
-}
-
-function draw()
-{
-	layers.draw()
-	localStorage.map = getSaveData()
+	}
 }
 
 if(localStorage.map != undefined) loadData(localStorage.map)
 window.onload = function() {
-	draw()
+	display.fullRedraw()
 }

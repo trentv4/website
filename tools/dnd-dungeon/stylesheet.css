@@ -17,3 +17,17 @@ img.* {
 	float:right;
 	margin-left: 10px;
 }
+
+canvas {
+	position: absolute;
+	width: 1000px;
+	display:block;
+	height: 700px;
+}
+
+#canvas-container {
+	width: 1000px;
+	height: 700px;
+	position: relative;
+	border: 1px solid black;
+}

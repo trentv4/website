@@ -10,7 +10,17 @@
 	<body>
 		<% include ../../global/header.ejs %>
 		<div id="page">
-			<canvas id="dungeon_creator" style="width: 1000px; height: 700px" width=1 height=2></canvas>
+			<div id="canvas-container">
+				<canvas id="background" width=1000px height=700px style="z-index: 0"></canvas>
+				<canvas id="stripes"    width=1000px height=700px style="z-index: 1"></canvas>
+				<canvas id="grid"       width=1000px height=700px style="z-index: 2"></canvas>
+				<canvas id="emptyCells" width=1000px height=700px style="z-index: 3"></canvas>
+				<canvas id="shadows"    width=1000px height=700px style="z-index: 4"></canvas>
+				<canvas id="features"   width=1000px height=700px style="z-index: 5"></canvas>
+				<canvas id="mouse"      width=1000px height=700px style="z-index: 6"></canvas>
+				<canvas id="selection"  width=1000px height=700px style="z-index: 7"></canvas>
+				<canvas id="input_layer"  width=1000px height=700px style="z-index: 8"></canvas>
+			</div>
 			<div style="float: right;">
 				<div>
 					<input type="checkbox" class="checkbox" id="render_walls" checked>Render walls</input>
