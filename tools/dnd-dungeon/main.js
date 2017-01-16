@@ -299,7 +299,7 @@ function addAll(dataIn, x, y)
 	for(var i = 0; i < dataIn.length; i++)
 	{
 		var obj = dataIn[i]
-		if(get(obj.type, obj.x, obj.y) != null) continue;
+		if(get(obj.type, obj.x + x, obj.y + y) != null) continue;
 
 		var cloneObj = {
 			x: dataIn[i].x + x,
