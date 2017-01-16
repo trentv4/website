@@ -195,7 +195,7 @@ for(var i = 0; i < objects.length; i++)
 			if(this.id == 0)
 			{
 				currentType = "wall"
-				document.getElementById("current-tool").innerHTML = `Current tool: <img src="images/ wall.png"> `+obj_ids[this.id].name+``
+				document.getElementById("current-tool").innerHTML = `Current tool: <img src="images/wall.png"> `+obj_ids[this.id].name+``
 			}
 			else
 			{
