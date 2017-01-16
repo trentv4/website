@@ -689,6 +689,7 @@ var display = {
 		emptyCells: {
 			canvas: document.getElementById("emptyCells").getContext("2d"),
 			draw: function(c) {
+				console.profile("a")
 				c.clearRect(0, 0, c.canvas.width, c.canvas.height)
 				if(data == null) return;
 				for(var i = 0; i < data.length; i++)
@@ -725,6 +726,7 @@ var display = {
 					c.translate(-obj.x * cellSize, -obj.y * cellSize)
 				}
 				console.log("Empty cells drawn")
+				console.profileEnd("a")
 			}
 		},
 		shadows: {

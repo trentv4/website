@@ -5,4 +5,3 @@ don't render mouse cursor when it's not on the canvas
 
 bugs:
 save image is broken
-selection behaves incorrectly when selecting large areas to copy and paste
