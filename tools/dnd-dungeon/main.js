@@ -67,10 +67,10 @@ document.getElementById("save-img-btn").addEventListener("click", function(e){
 	context2.width = _c.width
 	context2.height = _c.height
 	context2.drawImage(display.layers.background.canvas.canvas, 0, 0)
-	context2.drawImage(display.layers.stripes.canvas.canvas, 0, 0)
-	context2.drawImage(display.layers.grid.canvas.canvas, 0, 0)
-	context2.drawImage(display.layers.emptyCells.canvas.canvas, 0, 0)
-	context2.drawImage(display.layers.shadows.canvas.canvas, 0, 0)
+	if(render_stripes) context2.drawImage(display.layers.stripes.canvas.canvas, 0, 0)
+	if(render_grid) context2.drawImage(display.layers.grid.canvas.canvas, 0, 0)
+	if(render_walls) context2.drawImage(display.layers.emptyCells.canvas.canvas, 0, 0)
+	if(render_shadows) context2.drawImage(display.layers.shadows.canvas.canvas, 0, 0)
 	context2.drawImage(display.layers.features.canvas.canvas, 0, 0)
 
 	var image = canvas2.toDataURL();
@@ -717,7 +717,6 @@ var display = {
 		emptyCells: {
 			canvas: document.getElementById("emptyCells").getContext("2d"),
 			draw: function(c) {
-				console.profile("a")
 				c.clearRect(0, 0, c.canvas.width, c.canvas.height)
 				if(data == null) return;
 				for(var i = 0; i < data.length; i++)
@@ -754,7 +753,6 @@ var display = {
 					c.translate(-obj.x * cellSize, -obj.y * cellSize)
 				}
 				console.log("Empty cells drawn")
-				console.profileEnd("a")
 			}
 		},
 		shadows: {
