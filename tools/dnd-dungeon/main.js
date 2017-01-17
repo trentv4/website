@@ -59,8 +59,21 @@ document.getElementById("clear-btn").addEventListener("click", function(e){
 })
 
 document.getElementById("save-img-btn").addEventListener("click", function(e){
-    var image = _c.toDataURL();
 
+	var canvas2 = document.createElement("canvas")
+	canvas2.width = _c.width
+	canvas2.height = _c.height
+	var context2 = canvas2.getContext("2d")
+	context2.width = _c.width
+	context2.height = _c.height
+	context2.drawImage(display.layers.background.canvas.canvas, 0, 0)
+	context2.drawImage(display.layers.stripes.canvas.canvas, 0, 0)
+	context2.drawImage(display.layers.grid.canvas.canvas, 0, 0)
+	context2.drawImage(display.layers.emptyCells.canvas.canvas, 0, 0)
+	context2.drawImage(display.layers.shadows.canvas.canvas, 0, 0)
+	context2.drawImage(display.layers.features.canvas.canvas, 0, 0)
+
+	var image = canvas2.toDataURL();
     aLink = document.createElement('a');
     var evt = document.createEvent("HTMLEvents");
     evt.initEvent("click");
