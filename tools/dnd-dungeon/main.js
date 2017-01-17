@@ -606,6 +606,7 @@ var save_format = {
 function getSaveData()
 {
 	var save = ""
+	save += "1 "
 	save += save_format.bool.encode(render_walls)
 	save += save_format.bool.encode(render_corner_dots)
 	save += save_format.bool.encode(render_grid)
@@ -622,13 +623,14 @@ function loadData(str)
 	try
 	{
 		var a = str.split(" ")
-		data = save_format.map.decode(a[1])
+		console.log("Save version: " + a[0])
+		data = save_format.map.decode(a[2])
 
-		render_walls =       save_format.bool.decode(a[0][0])
-		render_corner_dots = save_format.bool.decode(a[0][1])
-		render_grid =        save_format.bool.decode(a[0][2])
-		render_stripes =     save_format.bool.decode(a[0][3])
-		render_shadows =     save_format.bool.decode(a[0][4])
+		render_walls =       save_format.bool.decode(a[1][0])
+		render_corner_dots = save_format.bool.decode(a[1][1])
+		render_grid =        save_format.bool.decode(a[1][2])
+		render_stripes =     save_format.bool.decode(a[1][3])
+		render_shadows =     save_format.bool.decode(a[1][4])
 
 		document.getElementById("render_walls").checked = render_walls
 		document.getElementById("render_corner_dots").checked = render_corner_dots

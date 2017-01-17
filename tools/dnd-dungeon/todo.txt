@@ -3,8 +3,6 @@ draw lines between mouse buffers, to resolve missed spots when moving the mouse 
 preview mode for pasting
 don't render mouse cursor when it's not on the canvas
 change up data structure to a 2d array
-add version numbers to save format
-add version number to project on page
 
 bugs:
-save image is broken
+none known
