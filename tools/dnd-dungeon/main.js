@@ -135,11 +135,13 @@ document.addEventListener("keyup", function(x){
 
 ///////////////////////// Creating objects and the tool list /////////////////////////
 
+//latest is 8
+
 var objects = [
 	{
 		catname: "Objects:",
 		objects: [
-			{	name: "Wall",
+			{	name: "Wall Tool",
 				id:   0,
 				file: "wall" },
 
@@ -154,6 +156,11 @@ var objects = [
 			{	name: "Crate",
 				id:   3,
 				file: "images/crate.png" },
+
+			{	name: "Door",
+				id:   7,
+				file: "images/door.png" },
+
 		],
 	},
 	{
@@ -166,6 +173,14 @@ var objects = [
 			{	name: "Pressure Plate",
 				id:   5,
 				file: "images/pressure-plate.png" },
+
+			{	name: "Enemy",
+				id:   6,
+				file: "images/enemy.png" },
+
+			{	name: "Water Pit",
+				id:   8,
+				file: "images/water-pit.png" },
 		],
 	},
 ]
