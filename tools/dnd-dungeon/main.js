@@ -148,10 +148,6 @@ document.addEventListener("keyup", function(x){
 
 ///////////////////////// Creating objects and the tool list /////////////////////////
 
-//latest is 8
-c2.fillStyle = colors.wall_stripes
-c2.font = "20px Roboto"
-c2.fillText("T", 50, 50)
 var objects = [
 	{
 		catname: "Tools:",
