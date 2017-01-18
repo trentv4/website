@@ -123,7 +123,6 @@ _c.onmousemove = function(x)
 document.addEventListener("keydown", function(x){
 	var value = true;
 	if(x.key == "Control") keyboard.ctrl = value;
-	if(x.code == "Space") keyboard.space = value;
 	if(x.key == "Shift") keyboard.shift = value;
 	if(x.code == "Delete") keyboard.delete = value;
 	if(x.code == "KeyZ") keyboard.z = value;
@@ -136,7 +135,6 @@ document.addEventListener("keydown", function(x){
 document.addEventListener("keyup", function(x){
 	var value = false;
 	if(x.key == "Control") keyboard.ctrl = value;
-	if(x.code == "Space") keyboard.space = value;
 	if(x.key == "Shift") keyboard.shift = value;
 	if(x.code == "Delete") keyboard.delete = value;
 	if(x.code == "KeyZ") keyboard.z = value;
@@ -156,21 +154,32 @@ var objects = [
 				id:   0,
 				file: "images/wall.png",
 				func: function() {
-
+					console.log("Setting to: " + obj_ids[this.id].name)
+					currentType = "wall"
+					document.getElementById("current-tool").innerHTML = `Current tool: <img src="` + obj_ids[this.id].file + `"> `+obj_ids[this.id].name+``
+					isSelecting = false
+					selection = null
+					display.layers.selection.draw(display.layers.selection.canvas)
 				}
 			},
 			{	name: "Selection Tool",
 				id:   14,
 				file: "images/selection.png",
 				func: function() {
-
+					console.log("Setting to: " + obj_ids[this.id].name)
+					isSelecting = true
+					document.getElementById("current-tool").innerHTML = `Current tool: <img src="` + obj_ids[this.id].file + `"> `+obj_ids[this.id].name+``
+					selection = null
+					display.layers.selection.draw(display.layers.selection.canvas)
 				}
 			},
 			{	name: "Text Tool",
 				id:   15,
 				file: "images/text.png",
 				func: function() {
-
+					isSelecting = false
+					selection = null
+					display.layers.selection.draw(display.layers.selection.canvas)
 				}
 			},
 			{	name: "Wall (tile)",
@@ -248,11 +257,13 @@ var obj_ids = []
 for(var i = 0; i < objects.length; i++)
 {
 	var category = objects[i]
+
 	var div = document.createElement("div")
 	div.className = "feature-list"
 	var pr = document.createElement("pre")
 	pr.innerText = category.catname
 	div.appendChild(pr)
+
 	for(var g = 0; g < category.objects.length; g++)
 	{
 		var current_object = category.objects[g]
@@ -262,21 +273,21 @@ for(var i = 0; i < objects.length; i++)
 		img.className = "tool"
 		img.id = current_object.id
 		img.src = current_object.file
-		if(current_object.id == 0) img.src = "images/wall.png"
-		img.addEventListener("click", function(e){
-			console.log("Setting to: " + obj_ids[this.id].name)
-			currentType = this.id
-
-			if(this.id == 0)
-			{
-				currentType = "wall"
-				document.getElementById("current-tool").innerHTML = `Current tool: <img src="images/wall.png"> `+obj_ids[this.id].name+``
-			}
-			else
-			{
+		if(current_object.func != null)
+		{
+			img.addEventListener("click", current_object.func)
+		}
+		else
+		{
+			img.addEventListener("click", function(e){
+				console.log("Setting to: " + obj_ids[this.id].name)
+				currentType = this.id
 				document.getElementById("current-tool").innerHTML = `Current tool: <img src="` + obj_ids[this.id].file + `"> `+obj_ids[this.id].name+``
-			}
-		})
+				isSelecting = false
+				selection = null
+				display.layers.selection.draw(display.layers.selection.canvas)
+			})
+		}
 		pre.appendChild(img)
 		pre.appendChild(document.createTextNode(" " + current_object.name))
 		div.appendChild(pre)
@@ -538,13 +549,6 @@ function updateKeyboard()
 			historyGoBack()
 		}
 	}
-	if(keyboard.space)
-	{
-		isSelecting = !isSelecting
-		if(!isSelecting) selection = null
-		display.layers.selection.draw(display.layers.selection.canvas)
-	}
-
 }
 
 function updateMouse()
@@ -564,7 +568,6 @@ function updateMouse()
 						data_y2: 0,
 						active: true
 					}
-					console.log("What")
 					display.layers.selection.draw(display.layers.selection.canvas)
 				}
 				selection.data_x2 = mouse.data_x

@@ -3,6 +3,7 @@ draw lines between mouse buffers, to resolve missed spots when moving the mouse 
 preview mode for pasting
 don't render mouse cursor when it's not on the canvas
 change up data structure to a 2d array
+rearrange styling to have sidebar of render settings, and controls help
 
 bugs:
 none known
