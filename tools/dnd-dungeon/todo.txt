@@ -6,3 +6,22 @@ change up data structure to a 2d array
 
 bugs:
 none known
+
+feature requests:
+	ability to place notes or numbers on the grid
+	textarea for storing notes
+	scaling option (70x70 exports to roll20)
+	Thin walls
+	panningc
+
+	tiles:
+		wagons
+		table
+		chairs
+		bookcases
+		statues
+		secret door
+		pits
+		water tiles barrels
+		tavern bar
+		connectors (for stairs, mostly)

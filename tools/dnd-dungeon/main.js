@@ -149,51 +149,101 @@ document.addEventListener("keyup", function(x){
 ///////////////////////// Creating objects and the tool list /////////////////////////
 
 //latest is 8
-
+c2.fillStyle = colors.wall_stripes
+c2.font = "20px Roboto"
+c2.fillText("T", 50, 50)
 var objects = [
 	{
-		catname: "Objects:",
+		catname: "Tools:",
 		objects: [
 			{	name: "Wall Tool",
 				id:   0,
-				file: "wall" },
+				file: "images/wall.png",
+				func: function() {
 
+				}
+			},
+			{	name: "Selection Tool",
+				id:   14,
+				file: "images/selection.png",
+				func: function() {
+
+				}
+			},
+			{	name: "Text Tool",
+				id:   15,
+				file: "images/text.png",
+				func: function() {
+
+				}
+			},
 			{	name: "Wall (tile)",
 				id:   1,
-				file: "images/wall.png" },
-
+				file: "images/wall.png"
+			},
+			{	name: "Empty space",
+				id:   10,
+				file: "images/empty-space.png"
+			},
+		],
+	},
+	{
+		catname: "Decorations",
+		objects: [
 			{	name: "Boxes",
 				id:   2,
-				file: "images/boxes.png" },
-
+				file: "images/boxes.png"
+			},
 			{	name: "Crate",
 				id:   3,
-				file: "images/crate.png" },
-
+				file: "images/crate.png"
+			},
 			{	name: "Door",
 				id:   7,
-				file: "images/door.png" },
-
-		],
+				file: "images/door.png"
+			},
+			{	name: "Stairs",
+				id:   9,
+				file: "images/stairs.png"
+			},
+		]
+	},
+	{
+		catname: "Creatures",
+		objects: [
+			{	name: "Small creature",
+				id: 11,
+				file: "images/creature-small.png"
+			},
+			{	name: "Medium creature",
+				id: 12,
+				file: "images/creature-medium.png"
+			},
+			{	name: "Large creature",
+				id: 6, //was previously 'enemy'
+				file: "images/creature-large.png"
+			},
+			{	name: "NPC",
+				id: 13, //was previously 'enemy'
+				file: "images/npc.png"
+			},
+		]
 	},
 	{
 		catname: "Traps:",
 		objects: [
 			{	name: "Spike Pit",
 				id:   4,
-				file: "images/spike-pit.png" },
-
+				file: "images/spike-pit.png"
+			},
 			{	name: "Pressure Plate",
 				id:   5,
-				file: "images/pressure-plate.png" },
-
-			{	name: "Enemy",
-				id:   6,
-				file: "images/enemy.png" },
-
+				file: "images/pressure-plate.png"
+			},
 			{	name: "Water Pit",
 				id:   8,
-				file: "images/water-pit.png" },
+				file: "images/water-pit.png"
+			},
 		],
 	},
 ]
@@ -220,6 +270,7 @@ for(var i = 0; i < objects.length; i++)
 		img.addEventListener("click", function(e){
 			console.log("Setting to: " + obj_ids[this.id].name)
 			currentType = this.id
+
 			if(this.id == 0)
 			{
 				currentType = "wall"
