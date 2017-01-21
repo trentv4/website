@@ -11,19 +11,22 @@ function val(inp)
 	if(inp == true) return "inline"
 }
 
-var _q = document.getElementsByClassName("checkbox")
+var _q = document.getElementsByTagName("input")
 for(var i = 0; i < _q.length; i++)
 {
 	var elm = _q[i]
-	elm.onclick = function(e)
+	if(elm.type == "checkbox")
 	{
-		render_walls = document.getElementById("render_walls").checked
-		render_corner_dots = document.getElementById("render_corner_dots").checked
-		render_grid = document.getElementById("render_grid").checked
-		render_stripes = document.getElementById("render_stripes").checked
- 		render_shadows = document.getElementById("render_shadows").checked
-		localStorage.map = getSaveData()
-		display.fullRedraw()
+		elm.onclick = function(e)
+		{
+			render_walls = document.getElementById("render_walls").checked
+			render_corner_dots = document.getElementById("render_corner_dots").checked
+			render_grid = document.getElementById("render_grid").checked
+			render_stripes = document.getElementById("render_stripes").checked
+	 		render_shadows = document.getElementById("render_shadows").checked
+			localStorage.map = getSaveData()
+			display.fullRedraw()
+		}
 	}
 }
 
@@ -198,7 +201,7 @@ var objects = [
 		],
 	},
 	{
-		catname: "Decorations",
+		catname: "Decorations:",
 		objects: [
 			{	name: "Boxes",
 				id:   2,
@@ -219,7 +222,7 @@ var objects = [
 		]
 	},
 	{
-		catname: "Creatures",
+		catname: "Creatures:",
 		objects: [
 			{	name: "Small creature",
 				id: 11,
@@ -265,7 +268,7 @@ for(var i = 0; i < objects.length; i++)
 
 	var div = document.createElement("div")
 	div.className = "feature-list"
-	var pr = document.createElement("pre")
+	var pr = document.createElement("h2")
 	pr.innerText = category.catname
 	div.appendChild(pr)
 
@@ -297,7 +300,7 @@ for(var i = 0; i < objects.length; i++)
 		pre.appendChild(document.createTextNode(" " + current_object.name))
 		div.appendChild(pre)
 	}
-	document.getElementById("tool-list").appendChild(div)
+	document.getElementById("sidebar").appendChild(div)
 }
 
 ///////////////////////// Various objects /////////////////////////
@@ -735,7 +738,7 @@ function loadData(str)
 
 function message(color, str)
 {
-	document.getElementById("message").innerHTML = ""
+	document.getElementById("message").innerHTML = "<br>"
 	setTimeout(function(){
 		document.getElementById("message").style = "color: " + color
 		document.getElementById("message").innerHTML = str

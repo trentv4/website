@@ -1,61 +1,76 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Dungeon Mapper</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" type="text/css" href="/stylesheet.css">
-		<link rel="stylesheet" type="text/css" href="stylesheet.css">
-		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-	</head>
 
-	<body>
-		<% include ../../global/header.ejs %>
+<head>
+	<title>Dungeon Mapper</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="/stylesheet.css">
+	<link rel="stylesheet" type="text/css" href="stylesheet.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+</head>
+
+<body>
+	<% include ../../global/header.ejs %>
 		<div id="page">
-			<div id="canvas-container">
-				<canvas id="background" width=1000px height=700px style="z-index: 0"></canvas>
-				<canvas id="stripes"    width=1000px height=700px style="z-index: 1"></canvas>
-				<canvas id="grid"       width=1000px height=700px style="z-index: 2"></canvas>
-				<canvas id="emptyCells" width=1000px height=700px style="z-index: 3"></canvas>
-				<canvas id="shadows"    width=1000px height=700px style="z-index: 4"></canvas>
-				<canvas id="features"   width=1000px height=700px style="z-index: 5"></canvas>
-				<canvas id="mouse"      width=1000px height=700px style="z-index: 6"></canvas>
-				<canvas id="selection"  width=1000px height=700px style="z-index: 7"></canvas>
-				<canvas id="input_layer"  width=1000px height=700px style="z-index: 8"></canvas>
-			</div>
-			<div style="float: right;">
-				<div>
-					<input type="checkbox" class="checkbox" id="render_walls" checked>Walls</input>
-					<input type="checkbox" class="checkbox" id="render_corner_dots" >Corner Dots</input>
-					<input type="checkbox" class="checkbox" id="render_grid" checked>Grid</input>
-					<input type="checkbox" class="checkbox" id="render_stripes" checked>Stripes</input>
-					<input type="checkbox" class="checkbox" id="render_shadows" checked>Shadows</input>
+			<div id="content">
+				<div id="canvas-container">
+					<canvas id="background" width=1000px height=700px style="z-index: 0"></canvas>
+					<canvas id="stripes" width=1000px height=700px style="z-index: 1"></canvas>
+					<canvas id="grid" width=1000px height=700px style="z-index: 2"></canvas>
+					<canvas id="emptyCells" width=1000px height=700px style="z-index: 3"></canvas>
+					<canvas id="shadows" width=1000px height=700px style="z-index: 4"></canvas>
+					<canvas id="features" width=1000px height=700px style="z-index: 5"></canvas>
+					<canvas id="mouse" width=1000px height=700px style="z-index: 6"></canvas>
+					<canvas id="selection" width=1000px height=700px style="z-index: 7"></canvas>
+					<canvas id="input_layer" width=1000px height=700px style="z-index: 8"></canvas>
 				</div>
-				<div class="float-right-all">
-					<input type="button" value="Save Image" id="save-img-btn"/>
-					<input type="button" value="Save" id="save-btn"/>
-					<input type="button" value="Load" id="load-btn"/>
-					<input type="button" value="Clear" id="clear-btn"/>
-					<pre id="message"></pre>
-					<pre style="float:none; height:2em"/>
-				</div>
-				<div class="float-right-all">
+				<div id="io-center">
+					<h2>IO Center</h2>
 					<textarea id="save-entry-form"></textarea>
+					<input type="button" value="Save" id="save-btn" />
+					<input type="button" value="Load" id="load-btn" />
+					<input type="button" value="Clear" id="clear-btn" />
+					<input type="button" value="Export Image" id="save-img-btn" /><br>
+					<pre id="message"></pre>
 				</div>
-				<p>Current version: ALPHA (v0.5.1)</p>
-				<p>Credit to <a href="http://deepnight.net/tools/tabletop-rpg-map-editor/">ANAmap</a> for inspiration</p>
+				<div id="controls">
+					<h2>Controls</h2>
+					<pre>Mouse 1: place object / wall</pre>
+					<pre>Mouse 2: remove object / wall</pre>
+					<pre>R: rotate object</pre>
+					<pre>CTRL+Z: undo </pre>
+					<pre>CTRL+SHIFT+Z: redo </pre>
+					<br>
+					<pre>In selection:</pre>
+					<pre>CTRL+X: cut </pre>
+					<pre>CTRL+C: copy </pre>
+					<pre>CTRL+V: paste </pre>
+				</div>
 			</div>
-			<div id="tool-list" style="float: left;">
-				<div>
-					<pre id="current-tool">Current tool: <img src="images/wall.png"> Wall Tool</pre>
+			<div id="sidebar">
+				<div id="render-settings">
+					<h2>Render settings</h2>
+					<input type="checkbox" id="render_walls" checked>Walls</input><br>
+					<input type="checkbox" id="render_corner_dots">Corner Dots</input><br>
+					<input type="checkbox" id="render_grid" checked>Grid</input><br>
+					<input type="checkbox" id="render_stripes" checked>Stripes</input><br>
+					<input type="checkbox" id="render_shadows" checked>Shadows</input><br>
 				</div>
-
+				<pre id="current-tool">Current tool: <img src="images/wall.png"> Wall Tool</pre>
 			</div>
 		</div>
+
+
+
+
+
 		<script src="settings.js" type="text/javascript"></script>
 		<script src="main.js" type="text/javascript"></script>
 		<% if(req.query.id != null) { %>
-			<script>loadData("<%= req.query.id %>")</script>
-		<% } %>
-		<% include ../../global/footer.ejs %>
+			<script>
+				loadData("<%= req.query.id %>")
+			</script>
+			<% } %>
+			<% include ../../global/footer.ejs %>
 	</body>
 </html>

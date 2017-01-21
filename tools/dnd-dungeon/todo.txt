@@ -26,3 +26,12 @@ feature requests:
 		water tiles barrels
 		tavern bar
 		connectors (for stairs, mostly)
+
+	include all basic tools from anamap
+	allow map size customization
+	change stair tc	o anamap's
+	thin walls, windows
+	statues, curtains, ledges
+	different types of doors
+	maybe export to jpg
+	plenty of empty space on the left, tools on the bottom
