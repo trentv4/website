@@ -160,7 +160,7 @@ var objects = [
 				func: function() {
 					console.log("Setting to: " + obj_ids[this.id].name)
 					currentType = "wall"
-					document.getElementById("current-tool").innerHTML = `Current tool: <img src="` + obj_ids[this.id].file + `"> `+obj_ids[this.id].name+``
+					document.getElementById("current-tool").innerHTML = `Current tool: <br><img src="` + obj_ids[this.id].file + `"> `+obj_ids[this.id].name+``
 					isSelecting = false
 					selection = null
 					display.layers.selection.draw(display.layers.selection.canvas)
@@ -172,7 +172,7 @@ var objects = [
 				func: function() {
 					console.log("Setting to: " + obj_ids[this.id].name)
 					isSelecting = true
-					document.getElementById("current-tool").innerHTML = `Current tool: <img src="` + obj_ids[this.id].file + `"> `+obj_ids[this.id].name+``
+					document.getElementById("current-tool").innerHTML = `Current tool: <br><img src="` + obj_ids[this.id].file + `"> `+obj_ids[this.id].name+``
 					selection = null
 					display.layers.selection.draw(display.layers.selection.canvas)
 				}
@@ -290,7 +290,7 @@ for(var i = 0; i < objects.length; i++)
 			img.addEventListener("click", function(e){
 				console.log("Setting to: " + obj_ids[this.id].name)
 				currentType = this.id
-				document.getElementById("current-tool").innerHTML = `Current tool: <img src="` + obj_ids[this.id].file + `"> `+obj_ids[this.id].name+``
+				document.getElementById("current-tool").innerHTML = `Current tool: <br><img src="` + obj_ids[this.id].file + `"> `+obj_ids[this.id].name+``
 				isSelecting = false
 				selection = null
 				display.layers.selection.draw(display.layers.selection.canvas)
@@ -549,6 +549,7 @@ function updateKeyboard()
 	if(keyboard.r)
 	{
 		currentRotation = (currentRotation + 1) % 4
+		display.layers.mouse.draw(display.layers.mouse.canvas)
 	}
 	if(keyboard.ctrl & keyboard.v & clipboard != null)
 	{
@@ -911,6 +912,21 @@ var display = {
 					c.strokeStyle = colors.mouse_outline
 					if(mouse.isRight | mouse.isLeft) c.strokeStyle = "#FFFF00"
 					c.strokeRect(mouse.data_x * cellSize, mouse.data_y * cellSize, cellSize, cellSize)
+					var obj = currentType
+					if(obj != "wall" & selection == null)
+					{
+						var img = new Image()
+						img.src = obj_ids[obj].file
+						c.fillStyle = "#FF00FF"
+						var rotation = (currentRotation*90) * Math.PI/180
+						var translateX = mouse.data_x * cellSize + Math.ceil(cellSize/2)
+						var translateY = mouse.data_y * cellSize + Math.ceil(cellSize/2)
+						c.translate(translateX, translateY)
+						c.rotate(rotation)
+						c.drawImage(img, Math.floor(-cellSize/2), Math.floor(-cellSize/2), cellSize+1, cellSize+1)
+						c.rotate(-rotation)
+						c.translate(-translateX, -translateY)
+					}
 				}
 				console.log("Mouse drawn")
 			}
