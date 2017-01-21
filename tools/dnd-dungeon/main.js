@@ -215,6 +215,10 @@ var objects = [
 				id:   16,
 				file: "images/triangle-wall.png"
 			},
+			{	name: "Wall (thin)",
+				id:   20,
+				file: "images/thin-wall.png"
+			},
 			{	name: "Shaded space 1",
 				id:   10,
 				file: "images/shaded-space-1.png"
