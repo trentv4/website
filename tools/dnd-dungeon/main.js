@@ -129,6 +129,7 @@ document.addEventListener("keydown", function(x){
 	if(x.code == "KeyX") keyboard.x = value;
 	if(x.code == "KeyC") keyboard.c = value;
 	if(x.code == "KeyV") keyboard.v = value;
+	if(x.code == "KeyR") keyboard.r = value;
 	updateKeyboard()
 })
 
@@ -141,6 +142,7 @@ document.addEventListener("keyup", function(x){
 	if(x.code == "KeyX") keyboard.x = value;
 	if(x.code == "KeyC") keyboard.c = value;
 	if(x.code == "KeyV") keyboard.v = value;
+	if(x.code == "KeyR") keyboard.r = value;
 	updateKeyboard()
 })
 
@@ -300,6 +302,7 @@ for(var i = 0; i < objects.length; i++)
 var currentType = "wall"
 
 var data = []
+var currentRotation = 0
 
 var prevData = []
 var prevDataIndex = -1
@@ -323,6 +326,7 @@ var keyboard = {
 	x: false,
 	c: false,
 	v: false,
+	r: false,
 }
 
 ///////////////////////// Manipulating history (undo/redo) /////////////////////////
@@ -356,14 +360,15 @@ function historyGoForward()
 ///////////////////////// Interaction /////////////////////////
 
 // Adds a single object
-function add(type, xx, yy)
+function add(type, xx, yy, rotation)
 {
 	if(get(type, xx, yy) != null) return;
 
 	var obj = {
 		x:xx,
 		y:yy,
-		type: currentType
+		type: currentType,
+		rotation: rotation
 	}
 
 	data.push(obj)
@@ -390,7 +395,8 @@ function addAll(dataIn, x, y)
 		var cloneObj = {
 			x: dataIn[i].x + x,
 			y: dataIn[i].y + y,
-			type: dataIn[i].type
+			type: dataIn[i].type,
+			rotation: dataIn[i].rotation
 		}
 		data.push(cloneObj)
 	}
@@ -534,6 +540,10 @@ function updateKeyboard()
 			removeFrom("all", lowX, lowY, highX, highY)
 		}
 	}
+	if(keyboard.r)
+	{
+		currentRotation = (currentRotation + 1) % 4
+	}
 	if(keyboard.ctrl & keyboard.v & clipboard != null)
 	{
 		addAll(clipboard.data, mouse.data_x, mouse.data_y)
@@ -600,7 +610,7 @@ function updateMouse()
 				}
 				else if(get(currentType, mouse.data_x, mouse.data_y) == null & currentType != "wall")
 				{
-					add(currentType, mouse.data_x, mouse.data_y)
+					add(currentType, mouse.data_x, mouse.data_y, currentRotation)
 				}
 			}
 			if(mouse.isMiddle)
@@ -618,8 +628,23 @@ var save_format = {
 		decode: function(a) { if(a == "T") {return true} if(a == "F") {return false}},
 		encode: function(a) { if(a == true) {return "T"} if(a == false) {return "F"}}
 	},
-	map: {
-		decode: function(str) {
+	encode: function(data) {
+		var str = ""
+		if(data == null) return "[]"
+		for(var i = 0; i < data.length; i++)
+		{
+			var obj = data[i]
+			if(obj.rotation == null) obj.rotation = 0
+			str += obj.x + "*"
+			str += obj.y + "*"
+			str += obj.rotation + "*"
+			if(obj.type == "wall") str += "0;"
+			if(obj.type != "wall") str += obj.type + ";"
+		}
+		return str
+	},
+	decoders: [
+		function(str) { // Version 1
 			if(str == null) return []
 			var d = []
 			var data = str.split(";")
@@ -637,26 +662,32 @@ var save_format = {
 			}
 			return d;
 		},
-		encode: function(data) {
-			var str = ""
-			if(data == null) return "[]"
-			for(var i = 0; i < data.length; i++)
+		function(str) { // Version 2
+			if(str == null) return []
+			var d = []
+			var data = str.split(";")
+
+			for(var i = 0; i < data.length-1; i++)
 			{
-				var obj = data[i]
-				str += obj.x + "*"
-				str += obj.y + "*"
-				if(obj.type == "wall") str += "0;"
-				if(obj.type != "wall") str += obj.type + ";"
+				var obj = data[i].split("*")
+				var ntype = obj[3]
+				if(ntype == "0") ntype = "wall"
+				d.push({
+					x: JSON.parse(obj[0]),
+					y: JSON.parse(obj[1]),
+					rotation: JSON.parse(obj[2]),
+					type: ntype
+				})
 			}
-			return str
-		}
-	}
+			return d;
+		},
+	]
 }
 
 function getSaveData()
 {
 	var save = ""
-	save += "1 "
+	save += "2 "
 	save += save_format.bool.encode(render_walls)
 	save += save_format.bool.encode(render_corner_dots)
 	save += save_format.bool.encode(render_grid)
@@ -664,7 +695,7 @@ function getSaveData()
 	save += save_format.bool.encode(render_shadows)
 	save += " "
 
-	save += save_format.map.encode(data)
+	save += save_format.encode(data)
 	return save
 }
 
@@ -674,7 +705,7 @@ function loadData(str)
 	{
 		var a = str.split(" ")
 		console.log("Save version: " + a[0])
-		data = save_format.map.decode(a[2])
+		data = save_format.decoders[a[0]-1](a[2])
 
 		render_walls =       save_format.bool.decode(a[1][0])
 		render_corner_dots = save_format.bool.decode(a[1][1])
@@ -852,7 +883,14 @@ var display = {
 						var img = new Image()
 						img.src = obj_ids[obj.type].file
 						c.fillStyle = "#FF00FF"
-						c.drawImage(img, obj.x*cellSize, obj.y * cellSize, cellSize+1, cellSize+1)
+						var rotation = (obj.rotation*90) * Math.PI/180
+						var translateX = obj.x * cellSize
+						var translateY = obj.y * cellSize
+						c.translate(translateX, translateY)
+						c.rotate(rotation)
+						c.drawImage(img, 0, 0, cellSize+1, cellSize+1)
+						c.rotate(-rotation)
+						c.translate(-translateX, -translateY)
 					}
 				}
 				console.log("Features drawn")
