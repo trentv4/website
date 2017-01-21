@@ -147,7 +147,6 @@ document.addEventListener("keyup", function(x){
 })
 
 ///////////////////////// Creating objects and the tool list /////////////////////////
-
 var objects = [
 	{
 		catname: "Tools:",
@@ -187,6 +186,10 @@ var objects = [
 			{	name: "Wall (tile)",
 				id:   1,
 				file: "images/wall.png"
+			},
+			{	name: "Wall (triangle)",
+				id:   16,
+				file: "images/triangle-wall.png"
 			},
 			{	name: "Empty space",
 				id:   10,
@@ -884,11 +887,11 @@ var display = {
 						img.src = obj_ids[obj.type].file
 						c.fillStyle = "#FF00FF"
 						var rotation = (obj.rotation*90) * Math.PI/180
-						var translateX = obj.x * cellSize
-						var translateY = obj.y * cellSize
+						var translateX = obj.x * cellSize + Math.ceil(cellSize/2)
+						var translateY = obj.y * cellSize + Math.ceil(cellSize/2)
 						c.translate(translateX, translateY)
 						c.rotate(rotation)
-						c.drawImage(img, 0, 0, cellSize+1, cellSize+1)
+						c.drawImage(img, Math.floor(-cellSize/2), Math.floor(-cellSize/2), cellSize+1, cellSize+1)
 						c.rotate(-rotation)
 						c.translate(-translateX, -translateY)
 					}
