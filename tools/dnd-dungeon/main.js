@@ -186,18 +186,6 @@ var objects = [
 					display.layers.selection.draw(display.layers.selection.canvas)
 				}
 			},
-			{	name: "Wall (tile)",
-				id:   1,
-				file: "images/wall.png"
-			},
-			{	name: "Wall (triangle)",
-				id:   16,
-				file: "images/triangle-wall.png"
-			},
-			{	name: "Empty space",
-				id:   10,
-				file: "images/empty-space.png"
-			},
 		],
 	},
 	{
@@ -218,6 +206,30 @@ var objects = [
 			{	name: "Stairs",
 				id:   9,
 				file: "images/stairs.png"
+			},
+			{	name: "Wall (tile)",
+				id:   1,
+				file: "images/wall.png"
+			},
+			{	name: "Wall (triangle)",
+				id:   16,
+				file: "images/triangle-wall.png"
+			},
+			{	name: "Shaded space 1",
+				id:   10,
+				file: "images/shaded-space-1.png"
+			},
+			{	name: "Shaded space 2",
+				id:   17,
+				file: "images/shaded-space-2.png"
+			},
+			{	name: "Shaded space 3",
+				id:   18,
+				file: "images/shaded-space-3.png"
+			},
+			{	name: "Shaded space 4",
+				id:   19,
+				file: "images/shaded-space-4.png"
 			},
 		]
 	},
