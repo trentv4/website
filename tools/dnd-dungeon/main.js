@@ -124,28 +124,12 @@ _c.onmousemove = function(x)
 }
 
 document.addEventListener("keydown", function(x){
-	var value = true;
-	if(x.key == "Control") keyboard.ctrl = value;
-	if(x.key == "Shift") keyboard.shift = value;
-	if(x.code == "Delete") keyboard.delete = value;
-	if(x.code == "KeyZ") keyboard.z = value;
-	if(x.code == "KeyX") keyboard.x = value;
-	if(x.code == "KeyC") keyboard.c = value;
-	if(x.code == "KeyV") keyboard.v = value;
-	if(x.code == "KeyR") keyboard.r = value;
+	keyboard.set(x.key, true)
 	updateKeyboard()
 })
 
 document.addEventListener("keyup", function(x){
-	var value = false;
-	if(x.key == "Control") keyboard.ctrl = value;
-	if(x.key == "Shift") keyboard.shift = value;
-	if(x.code == "Delete") keyboard.delete = value;
-	if(x.code == "KeyZ") keyboard.z = value;
-	if(x.code == "KeyX") keyboard.x = value;
-	if(x.code == "KeyC") keyboard.c = value;
-	if(x.code == "KeyV") keyboard.v = value;
-	if(x.code == "KeyR") keyboard.r = value;
+	keyboard.set(x.key, false)
 	updateKeyboard()
 })
 
@@ -358,6 +342,25 @@ var keyboard = {
 	c: false,
 	v: false,
 	r: false,
+	w: false,
+	a: false,
+	s: false,
+	d: false,
+	set: function(key, value) {
+		if(key == "Control") this.ctrl = value;
+		if(key == "Shift") this.shift = value;
+		if(key == "Delete") this.delete = value;
+		if(key.toLowerCase() == "z") this.z = value;
+		if(key.toLowerCase() == "x") this.x = value;
+		if(key.toLowerCase() == "c") this.c = value;
+		if(key.toLowerCase() == "v") this.v = value;
+		if(key.toLowerCase() == "r") this.r = value;
+
+		if(key.toLowerCase() == "w") this.w = value;
+		if(key.toLowerCase() == "a") this.a = value;
+		if(key.toLowerCase() == "s") this.s = value;
+		if(key.toLowerCase() == "d") this.d = value;
+	}
 }
 
 var camera = {
@@ -596,6 +599,13 @@ function updateKeyboard()
 			historyGoBack()
 		}
 	}
+
+	var camDist = cellSize
+	if(keyboard.w) camera.y -= camDist
+	if(keyboard.s) camera.y += camDist
+	if(keyboard.a) camera.x -= camDist
+	if(keyboard.d) camera.x += camDist
+	if(keyboard.w | keyboard.a | keyboard.s | keyboard.d) display.fullRedraw()
 }
 
 function updateMouse()
@@ -957,8 +967,8 @@ var display = {
 					img.src = obj_ids[obj].file
 					c.fillStyle = "#FF00FF"
 					var rotation = (currentRotation*90) * Math.PI/180
-					var translateX = mouse.data_x * cellSize + Math.ceil(cellSize/2)
-					var translateY = mouse.data_y * cellSize + Math.ceil(cellSize/2)
+					var translateX = (mouse.data_x * cellSize + Math.ceil(cellSize/2)) + camera.x
+					var translateY = (mouse.data_y * cellSize + Math.ceil(cellSize/2)) + camera.y
 					c.translate(translateX, translateY)
 					c.rotate(rotation)
 					c.drawImage(img, Math.floor(-cellSize/2), Math.floor(-cellSize/2), cellSize+1, cellSize+1)
