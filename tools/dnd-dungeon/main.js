@@ -219,6 +219,11 @@ var objects = [
 				id:   20,
 				file: "images/thin-wall.png"
 			},
+		]
+	},
+	{
+		catname: "Shades:",
+		objects: [
 			{	name: "Shaded space 1",
 				id:   10,
 				file: "images/shaded-space-1.png"
@@ -265,11 +270,15 @@ var objects = [
 				id:   4,
 				file: "images/spike-pit.png"
 			},
+			{	name: "Pit",
+				id:   21,
+				file: "images/pit.png"
+			},
 			{	name: "Pressure Plate",
 				id:   5,
 				file: "images/pressure-plate.png"
 			},
-			{	name: "Water Pit",
+			{	name: "Water",
 				id:   8,
 				file: "images/water-pit.png"
 			},

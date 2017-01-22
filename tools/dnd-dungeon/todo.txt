@@ -3,7 +3,6 @@ draw lines between mouse buffers, to resolve missed spots when moving the mouse 
 preview mode for pasting
 don't render mouse cursor when it's not on the canvas
 change up data structure to a 2d array
-rearrange styling to have sidebar of render settings, and controls help
 
 bugs:
 none known
@@ -12,26 +11,17 @@ feature requests:
 	ability to place notes or numbers on the grid
 	textarea for storing notes
 	scaling option (70x70 exports to roll20)
-	Thin walls
-	panningc
+	panning
 
 	tiles:
-		wagons
-		table
 		chairs
 		bookcases
 		statues
 		secret door
-		pits
 		water tiles barrels
-		tavern bar
 		connectors (for stairs, mostly)
 
 	include all basic tools from anamap
 	allow map size customization
-	change stair tc	o anamap's
-	thin walls, windows
 	statues, curtains, ledges
-	different types of doors
 	maybe export to jpg
-	plenty of empty space on the left, tools on the bottom
