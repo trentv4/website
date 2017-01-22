@@ -806,35 +806,35 @@ var display = {
 			canvas: document.getElementById("stripes").getContext("2d"),
 			draw: function(c) {
 				c.clearRect(0, 0, c.canvas.width, c.canvas.height)
-				c.translate(camera.x, camera.y)
-				for(var x = 0; x < c.canvas.width/stripeDistance*2; x++)
+				c.translate(camera.x % cellSize, camera.y % cellSize)
+				for(var x = -1; x < c.canvas.width/stripeDistance*2; x++)
 				{
 					c.strokeStyle = colors.wall_stripes
 					c.beginPath();
-					c.moveTo(x * stripeDistance, 0)
-					c.lineTo(0,x * stripeDistance)
+					c.moveTo(x * stripeDistance, -stripeDistance)
+					c.lineTo(-stripeDistance,x * stripeDistance)
 					c.stroke();
 				}
 				console.log("Stripes drawn")
-				c.translate(-camera.x, -camera.y)
+				c.translate(-camera.x % cellSize, -camera.y % cellSize)
 			}
 		},
 		grid: {
 			canvas: document.getElementById("grid").getContext("2d"),
 			draw: function(c) {
 				c.clearRect(0, 0, c.canvas.width, c.canvas.height)
-				c.translate(camera.x, camera.y)
+				c.translate(camera.x % cellSize, camera.y % cellSize)
 				c.translate(0.5, 0.5) //to de-alias shit
-				for(var x = 0; x < c.canvas.width/cellSize; x++)
+				for(var x = -1; x < c.canvas.width/cellSize; x++)
 				{
-					for(var y = 0; y < c.canvas.height/cellSize; y++)
+					for(var y = -1; y < c.canvas.height/cellSize; y++)
 					{
 						c.strokeStyle = colors.borders_grid
 						c.strokeRect(x*cellSize, y*cellSize, cellSize, cellSize)
 					}
 				}
 				c.translate(-0.5, -0.5) //to de-alias shit
-				c.translate(-camera.x, -camera.y)
+				c.translate(-camera.x % cellSize, -camera.y % cellSize)
 				console.log("Grid drawn")
 			}
 		},
