@@ -361,8 +361,8 @@ var keyboard = {
 }
 
 var camera = {
-	x: 50,
-	y: 50
+	x: 0,
+	y: 0
 }
 
 ///////////////////////// Manipulating history (undo/redo) /////////////////////////
