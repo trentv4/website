@@ -191,6 +191,10 @@ var objects = [
 				id:   9,
 				file: "images/stairs.png"
 			},
+			{	name: "Statue",
+				id:   22,
+				file: "images/statue.png"
+			},
 			{	name: "Wall (tile)",
 				id:   1,
 				file: "images/wall.png"
