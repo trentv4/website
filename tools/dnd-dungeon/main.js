@@ -111,8 +111,8 @@ _c.onmousemove = function(x)
 {
 	mouse.x = x.offsetX
 	mouse.y = x.offsetY
-	var newDataX = Math.floor(mouse.x / cellSize)
-	var newDataY = Math.floor(mouse.y / cellSize)
+	var newDataX = Math.floor((mouse.x - camera.x) / cellSize)
+	var newDataY = Math.floor((mouse.y - camera.y) / cellSize)
 	if(mouse.data_x != newDataX | mouse.data_y != newDataY)
 	{
 		mouse.data_x = newDataX
@@ -358,6 +358,11 @@ var keyboard = {
 	c: false,
 	v: false,
 	r: false,
+}
+
+var camera = {
+	x: 50,
+	y: 50
 }
 
 ///////////////////////// Manipulating history (undo/redo) /////////////////////////
@@ -801,6 +806,7 @@ var display = {
 			canvas: document.getElementById("stripes").getContext("2d"),
 			draw: function(c) {
 				c.clearRect(0, 0, c.canvas.width, c.canvas.height)
+				c.translate(camera.x, camera.y)
 				for(var x = 0; x < c.canvas.width/stripeDistance*2; x++)
 				{
 					c.strokeStyle = colors.wall_stripes
@@ -810,12 +816,14 @@ var display = {
 					c.stroke();
 				}
 				console.log("Stripes drawn")
+				c.translate(-camera.x, -camera.y)
 			}
 		},
 		grid: {
 			canvas: document.getElementById("grid").getContext("2d"),
 			draw: function(c) {
 				c.clearRect(0, 0, c.canvas.width, c.canvas.height)
+				c.translate(camera.x, camera.y)
 				c.translate(0.5, 0.5) //to de-alias shit
 				for(var x = 0; x < c.canvas.width/cellSize; x++)
 				{
@@ -826,6 +834,7 @@ var display = {
 					}
 				}
 				c.translate(-0.5, -0.5) //to de-alias shit
+				c.translate(-camera.x, -camera.y)
 				console.log("Grid drawn")
 			}
 		},
@@ -833,6 +842,7 @@ var display = {
 			canvas: document.getElementById("emptyCells").getContext("2d"),
 			draw: function(c) {
 				c.clearRect(0, 0, c.canvas.width, c.canvas.height)
+				c.translate(camera.x, camera.y)
 				if(data == null) return;
 				for(var i = 0; i < data.length; i++)
 				{
@@ -867,6 +877,7 @@ var display = {
 
 					c.translate(-obj.x * cellSize, -obj.y * cellSize)
 				}
+				c.translate(-camera.x, -camera.y)
 				console.log("Empty cells drawn")
 			}
 		},
@@ -874,6 +885,7 @@ var display = {
 			canvas: document.getElementById("shadows").getContext("2d"),
 			draw: function(c) {
 				c.clearRect(0, 0, c.canvas.width, c.canvas.height)
+				c.translate(camera.x, camera.y)
 				for(var i = 0; i < data.length; i++)
 				{
 					var obj = data[i]
@@ -899,6 +911,7 @@ var display = {
 						}
 					}
 				}
+				c.translate(-camera.x, -camera.y)
 				console.log("Shadows drawn")
 			}
 		},
@@ -906,6 +919,7 @@ var display = {
 			canvas: document.getElementById("features").getContext("2d"),
 			draw: function(c) {
 				c.clearRect(0, 0, c.canvas.width, c.canvas.height)
+				c.translate(camera.x, camera.y)
 				if(data == null) return;
 				for(var i = 0; i < data.length; i++)
 				{
@@ -925,6 +939,7 @@ var display = {
 						c.translate(-translateX, -translateY)
 					}
 				}
+				c.translate(-camera.x, -camera.y)
 				console.log("Features drawn")
 			}
 		},
@@ -936,7 +951,7 @@ var display = {
 				{
 					c.strokeStyle = colors.mouse_outline
 					if(mouse.isRight | mouse.isLeft) c.strokeStyle = "#FFFF00"
-					c.strokeRect(mouse.data_x * cellSize, mouse.data_y * cellSize, cellSize, cellSize)
+					c.strokeRect(mouse.data_x * cellSize + camera.x, mouse.data_y * cellSize + camera.y, cellSize, cellSize)
 					var obj = currentType
 					if(obj != "wall" & selection == null)
 					{
