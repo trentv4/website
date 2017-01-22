@@ -947,26 +947,23 @@ var display = {
 			canvas: document.getElementById("mouse").getContext("2d"),
 			draw: function(c) {
 				c.clearRect(0, 0, c.canvas.width, c.canvas.height)
-				if(mouse.data_y >= 0)
+				c.strokeStyle = colors.mouse_outline
+				if(mouse.isRight | mouse.isLeft) c.strokeStyle = "#FFFF00"
+				c.strokeRect(mouse.data_x * cellSize + camera.x, mouse.data_y * cellSize + camera.y, cellSize, cellSize)
+				var obj = currentType
+				if(obj != "wall" & selection == null)
 				{
-					c.strokeStyle = colors.mouse_outline
-					if(mouse.isRight | mouse.isLeft) c.strokeStyle = "#FFFF00"
-					c.strokeRect(mouse.data_x * cellSize + camera.x, mouse.data_y * cellSize + camera.y, cellSize, cellSize)
-					var obj = currentType
-					if(obj != "wall" & selection == null)
-					{
-						var img = new Image()
-						img.src = obj_ids[obj].file
-						c.fillStyle = "#FF00FF"
-						var rotation = (currentRotation*90) * Math.PI/180
-						var translateX = mouse.data_x * cellSize + Math.ceil(cellSize/2)
-						var translateY = mouse.data_y * cellSize + Math.ceil(cellSize/2)
-						c.translate(translateX, translateY)
-						c.rotate(rotation)
-						c.drawImage(img, Math.floor(-cellSize/2), Math.floor(-cellSize/2), cellSize+1, cellSize+1)
-						c.rotate(-rotation)
-						c.translate(-translateX, -translateY)
-					}
+					var img = new Image()
+					img.src = obj_ids[obj].file
+					c.fillStyle = "#FF00FF"
+					var rotation = (currentRotation*90) * Math.PI/180
+					var translateX = mouse.data_x * cellSize + Math.ceil(cellSize/2)
+					var translateY = mouse.data_y * cellSize + Math.ceil(cellSize/2)
+					c.translate(translateX, translateY)
+					c.rotate(rotation)
+					c.drawImage(img, Math.floor(-cellSize/2), Math.floor(-cellSize/2), cellSize+1, cellSize+1)
+					c.rotate(-rotation)
+					c.translate(-translateX, -translateY)
 				}
 				console.log("Mouse drawn")
 			}
