@@ -601,10 +601,10 @@ function updateKeyboard()
 	}
 
 	var camDist = cellSize
-	if(keyboard.w) camera.y -= camDist
-	if(keyboard.s) camera.y += camDist
-	if(keyboard.a) camera.x -= camDist
-	if(keyboard.d) camera.x += camDist
+	if(keyboard.w) camera.y += camDist
+	if(keyboard.s) camera.y -= camDist
+	if(keyboard.a) camera.x += camDist
+	if(keyboard.d) camera.x -= camDist
 	if(keyboard.w | keyboard.a | keyboard.s | keyboard.d) display.fullRedraw()
 }
 
@@ -982,6 +982,7 @@ var display = {
 			canvas: document.getElementById("selection").getContext("2d"),
 			draw: function(c) {
 				c.clearRect(0, 0, c.canvas.width, c.canvas.height)
+				c.translate(camera.x, camera.y)
 				if(selection != null)
 				{
 					c.strokeStyle = colors.select_outline
@@ -1004,6 +1005,7 @@ var display = {
 					}
 					c.translate(-0.5, -0.5) //to de-alias shit
 				}
+				c.translate(-camera.x, -camera.y)
 				console.log("Selection drawn")
 			}
 		},
