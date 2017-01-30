@@ -11,6 +11,11 @@ function val(inp)
 	if(inp == true) return "inline"
 }
 
+document.getElementById("notes").oninput = function(e)
+{
+	localStorage.map = getSaveData()
+}
+
 var _q = document.getElementsByTagName("input")
 for(var i = 0; i < _q.length; i++)
 {
@@ -92,6 +97,7 @@ _c.oncontextmenu = function(x)
 
 _c.onmousedown = function(x)
 {
+	document.activeElement.blur()
 	if(x.button == 0) mouse.isLeft = true;
 	if(x.button == 1) mouse.isMiddle = true;
 	if(x.button == 2) mouse.isRight = true;
@@ -124,13 +130,19 @@ _c.onmousemove = function(x)
 }
 
 document.addEventListener("keydown", function(x){
-	keyboard.set(x.key, true)
-	updateKeyboard()
+	if(document.activeElement.tagName != "TEXTAREA")
+	{
+		keyboard.set(x.key, true)
+		updateKeyboard()
+	}
 })
 
 document.addEventListener("keyup", function(x){
-	keyboard.set(x.key, false)
-	updateKeyboard()
+	if(document.activeElement.tagName != "TEXTAREA")
+	{
+		keyboard.set(x.key, false)
+		updateKeyboard()
+	}
 })
 
 ///////////////////////// Creating objects and the tool list /////////////////////////
@@ -732,21 +744,41 @@ var save_format = {
 			}
 			return d;
 		},
+		function(str) { // Version 3 (identical to 2, but I added a textarea field after this)
+			if(str == null) return []
+			var d = []
+			var data = str.split(";")
+
+			for(var i = 0; i < data.length-1; i++)
+			{
+				var obj = data[i].split("*")
+				var ntype = obj[3]
+				if(ntype == "0") ntype = "wall"
+				d.push({
+					x: JSON.parse(obj[0]),
+					y: JSON.parse(obj[1]),
+					rotation: JSON.parse(obj[2]),
+					type: ntype
+				})
+			}
+			return d;
+		},
 	]
 }
 
 function getSaveData()
 {
 	var save = ""
-	save += "2 "
+	save += "3 "
 	save += save_format.bool.encode(render_walls)
 	save += save_format.bool.encode(render_corner_dots)
 	save += save_format.bool.encode(render_grid)
 	save += save_format.bool.encode(render_stripes)
 	save += save_format.bool.encode(render_shadows)
 	save += " "
-
 	save += save_format.encode(data)
+	save += " "
+	save += encodeURI(document.getElementById("notes").value)
 	return save
 }
 
@@ -769,6 +801,7 @@ function loadData(str)
 		document.getElementById("render_grid").checked = render_grid
 		document.getElementById("render_stripes").checked = render_stripes
 		document.getElementById("render_shadows").checked = render_shadows
+		if(a[3] != undefined) document.getElementById("notes").value = decodeURI(a[3])
 		addPrevData()
 		message("green", "Success: loaded!")
 	}
