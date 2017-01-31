@@ -172,7 +172,7 @@ var objects = [
 					selection = null
 					display.layers.selection.draw(display.layers.selection.canvas)
 				}
-			},
+			}/*,
 			{	name: "Text Tool",
 				id:   15,
 				file: "images/text.png",
@@ -181,7 +181,7 @@ var objects = [
 					selection = null
 					display.layers.selection.draw(display.layers.selection.canvas)
 				}
-			},
+			},*/
 		],
 	},
 	{
@@ -576,7 +576,8 @@ function updateKeyboard()
 					newD.push({
 						x: nd[i].x - diffX,
 						y: nd[i].y - diffY,
-						type: nd[i].type
+						type: nd[i].type,
+						rotation: nd[i].rotation,
 					})
 				}
 				clipboard = {
