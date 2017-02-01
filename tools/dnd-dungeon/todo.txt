@@ -2,26 +2,20 @@ todo:
 draw lines between mouse buffers, to resolve missed spots when moving the mouse very fast
 preview mode for pasting
 don't render mouse cursor when it's not on the canvas
-change up data structure to a 2d array
+change up data structure to a 2d array (faster fetches for certain positions, thus faster redraws on big dungeons)
 
 bugs:
 none known
 
 feature requests:
 	ability to place notes or numbers on the grid
-	textarea for storing notes
 	scaling option (70x70 exports to roll20)
-	panning
 
 	tiles:
 		chairs
 		bookcases
-		statues
 		secret door
-		water tiles barrels
 		connectors (for stairs, mostly)
 
-	include all basic tools from anamap
-	allow map size customization
-	statues, curtains, ledges
+	include all basic tools from anamap (mostly done)
 	maybe export to jpg
