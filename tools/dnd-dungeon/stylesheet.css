@@ -75,6 +75,10 @@ img {
 	display: block;
 }
 
+.feature-list {
+	vertical-align: top;
+}
+
 .inline {
 	display: inline-block;
 }
