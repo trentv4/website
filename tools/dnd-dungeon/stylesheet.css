@@ -75,9 +75,10 @@ img {
 	display: block;
 }
 
-.feature-list {
-	display: block;
+.inline {
+	display: inline-block;
 }
+
 
 @media (max-width: 1250px) {
 	.feature-list {

@@ -287,43 +287,43 @@ var objects = [
 	{
 		catname: "Numbers:",
 		objects: [
-			{ 	name: "0",
+			{ 	name: "",
 				id: 23,
 				file: "images/num_0.png"
 			},
-			{ 	name: "1",
+			{ 	name: "",
 				id: 24,
 				file: "images/num_1.png"
 			},
-			{ 	name: "2",
+			{ 	name: "",
 				id: 25,
 				file: "images/num_2.png"
 			},
-			{ 	name: "3",
+			{ 	name: "",
 				id: 26,
 				file: "images/num_3.png"
 			},
-			{ 	name: "4",
+			{ 	name: "",
 				id: 27,
 				file: "images/num_4.png"
 			},
-			{ 	name: "5",
+			{ 	name: "",
 				id: 28,
 				file: "images/num_5.png"
 			},
-			{ 	name: "6",
+			{ 	name: "",
 				id: 29,
 				file: "images/num_6.png"
 			},
-			{ 	name: "7",
+			{ 	name: "",
 				id: 30,
 				file: "images/num_7.png"
 			},
-			{ 	name: "8",
+			{ 	name: "",
 				id: 31,
 				file: "images/num_8.png"
 			},
-			{ 	name: "9",
+			{ 	name: "",
 				id: 32,
 				file: "images/num_9.png"
 			},
@@ -347,6 +347,7 @@ for(var i = 0; i < objects.length; i++)
 		var current_object = category.objects[g]
 		obj_ids[current_object.id] = current_object
 		var pre = document.createElement("pre")
+		if(category.catname == "Numbers:") pre.className = "inline"
 		var img = document.createElement("img")
 		img.className = "tool"
 		img.id = current_object.id
