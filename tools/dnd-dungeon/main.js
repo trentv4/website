@@ -284,6 +284,51 @@ var objects = [
 			},
 		],
 	},
+	{
+		catname: "Numbers:",
+		objects: [
+			{ 	name: "0",
+				id: 23,
+				file: "images/num_0.png"
+			},
+			{ 	name: "1",
+				id: 24,
+				file: "images/num_1.png"
+			},
+			{ 	name: "2",
+				id: 25,
+				file: "images/num_2.png"
+			},
+			{ 	name: "3",
+				id: 26,
+				file: "images/num_3.png"
+			},
+			{ 	name: "4",
+				id: 27,
+				file: "images/num_4.png"
+			},
+			{ 	name: "5",
+				id: 28,
+				file: "images/num_5.png"
+			},
+			{ 	name: "6",
+				id: 29,
+				file: "images/num_6.png"
+			},
+			{ 	name: "7",
+				id: 30,
+				file: "images/num_7.png"
+			},
+			{ 	name: "8",
+				id: 31,
+				file: "images/num_8.png"
+			},
+			{ 	name: "9",
+				id: 32,
+				file: "images/num_9.png"
+			},
+		]
+	}
 ]
 
 var obj_ids = []
