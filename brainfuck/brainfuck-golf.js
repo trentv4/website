@@ -1,62 +1,30 @@
 o = ">++++++++[-<+++++++++>]<.>>+>-[+]++>++>+++[>[->+++<<+++>]<<]>-----.>->+++..+++.>-.<<+[>[+>+]>>]<--------------.>>.+++.------.--------.>+.>+."
-u = o.length
-c = []
-c.z = c.push
-q = 0;
 d = []
 s = 0
-n = null
 j = ""
+function a(b)
+{
+	for (f = b; f;)
+	{
+		if(o[q += b] == "[") f++
+		if(o[q] == "]") f--
+	}
+}
 e = {
-	"<":function(){if(s > 0) s--},
+	"<":function(){s--},
 	">":function(){s++},
-	"+":function(){if(d[s] == n) d[s] = 0; d[s]++},
-	"-":function(){if(d[s] == n) d[s] = 0; d[s]--},
+	"+":function(){d[s] = (d[s] || 0) + 1},
+	"-":function(){d[s] = (d[s] || 0) - 1},
 	".":function(){j += String.fromCharCode(d[s])},
 	",":function(){d[s] = parseInt(prompt("Enter a number"))},
 	"[":function()
 	{
-		if(d[s] == n) d[s] = 0;
-		if(d[s] == 0)
-		{
-			var f = 0
-			for(var i = q; i < u; i++)
-			{
-				if(o[i] == "[") f++;
-				if(o[i] == "]" & f != 0) f--;
-				if(o[i] == "]" & f == 0)
-				{
-					q = i;
-					break;
-				}
-			}
-		}
+		if(!d[s]) a(1)
 	},
 	"]":function()
 	{
-		if(d[s] == n) d[s] = 0;
-		if(d[s] != 0)
-		{
-			var f = 0
-			for(var i = q; i > 0; i--)
-			{
-				if(o[i] == "]") f++;
-				if(o[i] == "[" & f != 0) f--;
-				if(o[i] == "[" & f == 0)
-				{
-					q = i;
-					break;
-				}
-			}
-		}
+		if(d[s]) a(-1)
 	}
 }
-for(i in o)
-{
-	c.z(e[o[i]])
-}
-for(q = 0; q < u; q++)
-{
-	c[q]();
-}
+for(q = 0; q < o.length; q++) e[o[q]]()
 console.log(j, d)
