@@ -105,7 +105,6 @@ let map = {
 
 map.add("wall", 5, 5)
 map.add("wall", 0, 0)
-
 map.add("wall", 4, 5)
 map.add("wall", 5, 4)
 map.add("wall", 5, 6)
@@ -115,5 +114,8 @@ map.add("wall", 4, 6)
 map.add("wall", 3, 6)
 map.add("wall", 2, 6)
 map.add("wall", 2, 5)
+
+map.add(23, 4, 5)
+map.add(23, 1, 0)
 
 display.draw()

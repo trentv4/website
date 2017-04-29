@@ -63,6 +63,7 @@ let display = {
 
       for(let i = 0; i < data.length; i++) {
         let obj = data[i]
+        if(obj.type != "wall") continue
         c.translate(obj.x * cellSize, obj.y * cellSize)
 
         if(render_walls) {
@@ -97,6 +98,7 @@ let display = {
       let data = map.getMapAsList()
       for(let i = 0; i < data.length; i++) {
         let obj = data[i]
+        if(obj.type != "wall") continue
         c.translate(obj.x * cellSize, obj.y * cellSize)
 
         if(map.get("wall", obj.x, obj.y - 1) == null) {
@@ -129,6 +131,32 @@ let display = {
     canvas: document.getElementById("features").getContext("2d"),
     draw: () => {
       let c = display.features.canvas
+      c.clearRect(0, 0, c.canvas.width, c.canvas.height)
+
+      let data = map.getMapAsList()
+
+      c.translate(camera.x, camera.y)
+
+      for(let i = 0; i < data.length; i++) {
+        let obj = data[i]
+        if(obj.type == "wall") continue
+
+        let img = new Image()
+        img.src = obj_ids[obj.type].file
+        img.rotation = (obj.rotation*90) * Math.PI/180
+        img.translateX = obj.x * cellSize
+        img.translateY = obj.y * cellSize
+
+        img.onload = () => {
+          c.translate(img.translateX, img.translateY)
+          c.rotate(img.rotation)
+          c.drawImage(img, 0, 0, cellSize+1, cellSize+1)
+          c.rotate(-img.rotation)
+          c.translate(-img.translateX, -img.translateY)
+        }
+      }
+
+      c.translate(-camera.x, -camera.y)
     }
   },
 }

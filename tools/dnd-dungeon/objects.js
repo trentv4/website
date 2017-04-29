@@ -183,9 +183,10 @@ const objects = [
 	}
 ]
 
+let obj_ids = []
+
 function init(objects)
 {
-  var obj_ids = []
   for(var i = 0; i < objects.length; i++)
   {
   	var category = objects[i]
