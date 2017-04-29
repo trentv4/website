@@ -216,9 +216,6 @@ function init(objects)
   				console.log("Setting to: " + obj_ids[this.id].name)
   				currentType = this.id
   				document.getElementById("current-tool").innerHTML = `Current tool: <br><img src="` + obj_ids[this.id].file + `"> `+obj_ids[this.id].name+``
-  				isSelecting = false
-  				selection = null
-  				display.layers.selection.draw(display.layers.selection.canvas)
   			})
   		}
   		pre.appendChild(img)

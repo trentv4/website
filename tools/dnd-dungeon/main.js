@@ -83,10 +83,24 @@ let map = {
         return
       }
     }
+  },
+  getMapAsList: () => {
+    let data = map.data
+    let list = []
+    for(let x = 0; x < data.length; x++) {
+      for(let y = 0; y < data[x].length; y++) {
+        let instance = data[x][y]
+        if(instance.length == 0) continue
+        for(let i = 0; i < instance.length; i++)
+        {
+          if(instance[i] == null) continue
+          list.push(instance[i])
+        }
+      }
+    }
+    return list
   }
 }
 
-map.add("asdf", 5, 5)
-map.remove("asdf", 5, 5)
-map.add("asdf", 5, 5)
-console.log(map.get("asdf", 5, 5))
+map.add(28, 5, 5)
+console.log("List: ", map.getMapAsList())
