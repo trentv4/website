@@ -1,13 +1,13 @@
-var cellSize = 15
-var stripeDistance = 10
+let cellSize = 15
+let stripeDistance = 10
 
-var render_walls = true
-var render_corner_dots = false
-var render_grid = true
-var render_stripes = true
-var render_shadows = true
+let render_walls = true
+let render_corner_dots = false
+let render_grid = true
+let render_stripes = true
+let render_shadows = true
 
-var colors = {
+let colors = {
 	background: "#ECE7E1",
 	borders_grid: "#C8BDB1",
 	borders_room: "#786249",
