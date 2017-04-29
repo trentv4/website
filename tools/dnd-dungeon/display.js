@@ -65,7 +65,6 @@ let display = {
         let obj = data[i]
         c.translate(obj.x * cellSize, obj.y * cellSize)
 
-
         if(render_walls) {
           c.fillStyle = colors.borders_room
           c.fillRect(0, 0, cellSize+1, cellSize+1)
@@ -80,10 +79,8 @@ let display = {
             c.fillRect(0, 0, 1, 1)
           }
         }
-
         c.fillStyle = colors.background
         c.fillRect(1, 1, cellSize - 1, cellSize - 1)
-
 
         c.translate(-obj.x * cellSize, -obj.y * cellSize)
       }
@@ -95,6 +92,37 @@ let display = {
     canvas: document.getElementById("shadows").getContext("2d"),
     draw: () => {
       let c = display.shadows.canvas
+      c.clearRect(0, 0, c.canvas.width, c.canvas.height)
+
+      let data = map.getMapAsList()
+      for(let i = 0; i < data.length; i++) {
+        let obj = data[i]
+        c.translate(obj.x * cellSize, obj.y * cellSize)
+
+        if(map.get("wall", obj.x, obj.y - 1) == null) {
+          let x = 3
+          let width = cellSize - 5
+
+          if(map.get("wall", obj.x + 1, obj.y) == null)
+          {
+            width += 2
+          }
+          if(map.get("wall", obj.x + 1, obj.y) != null & map.get("wall", obj.x + 1, obj.y - 1) == null)
+          {
+            width += 5
+          }
+          if(map.get("wall", obj.x - 1, obj.y) == null)
+          {
+            x = 1
+            width += 2
+          }
+
+          c.fillStyle = colors.shadow
+          c.fillRect(x, 1, width, 3)
+        }
+
+        c.translate(-obj.x * cellSize, -obj.y * cellSize)
+      }
     }
   },
   features: {
