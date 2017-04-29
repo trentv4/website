@@ -2,7 +2,7 @@ var cellSize = 15
 var stripeDistance = 10
 
 var render_walls = true
-var render_corner_dots = true
+var render_corner_dots = false
 var render_grid = true
 var render_stripes = true
 var render_shadows = true

@@ -7,8 +7,9 @@ init(objects)
 
 let currentType = ""
 
-let display = {
-
+let camera = {
+  x: 0,
+  y: 0
 }
 
 let map = {
@@ -16,13 +17,13 @@ let map = {
   verifyArrayFits: (x, y) => {
     let data = map.data
 
-    if(data.length < x) {
+    if(data.length <= x) {
       let missingDataLength = x - data.length + 1
       for(let i = 0; i < missingDataLength; i++) {
         data.push([])
       }
     }
-    if(data[x].length < y) {
+    if(data[x].length <= y) {
       let missingDataLength = y - data[x].length + 1
       for(let i = 0; i < missingDataLength; i++) {
         data[x].push([])
@@ -30,9 +31,9 @@ let map = {
     }
   },
   get: (type, x, y) => {
+    if(x < 0 | y < 0) return null
     let data = map.data
     map.verifyArrayFits(x, y)
-
     if(type == "all") return data[x][y]
 
     let position = data[x][y]
@@ -102,5 +103,13 @@ let map = {
   }
 }
 
-map.add(28, 5, 5)
-console.log("List: ", map.getMapAsList())
+map.add("wall", 5, 5)
+map.add("wall", 0, 0)
+
+map.add("wall", 4, 5)
+map.add("wall", 5, 4)
+map.add("wall", 5, 6)
+map.add("wall", 6, 6)
+map.add("wall", 4, 6)
+
+display.draw()
