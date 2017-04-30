@@ -3,8 +3,6 @@ _c.width = _c.clientWidth; _c.height = _c.clientHeight
 var c2 = _c.getContext("2d")
 c2.width = _c.clientWidth; c2.height = _c.clientHeight
 
-init(objects)
-
 let currentType = ""
 
 let camera = {

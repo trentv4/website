@@ -159,4 +159,13 @@ let display = {
       c.translate(-camera.x, -camera.y)
     }
   },
+  mouse: {
+    canvas: document.getElementById("mouse").getContext("2d"),
+    draw: () => {
+      let c = display.mouse.canvas
+      c.clearRect(0, 0, c.canvas.width, c.canvas.height)
+
+      
+    }
+  }
 }
