@@ -4,6 +4,7 @@ var c2 = _c.getContext("2d")
 c2.width = _c.clientWidth; c2.height = _c.clientHeight
 
 let currentType = "wall"
+let rotation = 0
 
 let camera = {
   x: 0,
@@ -60,11 +61,11 @@ let map = {
 
     data[x][y].push(newObject)
   },
-  remove: (type, x, y, rotation) => {
+  remove: (type, x, y) => {
     let data = map.data
     map.verifyArrayFits(x, y)
 
-    if(map.get(type, x, y) == null) return
+    if(map.get(type, x, y) == null & type != "object") return
 
     let position = data[x][y]
 
@@ -76,10 +77,15 @@ let map = {
 
     for(let i = 0; i < position.length; i++)
     {
-      if(position[i].type == type)
+      if(position[i] != null)
       {
-        data[x][y][i] = null
-        return
+        if(position[i].type != "wall" & type == "object") {
+          data[x][y][i] = null
+        }
+        else if(position[i].type == type) {
+          data[x][y][i] = null
+          return
+        }
       }
     }
   },
@@ -115,6 +121,17 @@ map.add("wall", 2, 5)
 
 map.add(23, 4, 5)
 map.add(23, 1, 0)
+
+function enableStressTest() {
+  for(let x = 0; x < 45; x++) {
+    for(let y = 0; y < 25; y++) {
+      map.add("wall", x, y)
+      for(let i = 5; i < 20; i++) {
+        map.add(i, x, y)
+      }
+    }
+  }
+}
 
 setInterval(() => {
   let start = new Date().getMilliseconds()

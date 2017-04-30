@@ -35,6 +35,7 @@ let display = {
   grid: {
     canvas: document.getElementById("grid").getContext("2d"),
     draw: () => {
+      //Holy shit optimize this please
       let c = display.grid.canvas
       c.clearRect(0, 0, c.canvas.width, c.canvas.height)
       c.translate(camera.x % cellSize, camera.y % cellSize)
@@ -141,6 +142,9 @@ let display = {
         let obj = data[i]
         if(obj.type == "wall") continue
 
+        if(obj_ids[obj.type] == null) {
+          continue
+        }
         let img = obj_ids[obj.type].cachedimage
         rotation = (obj.rotation*90) * Math.PI/180
         translateX = obj.x * cellSize

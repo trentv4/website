@@ -1,7 +1,5 @@
 window.get = (e) => document.getElementById(e)
 
-let rotation = 0
-
 let mouse = {
 	x: 0,
 	y: 0,
@@ -63,12 +61,45 @@ get("save-img-btn").onclick = (e) => {
 
 topLayer.oncontextmenu = (x) => false
 
-topLayer.onmousedown = (x) => {
+topLayer.onmouseupdate = (x) => {
+  if(mouse.isRight) {
+    if(currentType == "wall") {
+      map.add("wall", mouse.data_x, mouse.data_y)
+    }
+    else {
+      map.remove("object", mouse.data_x, mouse.data_y)
+    }
+  }
+  if(mouse.isLeft) {
+    if(currentType == "wall") {
+      map.remove("wall", mouse.data_x, mouse.data_y)
+    }
+    else {
+      map.add(currentType, mouse.data_x, mouse.data_y)
+    }
+  }
+  if(mouse.isMiddle) {
 
+  }
+
+  display.mouse.draw()
+}
+
+topLayer.onmousedown = (x) => {
+  document.activeElement.blur()
+	if(x.button == 0) mouse.isLeft = true;
+	if(x.button == 1) mouse.isMiddle = true;
+	if(x.button == 2) mouse.isRight = true;
+	x.preventDefault()
+  topLayer.onmouseupdate()
 }
 
 topLayer.onmouseup = (x) => {
-
+  if(x.button == 0) mouse.isLeft = false;
+	if(x.button == 1) mouse.isMiddle = false;
+	if(x.button == 2) mouse.isRight = false;
+	x.preventDefault()
+  topLayer.onmouseupdate()
 }
 
 topLayer.onmousemove = (x) => {
@@ -80,14 +111,29 @@ topLayer.onmousemove = (x) => {
   {
     mouse.data_x = newDataX
     mouse.data_y = newDataY
+    topLayer.onmouseupdate()
+  }
+}
+
+document.onkeyupdate = (x) => {
+  if(keyboard.r) {
+
     display.mouse.draw()
   }
 }
 
 document.onkeydown = (x) => {
-
+  if(document.activeElement.tagName != "TEXTAREA")
+	{
+		keyboard.set(x.key, true)
+    document.onkeyupdate()
+	}
 }
 
 document.onkeyup = (x) => {
-
+  if(document.activeElement.tagName != "TEXTAREA")
+	{
+		keyboard.set(x.key, false)
+    document.onkeyupdate()
+	}
 }
