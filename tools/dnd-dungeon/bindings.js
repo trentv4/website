@@ -1,5 +1,7 @@
 window.get = (e) => document.getElementById(e)
 
+let rotation = 0
+
 let mouse = {
 	x: 0,
 	y: 0,
@@ -70,7 +72,16 @@ topLayer.onmouseup = (x) => {
 }
 
 topLayer.onmousemove = (x) => {
-
+  mouse.x = x.offsetX
+	mouse.y = x.offsetY
+	let newDataX = Math.floor((mouse.x - camera.x) / cellSize)
+	let newDataY = Math.floor((mouse.y - camera.y) / cellSize)
+  if(mouse.data_x != newDataX | mouse.data_y != newDataY)
+  {
+    mouse.data_x = newDataX
+    mouse.data_y = newDataY
+    display.mouse.draw()
+  }
 }
 
 document.onkeydown = (x) => {

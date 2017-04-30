@@ -3,7 +3,7 @@ _c.width = _c.clientWidth; _c.height = _c.clientHeight
 var c2 = _c.getContext("2d")
 c2.width = _c.clientWidth; c2.height = _c.clientHeight
 
-let currentType = ""
+let currentType = "wall"
 
 let camera = {
   x: 0,
@@ -116,4 +116,8 @@ map.add("wall", 2, 5)
 map.add(23, 4, 5)
 map.add(23, 1, 0)
 
-display.draw()
+setInterval(() => {
+  let start = new Date().getMilliseconds()
+  display.draw()
+  get("frametime").innerHTML = "Frame time: " + (new Date().getMilliseconds() - start) + " ms"
+}, 16)

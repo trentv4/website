@@ -198,6 +198,7 @@ for(var i = 0; i < objects.length; i++)
   for(var g = 0; g < category.objects.length; g++)
   {
     var current_object = category.objects[g]
+
     obj_ids[current_object.id] = current_object
     var pre = document.createElement("pre")
     if(category.catname == "Numbers:") pre.className = "inline"
@@ -220,6 +221,13 @@ for(var i = 0; i < objects.length; i++)
     pre.appendChild(img)
     pre.appendChild(document.createTextNode(" " + current_object.name))
     div.appendChild(pre)
+
+    let cachedimage = new Image()
+    cachedimage.object = current_object
+    cachedimage.src = current_object.file
+    cachedimage.onload = () => {
+      cachedimage.object.cachedimage = cachedimage
+    };
   }
   document.getElementById("sidebar").appendChild(div)
 }

@@ -141,19 +141,16 @@ let display = {
         let obj = data[i]
         if(obj.type == "wall") continue
 
-        let img = new Image()
-        img.src = obj_ids[obj.type].file
-        img.rotation = (obj.rotation*90) * Math.PI/180
-        img.translateX = obj.x * cellSize
-        img.translateY = obj.y * cellSize
+        let img = obj_ids[obj.type].cachedimage
+        rotation = (obj.rotation*90) * Math.PI/180
+        translateX = obj.x * cellSize
+        translateY = obj.y * cellSize
 
-        img.onload = () => {
-          c.translate(img.translateX, img.translateY)
-          c.rotate(img.rotation)
-          c.drawImage(img, 0, 0, cellSize+1, cellSize+1)
-          c.rotate(-img.rotation)
-          c.translate(-img.translateX, -img.translateY)
-        }
+        c.translate(translateX, translateY)
+        c.rotate(rotation)
+        c.drawImage(img, 0, 0, cellSize+1, cellSize+1)
+        c.rotate(-rotation)
+        c.translate(-translateX, -translateY)
       }
 
       c.translate(-camera.x, -camera.y)
@@ -165,7 +162,26 @@ let display = {
       let c = display.mouse.canvas
       c.clearRect(0, 0, c.canvas.width, c.canvas.height)
 
-      
+      c.strokeStyle = colors.mouse_outline
+      if(mouse.isRight | mouse.isLeft) c.strokeStyle = "#FFFF00"
+
+      c.strokeRect(mouse.data_x * cellSize + camera.x, mouse.data_y * cellSize + camera.y, cellSize, cellSize)
+
+      if(currentType != "wall") {
+        let img = new Image()
+        img.src = obj_ids[currentType].file
+        img.rotation = (rotation*90) * Math.PI/180
+        img.translateX = mouse.data_x * cellSize
+        img.translateY = mouse.data_y * cellSize
+
+        img.onload = () => {
+          c.translate(img.translateX, img.translateY)
+          c.rotate(img.rotation)
+          c.drawImage(img, 0, 0, cellSize+1, cellSize+1)
+          c.rotate(-img.rotation)
+          c.translate(-img.translateX, -img.translateY)
+        }
+      }
     }
   }
 }
