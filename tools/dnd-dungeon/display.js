@@ -20,36 +20,42 @@ let display = {
     draw: () => {
       let c = display.stripes.canvas
       c.clearRect(0, 0, c.canvas.width, c.canvas.height)
-      c.translate(camera.x % cellSize, camera.y % cellSize)
-      for(var x = 2; x < c.canvas.width/stripeDistance * 2; x++)
-      {
-        c.strokeStyle = colors.wall_stripes
-        c.beginPath();
-        c.moveTo(x * stripeDistance, -stripeDistance)
-        c.lineTo(-stripeDistance,x * stripeDistance)
-        c.stroke();
+      if(render_stripes) {
+        c.translate(camera.x % cellSize, camera.y % cellSize)
+        for(var x = 2; x < c.canvas.width/stripeDistance * 2; x++)
+        {
+          c.strokeStyle = colors.wall_stripes
+          c.beginPath();
+          c.moveTo(x * stripeDistance, -stripeDistance)
+          c.lineTo(-stripeDistance,x * stripeDistance)
+          c.stroke();
+        }
+        c.translate(-camera.x % cellSize, -camera.y % cellSize)
       }
-      c.translate(-camera.x % cellSize, -camera.y % cellSize)
     }
   },
   grid: {
     canvas: document.getElementById("grid").getContext("2d"),
     draw: () => {
-      //Holy shit optimize this please
       let c = display.grid.canvas
       c.clearRect(0, 0, c.canvas.width, c.canvas.height)
-      c.translate(camera.x % cellSize, camera.y % cellSize)
-      c.translate(0.5, 0.5) //to de-alias shit
-      for(var x = -1; x < c.canvas.width/cellSize; x++)
-      {
-        for(var y = -1; y < c.canvas.height/cellSize; y++)
-        {
-          c.strokeStyle = colors.borders_grid
-          c.strokeRect(x*cellSize, y*cellSize, cellSize, cellSize)
+      if(render_grid) {
+        c.translate(0.5, 0.5)
+        c.strokeStyle = colors.borders_grid
+        for(let x = 0; x < c.canvas.width; x += cellSize) {
+          c.beginPath()
+          c.moveTo(x, 0)
+          c.lineTo(x, c.canvas.height)
+          c.stroke()
         }
+        for(let y = 0; y < c.canvas.height; y += cellSize) {
+          c.beginPath()
+          c.moveTo(0, y)
+          c.lineTo(c.canvas.width, y)
+          c.stroke()
+        }
+        c.translate(-0.5, -0.5)
       }
-      c.translate(-0.5, -0.5) //to de-alias shit
-      c.translate(-camera.x % cellSize, -camera.y % cellSize)
     }
   },
   emptyCells: {
@@ -95,36 +101,37 @@ let display = {
     draw: () => {
       let c = display.shadows.canvas
       c.clearRect(0, 0, c.canvas.width, c.canvas.height)
+      if(render_shadows) {
+        let data = map.getMapAsList()
+        for(let i = 0; i < data.length; i++) {
+          let obj = data[i]
+          if(obj.type != "wall") continue
+          c.translate(obj.x * cellSize, obj.y * cellSize)
 
-      let data = map.getMapAsList()
-      for(let i = 0; i < data.length; i++) {
-        let obj = data[i]
-        if(obj.type != "wall") continue
-        c.translate(obj.x * cellSize, obj.y * cellSize)
+          if(map.get("wall", obj.x, obj.y - 1) == null) {
+            let x = 3
+            let width = cellSize - 5
 
-        if(map.get("wall", obj.x, obj.y - 1) == null) {
-          let x = 3
-          let width = cellSize - 5
+            if(map.get("wall", obj.x + 1, obj.y) == null)
+            {
+              width += 2
+            }
+            if(map.get("wall", obj.x + 1, obj.y) != null & map.get("wall", obj.x + 1, obj.y - 1) == null)
+            {
+              width += 5
+            }
+            if(map.get("wall", obj.x - 1, obj.y) == null)
+            {
+              x = 1
+              width += 2
+            }
 
-          if(map.get("wall", obj.x + 1, obj.y) == null)
-          {
-            width += 2
+            c.fillStyle = colors.shadow
+            c.fillRect(x, 1, width, 3)
           }
-          if(map.get("wall", obj.x + 1, obj.y) != null & map.get("wall", obj.x + 1, obj.y - 1) == null)
-          {
-            width += 5
-          }
-          if(map.get("wall", obj.x - 1, obj.y) == null)
-          {
-            x = 1
-            width += 2
-          }
 
-          c.fillStyle = colors.shadow
-          c.fillRect(x, 1, width, 3)
+          c.translate(-obj.x * cellSize, -obj.y * cellSize)
         }
-
-        c.translate(-obj.x * cellSize, -obj.y * cellSize)
       }
     }
   },
