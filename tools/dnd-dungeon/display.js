@@ -153,15 +153,15 @@ let display = {
           continue
         }
         let img = obj_ids[obj.type].cachedimage
-        rotation = (obj.rotation*90) * Math.PI/180
+        let rot = (obj.rotation*90) * Math.PI/180
         translateX = obj.x * cellSize + Math.ceil(cellSize/2)
         translateY = obj.y * cellSize + Math.ceil(cellSize/2)
 
         if(img == null) return;
         c.translate(translateX, translateY)
-        c.rotate(rotation)
+        c.rotate(rot)
         c.drawImage(img, Math.floor(-cellSize/2), Math.floor(-cellSize/2), cellSize+1, cellSize+1)
-        c.rotate(-rotation)
+        c.rotate(-rot)
         c.translate(-translateX, -translateY)
       }
 
@@ -181,15 +181,15 @@ let display = {
 
       if(currentType != "wall") {
         let img = obj_ids[currentType].cachedimage
-        rotation = (rotation*90) * Math.PI/180
+        let rot = (rotation*90) * Math.PI/180
         translateX = mouse.data_x * cellSize + Math.ceil(cellSize/2)
         translateY = mouse.data_y * cellSize + Math.ceil(cellSize/2)
 
         if(img == null) return;
         c.translate(translateX, translateY)
-        c.rotate(rotation)
+        c.rotate(rot)
         c.drawImage(img, Math.floor(-cellSize/2), Math.floor(-cellSize/2), cellSize+1, cellSize+1)
-        c.rotate(-rotation)
+        c.rotate(-rot)
         c.translate(-translateX, -translateY)
       }
     }

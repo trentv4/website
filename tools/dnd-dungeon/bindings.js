@@ -117,7 +117,7 @@ topLayer.onmousemove = (x) => {
 
 document.onkeyupdate = (x) => {
   if(keyboard.r) {
-
+    rotation = (rotation + 1) % 4
     display.mouse.draw()
   }
 }
