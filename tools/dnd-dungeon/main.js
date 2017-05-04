@@ -158,10 +158,13 @@ let saveHandler = {
       let spaceSplitData = data.split(" ")
       let mapData = spaceSplitData[2].split(";")
       mapData.forEach((value, index, array) => {
-        let obj = value.split("*")
-        let type = obj[3] == "0" ? "wall" : obj[3]
-        map.add(type, JSON.parse(obj[0]), JSON.parse(obj[1]), JSON.parse(obj[2]))
+        if(value != "") {
+          let obj = value.split("*")
+          let type = obj[3] == "0" ? "wall" : obj[3]
+          map.add(type, JSON.parse(obj[0]), JSON.parse(obj[1]), JSON.parse(obj[2]))
+        }
       })
+      get("notes").value = decodeURI(spaceSplitData[3])
     },
   }
 }
