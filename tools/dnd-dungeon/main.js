@@ -85,7 +85,6 @@ let map = {
         }
         else if(position[i].type == type) {
           data[x][y][i] = null
-          return
         }
       }
     }
