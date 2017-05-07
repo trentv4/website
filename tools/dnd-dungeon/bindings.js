@@ -51,15 +51,18 @@ let keyboard = {
 let topLayer = get("input_layer")
 
 get("save-btn").onclick = (e) => {
-
+  get("save-entry-form").value = saveHandler.save(map)
 }
 
 get("load-btn").onclick = (e) => {
-
+  let val = get("save-entry-form").value
+  saveHandler.load(val, val[0])
 }
 
 get("clear-btn").onclick = (e) => {
-
+  map.clear()
+  get("save-entry-form").value = ""
+  get("notes").value = ""
 }
 
 get("save-img-btn").onclick = (e) => {
