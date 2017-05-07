@@ -20,7 +20,7 @@ let display = {
     draw: () => {
       let c = display.stripes.canvas
       c.clearRect(0, 0, c.canvas.width, c.canvas.height)
-      if(render_stripes) {
+      if(render_stripes.value) {
         c.translate(camera.x % cellSize, camera.y % cellSize)
         for(var x = 2; x < c.canvas.width/stripeDistance * 2; x++)
         {
@@ -39,7 +39,7 @@ let display = {
     draw: () => {
       let c = display.grid.canvas
       c.clearRect(0, 0, c.canvas.width, c.canvas.height)
-      if(render_grid) {
+      if(render_grid.value) {
         c.translate(0.5, 0.5)
         c.strokeStyle = colors.borders_grid
         for(let x = 0; x < c.canvas.width; x += cellSize) {
@@ -73,14 +73,14 @@ let display = {
         if(obj.type != "wall") continue
         c.translate(obj.x * cellSize, obj.y * cellSize)
 
-        if(render_walls) {
+        if(render_walls.value) {
           c.fillStyle = colors.borders_room
           c.fillRect(0, 0, cellSize+1, cellSize+1)
 
           c.fillStyle = colors.background
           if(map.get("wall", obj.x - 1, obj.y) != null) c.fillRect(0, 1, 1, cellSize-1)
           if(map.get("wall", obj.x, obj.y - 1) != null) c.fillRect(1, 0, cellSize - 1, 1)
-          if(!render_corner_dots
+          if(!render_corner_dots.value
             & map.get("wall", obj.x - 1, obj.y) != null
             & map.get("wall", obj.x, obj.y - 1) != null
             & map.get("wall", obj.x - 1, obj.y - 1) != null) {
@@ -101,7 +101,7 @@ let display = {
     draw: () => {
       let c = display.shadows.canvas
       c.clearRect(0, 0, c.canvas.width, c.canvas.height)
-      if(render_shadows) {
+      if(render_shadows.value) {
         let data = map.getMapAsList()
         for(let i = 0; i < data.length; i++) {
           let obj = data[i]

@@ -1,12 +1,3 @@
-window.get = (e) => document.getElementById(e)
-window.message = (color, str) => {
-  get("message").innerHTML = "<br>"
-  setTimeout(() => {
-    get("message").style = "color: " + color
-    get("message").innerHTML = str
-  }, 500)
-}
-
 let mouse = {
 	x: 0,
 	y: 0,
@@ -147,9 +138,3 @@ document.onkeyup = (x) => {
     document.onkeyupdate()
 	}
 }
-
-get("render_walls").onchange = (x) => render_walls = x.target.checked
-get("render_corner_dots").onchange = (x) => render_corner_dots = x.target.checked
-get("render_grid").onchange = (x) => render_grid = x.target.checked
-get("render_stripes").onchange = (x) => render_stripes = x.target.checked
-get("render_shadows").onchange = (x) => render_shadows = x.target.checked
