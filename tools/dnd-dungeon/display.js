@@ -7,6 +7,11 @@ let display = {
     display.shadows.draw()
     display.features.draw()
   },
+  redrawOnChange: (type) => {
+    display.features.draw()
+    display.emptyCells.draw()
+    display.shadows.draw()
+  },
   background: {
     canvas: document.getElementById("background").getContext("2d"),
     draw: () => {

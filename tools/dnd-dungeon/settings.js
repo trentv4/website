@@ -2,10 +2,11 @@ let cellSize = 15
 let stripeDistance = 10
 
 class Setting {
-  constructor(name, default_value) {
+  constructor(name, default_value, redraw_function) {
     this.domElement = get(name)
     this.value = default_value
     this.default_value = default_value
+    this.redraw_function = redraw_function
     this.domElement.onchange = (x) => this.set(x.target.checked)
   }
 
@@ -18,15 +19,16 @@ class Setting {
     }
     this.value = trueValue
     this.domElement.checked = trueValue
+    this.redraw_function()
     localStorage.map = saveHandler.save(map)
   }
 }
 
-let render_walls = new Setting("render_walls", true)
-let render_corner_dots = new Setting("render_corner_dots", false)
-let render_grid = new Setting("render_grid", false)
-let render_stripes = new Setting("render_stripes", true)
-let render_shadows = new Setting("render_shadows", true)
+let render_walls = new Setting("render_walls", true, display.emptyCells.draw)
+let render_corner_dots = new Setting("render_corner_dots", false, display.emptyCells.draw)
+let render_grid = new Setting("render_grid", false, display.grid.draw)
+let render_stripes = new Setting("render_stripes", true, display.stripes.draw)
+let render_shadows = new Setting("render_shadows", true, display.shadows.draw)
 
 let colors = {
 	background: "#ECE7E1",

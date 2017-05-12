@@ -61,6 +61,8 @@ let map = {
 
     data[x][y].push(newObject)
     localStorage.map = saveHandler.save(map)
+
+    display.redrawOnChange(type)
   },
   remove: (type, x, y) => {
     let data = map.data
@@ -89,6 +91,7 @@ let map = {
       }
     }
     localStorage.map = saveHandler.save(map)
+    display.redrawOnChange(type)
   },
   getMapAsList: () => {
     let data = map.data
@@ -187,10 +190,6 @@ function enableStressTest() {
   }
 }
 
-setInterval(() => {
-  let start = new Date().getMilliseconds()
-  display.draw()
-  get("frametime").innerHTML = "Frame time: " + (new Date().getMilliseconds() - start) + " ms"
-}, 16)
-
 saveHandler.load(localStorage.map, localStorage.map[0])
+
+display.draw()
