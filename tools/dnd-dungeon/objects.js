@@ -185,16 +185,54 @@ const objects = [
 
 let obj_ids = []
 
+function getToolContainer(className, object) {
+  let objectContainer = make("pre")
+  if(className == "Numbers:") objectContainer.className = "inline"
+
+  let objectImage = make("img")
+  objectImage.className = "tool"
+  objectImage.id = object.id
+  objectImage.src = object.file
+  objectContainer.appendChild(objectImage)
+  objectContainer.appendChild(document.createTextNode(" " + object.name))
+  return objectContainer
+}
+
+objects.forEach((valueCategory, indexCategory, arrayCategory) => {
+  let featureList = make("div")
+  featureList.className = "feature-list"
+  let header = make("h2")
+  header.innerText = valueCategory.catname
+  featureList.appendChild(header)
+
+  valueCategory.objects.forEach((valueObjects, indexObjects, arrayObjects) => {
+    let objectContainer = getToolContainer(valueCategory.catname, valueObjects)
+
+    objectContainer.onclick = (e) => {
+      console.log("Setting to: " + valueObjects.name)
+      currentType = valueObjects.id
+
+      let currentTool = get("current-tool")
+      let text = "Current tool: \n" + valueObjects.name
+    }
+    if(valueObjects.func != null) objectContainer.onclick = valueObjects.func
+
+    featureList.appendChild(objectContainer)
+
+    obj_ids[valueObjects.id] = valueObjects
+  })
+
+  get("sidebar").appendChild(featureList)
+})
+
+let masterImage = new Image()
+masterImage.onload = () => {
+  display.features.draw()
+}
+masterImage.src = "images/objects.png"
+/*
 for(var i = 0; i < objects.length; i++)
 {
-  var category = objects[i]
-
-  var div = document.createElement("div")
-  div.className = "feature-list"
-  var pr = document.createElement("h2")
-  pr.innerText = category.catname
-  div.appendChild(pr)
-
   for(var g = 0; g < category.objects.length; g++)
   {
     var current_object = category.objects[g]
@@ -227,7 +265,9 @@ for(var i = 0; i < objects.length; i++)
     cachedimage.src = current_object.file
     cachedimage.onload = () => {
       cachedimage.object.cachedimage = cachedimage
+      display.features.draw()
     };
   }
   document.getElementById("sidebar").appendChild(div)
 }
+*/

@@ -6,3 +6,4 @@ window.message = (color, str) => {
     get("message").innerHTML = str
   }, 500)
 }
+window.make = (e) => document.createElement(e)

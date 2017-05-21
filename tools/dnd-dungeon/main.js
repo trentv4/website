@@ -44,7 +44,7 @@ let map = {
       }
     }
   },
-  add: (type, x, y, rotation) => {
+  add: (type, x, y, rotation, redraw) => {
     let data = map.data
     map.verifyArrayFits(x, y)
 
@@ -60,11 +60,12 @@ let map = {
     }
 
     data[x][y].push(newObject)
-    localStorage.map = saveHandler.save(map)
-
-    display.redrawOnChange(type)
+    if(redraw == undefined) {
+      display.redrawOnChange(type)
+      localStorage.map = saveHandler.save(map)
+    }
   },
-  remove: (type, x, y) => {
+  remove: (type, x, y, isSav) => {
     let data = map.data
     map.verifyArrayFits(x, y)
 
@@ -171,25 +172,19 @@ let saveHandler = {
         if(value != "") {
           let obj = value.split("*")
           let type = obj[3] == "0" ? "wall" : obj[3]
-          map.add(type, JSON.parse(obj[0]), JSON.parse(obj[1]), JSON.parse(obj[2]))
+          map.add(type, JSON.parse(obj[0]), JSON.parse(obj[1]), JSON.parse(obj[2]), false)
         }
       })
       get("notes").value = decodeURI(spaceSplitData[3])
+      localStorage.map = saveHandler.save(map)
+      display.draw()
     },
   }
 }
 
-function enableStressTest() {
-  for(let x = 0; x < 45; x++) {
-    for(let y = 0; y < 25; y++) {
-      map.add("wall", x, y)
-      for(let i = 5; i < 20; i++) {
-        map.add(i, x, y)
-      }
-    }
-  }
+if(localStorage.map != null) {
+  saveHandler.load(localStorage.map, localStorage.map[0])
 }
-
-saveHandler.load(localStorage.map, localStorage.map[0])
-
-display.draw()
+else {
+  display.draw()
+}

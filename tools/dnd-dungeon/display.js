@@ -162,10 +162,13 @@ let display = {
         translateX = obj.x * cellSize + Math.ceil(cellSize/2)
         translateY = obj.y * cellSize + Math.ceil(cellSize/2)
 
-        if(img == null) return;
         c.translate(translateX, translateY)
         c.rotate(rot)
-        c.drawImage(img, Math.floor(-cellSize/2), Math.floor(-cellSize/2), cellSize+1, cellSize+1)
+        //c.drawImage(img, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight)
+        c.drawImage(masterImage, ((obj.type) * 17), 0,
+         cellSize+1, cellSize+1,
+          -Math.floor(cellSize/2) - 1, -Math.floor(cellSize/2) - 1,
+           cellSize + 1, cellSize + 1)
         c.rotate(-rot)
         c.translate(-translateX, -translateY)
       }
@@ -184,7 +187,7 @@ let display = {
 
       c.strokeRect(mouse.data_x * cellSize + camera.x, mouse.data_y * cellSize + camera.y, cellSize, cellSize)
 
-      if(currentType != "wall") {
+      if(currentType != "wall" && false) {
         let img = obj_ids[currentType].cachedimage
         let rot = (rotation*90) * Math.PI/180
         translateX = mouse.data_x * cellSize + Math.ceil(cellSize/2)
