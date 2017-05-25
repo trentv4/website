@@ -11,23 +11,23 @@ const narratives = {
     NARRATIVE_BLS_IFT: {
         name: "BLS Inter-facility transfer",
         params: [
-            ["Company", "-----", "short"],
-            ["Rig #", "-----", "short"],
-            ["Referring hospital", "-----", "short",],
-            ["Referring department", "-----", "short"],
-            ["Referring room", "-----", "short"],
-            ["Receiving hospital", "-----", "short"],
-            ["Receiving department", "-----", "short"],
-            ["Receiving room", "-----", "short"],
-            ["Receiving nurse", "-----", "short"],
-            ["Age", "-----", "short"],
-            ["Gender", "-----", "short"],
-            ["Chief complaint", "-----", "long"],
-            ["Transportation reason", "-----", "long"],
-            ["Vitals attached to report?", " attached to the report.", "long"],
-            ["Remained stable during transport?", "remained stable", "long"],
-            ["Remained unchanged during transport?", "remained unchanged.", "long"],
-            ["Treatment administered?", "", "long"],
+            ["* Company", "-----", "short"],
+            ["* Rig #", "-----", "short"],
+            ["* Referring hospital", "-----", "short",],
+            ["* Referring department", "-----", "short"],
+            ["* Referring room", "-----", "short"],
+            ["* Receiving hospital", "-----", "short"],
+            ["* Receiving department", "-----", "short"],
+            ["* Receiving room", "-----", "short"],
+            ["* Receiving nurse", "-----", "short"],
+            ["* Age", "-----", "short"],
+            ["* Gender", "-----", "short"],
+            ["* Chief complaint", "-----", "long"],
+            ["* Transportation reason", "-----", "long"],
+            ["Vitals (if not attached to report)", " attached to the report.", "long"],
+            ["Vitals changes (if any)", "remained stable", "long"],
+            ["Condition changes (if any)", "remained unchanged.", "long"],
+            ["Treatment administered (if any)", "", "long"],
             ["Receiving nurse", "the room RN", "short"]],
         make: () => {
             let params = narratives.NARRATIVE_BLS_IFT.params
@@ -75,7 +75,7 @@ const narratives = {
         },
         select: () => {
             let container = get("information-flex")
-            container.innerHTML = ""
+            container.innerHTML = "<p>Fields marked with * are required.</p>"
             let params = narratives.NARRATIVE_BLS_IFT.params
             params.forEach( (value, index, array) => {
                 let out = ""
