@@ -2,10 +2,11 @@ window.get = (e) => document.getElementById(e)
 window.make = (e) => document.createElement(e)
 
 function paramGet(params, index) {
-    console.log(index)
     if(get(index).value != "") return get(index).value
     return params[index][1]
 }
+
+let currentNarrative = ""
 
 const narratives = {
     NARRATIVE_BLS_IFT: {
@@ -78,19 +79,45 @@ const narratives = {
             container.innerHTML = "<p>Fields marked with * are required.</p>"
             let params = narratives.NARRATIVE_BLS_IFT.params
             params.forEach( (value, index, array) => {
-                let out = ""
-                console.log(value[2])
+                let element;
                 if(value[2] == "short") {
-                    out = `<p>` + value[0] + `: <input type="text" id="` + index + `"></input></p>`
+                    element = document.createElement("p")
+                    element.innerHTML = value[0] + `: <input type="text" id="` + index + `"></input>`
                 }
                 if(value[2] == "long") {
-                    out = `<p>` + value[0] + `: <textarea id="` + index + `"></textarea></p>`
+                    element = document.createElement("p")
+                    element.innerHTML = value[0] + `: <textarea id="` + index + `"></textarea>`
                 }
-                container.innerHTML += out
+                let onEverything = (e) => {
+                    narratives[currentNarrative].make()
+                }
+                element.onchange = onEverything
+                element.onkeydown = onEverything
+                element.onpaste = onEverything
+                element.oninput = onEverything
+
+                container.append(element)
             })
         }
     }
 }
 
-narratives.NARRATIVE_BLS_IFT.select()
-narratives.NARRATIVE_BLS_IFT.make()
+for (let i in narratives) {
+    if(narratives.hasOwnProperty(i)) {
+        let label = document.createElement("label")
+        let element = document.createElement("input")
+        element.type = "radio"
+        element.name = "narratives"
+        element.value = i
+
+        label.onclick = (e) => {
+            narratives[e.target.value].select()
+            narratives[e.target.value].make()
+            currentNarrative = e.target.value
+        }
+
+        label.append(element)
+        label.innerHTML += " " + narratives[i].name
+        get("narratives").appendChild(label)
+    }
+}

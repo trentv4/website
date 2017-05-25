@@ -2,8 +2,12 @@
 	width: 100%;
 }
 
+#narratives label {
+	display: block;
+}
+
 #information-flex {
-	display: inline-flex;
+	display: flex;
 	flex-direction: column;
 	width: 325px;
 }
