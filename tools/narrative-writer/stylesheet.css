@@ -1,0 +1,21 @@
+#output {
+	width: 500;
+}
+
+#information-flex {
+	display: inline-flex;
+	flex-direction: column;
+}
+
+#information-flex * {
+	display: block;
+}
+
+#page {
+	display: flex;
+}
+
+#output {
+	width: 700px;
+	height: 500px;
+}
