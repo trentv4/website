@@ -2,32 +2,33 @@ window.get = (e) => document.getElementById(e)
 window.make = (e) => document.createElement(e)
 
 function paramGet(params, index) {
+    console.log(index)
     if(get(index).value != "") return get(index).value
     return params[index][1]
 }
 
-let narratives = {
+const narratives = {
     NARRATIVE_BLS_IFT: {
         name: "BLS Inter-facility transfer",
         params: [
-            ["Company", "-----"],
-            ["Rig #", "-----"],
-            ["Referring hospital", "-----"],
-            ["Referring department", "-----"],
-            ["Referring room", "-----"],
-            ["Receiving hospital", "-----"],
-            ["Receiving department", "-----"],
-            ["Receiving room", "-----"],
-            ["Receiving nurse", "-----"],
-            ["Age", "-----"],
-            ["Gender", "-----"],
-            ["Chief complaint", "-----"],
-            ["Transportation reason", "-----"],
-            ["Vitals attached to report?", " attached to the report."],
-            ["Remained stable during transport?", "remained stable"],
-            ["Remained unchanged during transport?", "remained unchanged."],
-            ["Treatment administered?", ""],
-            ["Receiving nurse", "the room RN"]],
+            ["Company", "-----", "short"],
+            ["Rig #", "-----", "short"],
+            ["Referring hospital", "-----", "short",],
+            ["Referring department", "-----", "short"],
+            ["Referring room", "-----", "short"],
+            ["Receiving hospital", "-----", "short"],
+            ["Receiving department", "-----", "short"],
+            ["Receiving room", "-----", "short"],
+            ["Receiving nurse", "-----", "short"],
+            ["Age", "-----", "short"],
+            ["Gender", "-----", "short"],
+            ["Chief complaint", "-----", "long"],
+            ["Transportation reason", "-----", "long"],
+            ["Vitals attached to report?", " attached to the report.", "long"],
+            ["Remained stable during transport?", "remained stable", "long"],
+            ["Remained unchanged during transport?", "remained unchanged.", "long"],
+            ["Treatment administered?", "", "long"],
+            ["Receiving nurse", "the room RN", "short"]],
         make: () => {
             let params = narratives.NARRATIVE_BLS_IFT.params
             let narrative = ""
@@ -77,7 +78,14 @@ let narratives = {
             container.innerHTML = ""
             let params = narratives.NARRATIVE_BLS_IFT.params
             params.forEach( (value, index, array) => {
-                let out = `<p>` + value[0] + `: <textarea id="` + index + `"></textarea></p>`
+                let out = ""
+                console.log(value[2])
+                if(value[2] == "short") {
+                    out = `<p>` + value[0] + `: <input type="text" id="` + index + `"></input></p>`
+                }
+                if(value[2] == "long") {
+                    out = `<p>` + value[0] + `: <textarea id="` + index + `"></textarea></p>`
+                }
                 container.innerHTML += out
             })
         }
