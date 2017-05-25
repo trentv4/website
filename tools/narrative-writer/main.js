@@ -27,7 +27,7 @@ const narratives = {
             ["* Transportation reason", "-----", "long"],
             ["Vitals (if not attached to report)", " attached to the report.", "long"],
             ["Vitals changes (if any)", "remained stable", "long"],
-            ["Condition changes (if any)", "remained unchanged.", "long"],
+            ["Condition changes (if any)", "remained unchanged", "long"],
             ["Treatment administered (if any)", "", "long"],
             ["Receiving nurse", "the room RN", "short"]],
         make: () => {
