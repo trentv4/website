@@ -1,6 +1,0 @@
-{
-	"mainpage": { "content": "main.html" },
-	"404": { "content": "404.html" },
-	"block": { "content": "block.html" },
-	"creativetab": { "content": "creativetab.html" }
-}
