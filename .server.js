@@ -78,6 +78,11 @@ router.route('/webm/api/all/')
 	res.send(webm);
 })
 
+router.route('/api/site-stats')
+.get( (req, res) => {
+  res.send(siteStats)
+})
+
 router.get("*", function(req, res)
 {
 	res.render(req._parsedUrl.pathname.substring(1), {
