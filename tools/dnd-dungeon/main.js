@@ -102,7 +102,6 @@ let map = {
 
     if(type == "all") {
       data[x][y] = []
-      return
     }
     else {
       for(let i = 0; i < position.length; i++)
@@ -118,9 +117,10 @@ let map = {
         }
       }
     }
-
-    localStorage.map = saveHandler.save(map)
-    display.redrawOnChange(type)
+    if(isSav != "REDRAW") {
+      localStorage.map = saveHandler.save(map)
+      display.redrawOnChange(type)
+    }
   },
   getMapAsList: () => {
     let data = map.data

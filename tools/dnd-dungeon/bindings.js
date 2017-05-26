@@ -147,9 +147,11 @@ document.onkeyupdate = (x) => {
   if(keyboard.delete) {
     if(selection.isSelecting) {
       selection.forEach((x, y) => {
-        map.remove("all", x, y)
+        map.remove("all", x, y, "REDRAW")
       })
+      localStorage.map = saveHandler.save(map)
       display.redrawOnChange("all")
+
     }
   }
 }
