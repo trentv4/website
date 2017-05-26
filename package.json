@@ -1,0 +1,19 @@
+{
+  "name": "trentv.net",
+  "version": "1.0.0",
+  "description": "Trent VanSlyke's private website",
+  "main": ".server.js",
+  "scripts": {
+    "start": "node .server.js"
+  },
+  "repository": "https://bitbucket.org/trentv4/trentv.net",
+  "keywords": [
+    "website",
+    "private"
+  ],
+  "author": "Trentv4",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}
