@@ -11,6 +11,33 @@ let camera = {
   y: 0
 }
 
+let selection = {
+  x: 0,
+  y: 0,
+  x2: 0,
+  y2: 0,
+  isSelecting: false,
+  clear: () => {
+    selection.x = 0
+    selection.y = 0
+    selection.x2 = 0
+    selection.y2 = 0
+    selection.isSelecting = false
+    display.selection.draw()
+  },
+  forEach: (func) => {
+    let smallX = selection.x < selection.x2 ? selection.x : selection.x2
+    let smallY = selection.y < selection.y2 ? selection.y : selection.y2
+    let width = Math.abs(selection.x - selection.x2)
+    let height = Math.abs(selection.y - selection.y2)
+    for(let x = 0; x <= width; x++) {
+      for(let y = 0; y <= height; y++) {
+        func(smallX + x, smallY + y)
+      }
+    }
+  }
+}
+
 let map = {
   data: [[]],
   verifyArrayFits: (x, y) => {

@@ -6,23 +6,22 @@ const objects = [
 				id:   0,
 				file: "images/wall.png",
 				func: function() {
-					console.log("Setting to: " + obj_ids[this.id].name)
+          let obj = objects[0].objects[0]
 					currentType = "wall"
-					document.getElementById("current-tool").innerHTML = `Current tool: <br><img src="` + obj_ids[this.id].file + `"> `+obj_ids[this.id].name+``
-					isSelecting = false
-					selection = null
-					display.layers.selection.draw(display.layers.selection.canvas)
-				}
+          setTool(obj)
+          console.log("Setting to: " + obj_ids[obj.id].name)
+          selection.clear()
+			  }
 			},
 			{	name: "Selection Tool",
 				id:   14,
 				file: "images/selection.png",
 				func: function() {
-					console.log("Setting to: " + obj_ids[this.id].name)
-					isSelecting = true
-					document.getElementById("current-tool").innerHTML = `Current tool: <br><img src="` + obj_ids[this.id].file + `"> `+obj_ids[this.id].name+``
-					selection = null
-					display.layers.selection.draw(display.layers.selection.canvas)
+          let obj = objects[0].objects[1]
+          selection.isSelecting = true;
+          setTool(obj)
+          console.log("Setting to: " + obj_ids[obj.id].name)
+          display.selection.draw()
 				}
 			}/*,
 			{	name: "Text Tool",
@@ -183,6 +182,12 @@ const objects = [
 	}
 ]
 
+function setTool(object) {
+  let str = "Current tool: <br>"
+  str += `<pre><img src="` + object.file + `"></img> ` + object.name + `</pre>`
+  get("current-tool").innerHTML = str;
+}
+
 let obj_ids = []
 
 function getToolContainer(className, object) {
@@ -211,9 +216,8 @@ objects.forEach((valueCategory, indexCategory, arrayCategory) => {
     objectContainer.onclick = (e) => {
       console.log("Setting to: " + valueObjects.name)
       currentType = valueObjects.id
-
-      let currentTool = get("current-tool")
-      let text = "Current tool: \n" + valueObjects.name
+      setTool(valueObjects)
+      selection.clear()
     }
     if(valueObjects.func != null) objectContainer.onclick = valueObjects.func
 

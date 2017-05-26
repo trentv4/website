@@ -201,5 +201,18 @@ let display = {
         c.translate(-translateX, -translateY)
       }
     }
+  },
+  selection: {
+    canvas: document.getElementById("selection").getContext("2d"),
+    draw: () => {
+      let c = display.selection.canvas
+      c.clearRect(0, 0, c.canvas.width, c.canvas.height)
+      if(selection.isSelecting) {
+        c.fillStyle = "#FFFFFF"
+        selection.forEach((x, y) => {
+          c.drawImage(masterImage, 238, 0, cellSize+1, cellSize+1, x * cellSize, y * cellSize, cellSize+1, cellSize+1)
+        })
+      }
+    }
   }
 }

@@ -62,25 +62,48 @@ get("save-img-btn").onclick = (e) => {
 
 topLayer.oncontextmenu = (x) => false
 
-topLayer.onmouseupdate = (x) => {
-  if(mouse.isRight) {
-    if(currentType == "wall") {
-      map.add("wall", mouse.data_x, mouse.data_y)
-    }
-    else {
-      map.remove("object", mouse.data_x, mouse.data_y)
-    }
-  }
-  if(mouse.isLeft) {
-    if(currentType == "wall") {
-      map.remove("wall", mouse.data_x, mouse.data_y)
-    }
-    else {
-      map.add(currentType, mouse.data_x, mouse.data_y)
-    }
-  }
-  if(mouse.isMiddle) {
+let hasSelected = false
 
+topLayer.onmouseupdate = (x) => {
+  if(selection.isSelecting) {
+    if(mouse.isLeft) {
+      if(hasSelected) {
+        selection.x2 = mouse.data_x
+        selection.y2 = mouse.data_y
+      }
+      else {
+        hasSelected = true
+        selection.x = mouse.data_x
+        selection.y = mouse.data_y
+        selection.x2 = mouse.data_x
+        selection.y2 = mouse.data_y
+      }
+    }
+    else {
+      hasSelected = false
+    }
+    display.selection.draw()
+  }
+  else {
+    if(mouse.isRight) {
+      if(currentType == "wall") {
+        map.add("wall", mouse.data_x, mouse.data_y)
+      }
+      else {
+        map.remove("object", mouse.data_x, mouse.data_y)
+      }
+    }
+    if(mouse.isLeft) {
+      if(currentType == "wall") {
+        map.remove("wall", mouse.data_x, mouse.data_y)
+      }
+      else {
+        map.add(currentType, mouse.data_x, mouse.data_y)
+      }
+    }
+    if(mouse.isMiddle) {
+
+    }
   }
 
   display.mouse.draw()
