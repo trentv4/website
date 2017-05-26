@@ -100,24 +100,25 @@ let map = {
 
     let position = data[x][y]
 
-    if(type == "all")
-    {
+    if(type == "all") {
       data[x][y] = []
       return
     }
-
-    for(let i = 0; i < position.length; i++)
-    {
-      if(position[i] != null)
+    else {
+      for(let i = 0; i < position.length; i++)
       {
-        if(position[i].type != "wall" & type == "object") {
-          data[x][y][i] = null
-        }
-        else if(position[i].type == type) {
-          data[x][y][i] = null
+        if(position[i] != null)
+        {
+          if(position[i].type != "wall" & type == "object") {
+            data[x][y][i] = null
+          }
+          else if(position[i].type == type) {
+            data[x][y][i] = null
+          }
         }
       }
     }
+
     localStorage.map = saveHandler.save(map)
     display.redrawOnChange(type)
   },
@@ -183,9 +184,11 @@ let saveHandler = {
   loaders: {
     version_1: (data) => {
       console.log(data)
+      localStorage.backup = data
     },
     version_2: (data) => {
       console.log(data)
+      localStorage.backup2 = data
     },
     version_3: (data) => {
       let spaceSplitData = data.split(" ")

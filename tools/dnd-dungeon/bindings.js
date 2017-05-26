@@ -144,6 +144,14 @@ document.onkeyupdate = (x) => {
     rotation = (rotation + 1) % 4
     display.mouse.draw()
   }
+  if(keyboard.delete) {
+    if(selection.isSelecting) {
+      selection.forEach((x, y) => {
+        map.remove("all", x, y)
+      })
+      display.redrawOnChange("all")
+    }
+  }
 }
 
 document.onkeydown = (x) => {
