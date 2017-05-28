@@ -156,21 +156,10 @@ let display = {
 
         if(obj_ids[obj.type] == null) {
           continue
+          console.log("ERROR: TRYING TO RENDER INVALID OBJECT", obj)
         }
-        let img = obj_ids[obj.type].cachedimage
-        let rot = (obj.rotation*90) * Math.PI/180
-        translateX = obj.x * cellSize + Math.ceil(cellSize/2)
-        translateY = obj.y * cellSize + Math.ceil(cellSize/2)
 
-        c.translate(translateX, translateY)
-        c.rotate(rot)
-        //c.drawImage(img, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight)
-        c.drawImage(masterImage, ((obj.type) * 17), 0,
-         cellSize+1, cellSize+1,
-          -Math.floor(cellSize/2) - 1, -Math.floor(cellSize/2) - 1,
-           cellSize + 1, cellSize + 1)
-        c.rotate(-rot)
-        c.translate(-translateX, -translateY)
+        display.drawObject(obj.type, obj.rotation, obj.x * cellSize + Math.ceil(cellSize/2), obj.y * cellSize + Math.ceil(cellSize/2), c)
       }
 
       c.translate(-camera.x, -camera.y)
@@ -187,18 +176,8 @@ let display = {
 
       c.strokeRect(mouse.data_x * cellSize + camera.x, mouse.data_y * cellSize + camera.y, cellSize, cellSize)
 
-      if(currentType != "wall" && false) {
-        let img = obj_ids[currentType].cachedimage
-        let rot = (rotation*90) * Math.PI/180
-        translateX = mouse.data_x * cellSize + Math.ceil(cellSize/2)
-        translateY = mouse.data_y * cellSize + Math.ceil(cellSize/2)
-
-        if(img == null) return;
-        c.translate(translateX, translateY)
-        c.rotate(rot)
-        c.drawImage(img, Math.floor(-cellSize/2), Math.floor(-cellSize/2), cellSize+1, cellSize+1)
-        c.rotate(-rot)
-        c.translate(-translateX, -translateY)
+      if(currentType != "wall") {
+        display.drawObject(currentType, rotation, mouse.data_x * cellSize + Math.ceil(cellSize/2), mouse.data_y * cellSize + Math.ceil(cellSize/2), c)
       }
     }
   },
@@ -213,5 +192,18 @@ let display = {
         })
       }
     }
+  },
+  drawObject: (type, rotation, translateX, translateY, c) => {
+    let rot = (rotation*90) * Math.PI/180
+
+    c.translate(translateX, translateY)
+    c.rotate(rot)
+    c.drawImage(masterImage,
+                type * 17, 0,
+                cellSize+1, cellSize+1,
+                -Math.floor(cellSize/2) - 1, -Math.floor(cellSize/2) - 1,
+                cellSize + 1, cellSize + 1)
+    c.rotate(-rot)
+    c.translate(-translateX, -translateY)
   }
 }
