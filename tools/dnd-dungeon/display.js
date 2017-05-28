@@ -112,6 +112,7 @@ let display = {
           let obj = data[i]
           if(obj.type != "wall") continue
           c.translate(obj.x * cellSize, obj.y * cellSize)
+          c.translate(camera.x, camera.y)
 
           if(map.get("wall", obj.x, obj.y - 1) == null) {
             let x = 3
@@ -136,6 +137,7 @@ let display = {
           }
 
           c.translate(-obj.x * cellSize, -obj.y * cellSize)
+          c.translate(-camera.x, -camera.y)
         }
       }
     }

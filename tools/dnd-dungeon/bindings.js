@@ -151,9 +151,19 @@ document.onkeyupdate = (x) => {
       })
       localStorage.map = saveHandler.save(map)
       display.redrawOnChange("all")
-
     }
   }
+  if(keyboard.w) camera.y -= cellSize
+  if(keyboard.s) camera.y += cellSize
+  if(keyboard.a) camera.x -= cellSize
+  if(keyboard.d) camera.x += cellSize
+  if(keyboard.w | keyboard.s | keyboard.a | keyboard.d) {
+    display.emptyCells.draw()
+    display.shadows.draw()
+    display.features.draw()
+    display.mouse.draw()
+  }
+  display.draw()
 }
 
 document.onkeydown = (x) => {
