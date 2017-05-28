@@ -89,15 +89,15 @@ topLayer.onmouseupdate = (x) => {
   if(selection.isSelecting) {
     if(mouse.isLeft) {
       if(hasSelected) {
-        selection.x2 = mouse.data_x
-        selection.y2 = mouse.data_y
+        selection.x2 = mouse.data_x + (camera.x / cellSize)
+        selection.y2 = mouse.data_y + (camera.y / cellSize)
       }
       else {
         hasSelected = true
-        selection.x = mouse.data_x
-        selection.y = mouse.data_y
-        selection.x2 = mouse.data_x
-        selection.y2 = mouse.data_y
+        selection.x = mouse.data_x + (camera.x / cellSize)
+        selection.y = mouse.data_y + (camera.y / cellSize)
+        selection.x2 = mouse.data_x + (camera.x / cellSize)
+        selection.y2 = mouse.data_y + (camera.y / cellSize)
       }
     }
     else {
