@@ -57,7 +57,28 @@ get("clear-btn").onclick = (e) => {
 }
 
 get("save-img-btn").onclick = (e) => {
+  let exportCanvas = make("canvas")
+  exportCanvas.width = get("input_layer").width
+  exportCanvas.height = get("input_layer").height
+  let exportContext = exportCanvas.getContext("2d")
+  exportContext.width = exportCanvas.width
+  exportContext.height = exportCanvas.height
 
+  exportContext.drawImage(display.background.canvas.canvas, 0, 0)
+
+  if(render_stripes.value) exportContext.drawImage(display.stripes.canvas.canvas, 0, 0)
+  if(render_grid.value) exportContext.drawImage(display.grid.canvas.canvas, 0, 0)
+  if(render_walls.value) exportContext.drawImage(display.emptyCells.canvas.canvas, 0, 0)
+  if(render_shadows.value) exportContext.drawImage(display.shadows.canvas.canvas, 0, 0)
+  exportContext.drawImage(display.features.canvas.canvas, 0, 0)
+
+  let dataURL = exportCanvas.toDataURL()
+  let link = make("a")
+  let linkEvent = document.createEvent("HTMLEvents")
+  linkEvent.initEvent("click")
+  link.download = "image.png"
+  link.href = dataURL
+  link.click()
 }
 
 topLayer.oncontextmenu = (x) => false
