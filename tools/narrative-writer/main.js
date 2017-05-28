@@ -20,7 +20,6 @@ const narratives = {
             ["* Receiving hospital", "-----", "short"],
             ["* Receiving department", "-----", "short"],
             ["* Receiving room", "-----", "short"],
-            ["* Receiving nurse", "-----", "short"],
             ["* Age", "-----", "short"],
             ["* Gender", "-----", "short"],
             ["* Chief complaint", "-----", "long"],
@@ -44,25 +43,25 @@ const narratives = {
             narrative += " to "
             narrative += paramGet(params, 5)
             narrative += ". The patient was a "
-            narrative += paramGet(params, 9)
+            narrative += paramGet(params, 8)
             narrative += " yr old "
-            narrative += paramGet(params, 10)
+            narrative += paramGet(params, 9)
             narrative += " that was admitted to "
             narrative += paramGet(params, 2)
             narrative += " for "
-            narrative += paramGet(params, 11)
+            narrative += paramGet(params, 10)
             narrative += ". The patient required ambulance transportation due to "
-            narrative += paramGet(params, 12)
+            narrative += paramGet(params, 11)
             narrative += ". The patient's vital signs were "
-            narrative += paramGet(params, 13)
+            narrative += paramGet(params, 12)
             narrative += " and "
-            narrative += paramGet(params, 14)
+            narrative += paramGet(params, 13)
             narrative += " during transport. The patient was placed on a "
             narrative += paramGet(params, 0)
             narrative += " stretcher and secured with safety belts. During transport, the patient "
-            narrative += paramGet(params, 15)
+            narrative += paramGet(params, 14)
             narrative += ". "
-            narrative += paramGet(params, 16)
+            narrative += paramGet(params, 15)
             narrative += "Upon arrival at "
             narrative += paramGet(params, 5)
             narrative += " the patient was taken to "
@@ -70,7 +69,7 @@ const narratives = {
             narrative += ", room "
             narrative += paramGet(params, 7)
             narrative += ". All personal property and transport paperwork were turned over to "
-            narrative += paramGet(params, 17)
+            narrative += paramGet(params, 16)
             narrative += "."
             get("output").value = narrative
         },

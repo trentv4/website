@@ -1,9 +1,16 @@
 var express = require('express');
 var fs = require('fs')
 
-var webm = JSON.parse(fs.readFileSync("data", "utf-8")).webm;
-var navyseal = JSON.parse(fs.readFileSync("data", "utf-8")).navyseal;
-var siteStats = JSON.parse(fs.readFileSync("site-stats.json", "utf-8"))
+let webm = []
+let navyseal = []
+let siteStats = {}
+if(fs.exists("data")) {
+  webm = JSON.parse(fs.readFileSync("data", "utf-8")).webm;
+  navyseal = JSON.parse(fs.readFileSync("data", "utf-8")).navyseal;
+}
+if(fs.exists("site-stats.json")) {
+  siteStats = JSON.parse(fs.readFileSync("site-stats.json", "utf-8"))
+}
 
 var app = express()
 var router = express.Router();
