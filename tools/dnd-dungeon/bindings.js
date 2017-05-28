@@ -197,10 +197,10 @@ document.onkeyupdate = (x) => {
   }
 
 
-  if(keyboard.w) camera.y -= cellSize
-  if(keyboard.s) camera.y += cellSize
-  if(keyboard.a) camera.x -= cellSize
-  if(keyboard.d) camera.x += cellSize
+  if(keyboard.w) camera.y += cellSize
+  if(keyboard.s) camera.y -= cellSize
+  if(keyboard.a) camera.x += cellSize
+  if(keyboard.d) camera.x -= cellSize
   if(keyboard.w | keyboard.s | keyboard.a | keyboard.d) {
     display.emptyCells.draw()
     display.shadows.draw()
