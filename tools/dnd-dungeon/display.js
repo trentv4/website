@@ -178,7 +178,7 @@ let display = {
 
       c.strokeRect(mouse.data_x * cellSize + camera.x, mouse.data_y * cellSize + camera.y, cellSize, cellSize)
 
-      if(currentType != "wall") {
+      if(currentType != "wall" & !selection.isSelecting) {
         display.drawObject(currentType, rotation, mouse.data_x * cellSize + Math.ceil(cellSize/2), mouse.data_y * cellSize + Math.ceil(cellSize/2), c)
       }
     }
