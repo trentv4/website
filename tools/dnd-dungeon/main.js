@@ -165,10 +165,8 @@ let map = {
     return list
   },
   clear: () => {
-    let list = map.getMapAsList()
-    list.forEach((value, index, array) => {
-      map.remove(value.type, value.x, value.y)
-    })
+    map.data = [[]]
+    display.draw()
     localStorage.map = saveHandler.save(map)
   }
 }
