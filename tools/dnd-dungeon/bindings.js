@@ -165,15 +165,38 @@ document.onkeyupdate = (x) => {
     rotation = (rotation + 1) % 4
     display.mouse.draw()
   }
-  if(keyboard.delete) {
-    if(selection.isSelecting) {
+  if(selection.isSelecting) {
+    if(keyboard.delete) {
       selection.forEach((x, y) => {
         map.remove("all", x, y, "REDRAW")
       })
       localStorage.map = saveHandler.save(map)
       display.redrawOnChange("all")
     }
+    if(keyboard.ctrl & keyboard.x) {
+      selection.clipboard = []
+      selection.forEach((x, y) => {
+        selection.clipboard.push(map.get("all", x, y))
+        map.remove("all", x, y)
+      })
+      selection.trimClipboard()
+    }
+    if(keyboard.ctrl & keyboard.c) {
+      selection.clipboard = []
+      selection.forEach((x, y) => {
+        selection.clipboard.push(map.get("all", x, y))
+      })
+      selection.trimClipboard()
+    }
   }
+  if(keyboard.ctrl & keyboard.v) {
+    for(let i = 0; i < selection.clipboard.length; i++) {
+      let currentTile = selection.clipboard[i]
+      map.add(currentTile.type, currentTile.x + mouse.data_x, currentTile.y + mouse.data_y, currentTile.rotation)
+    }
+  }
+
+
   if(keyboard.w) camera.y -= cellSize
   if(keyboard.s) camera.y += cellSize
   if(keyboard.a) camera.x -= cellSize

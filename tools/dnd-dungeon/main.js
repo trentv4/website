@@ -17,6 +17,32 @@ let selection = {
   x2: 0,
   y2: 0,
   isSelecting: false,
+  clipboard: [],
+  trimClipboard: () => {
+    let minX = Infinity
+    let minY = Infinity
+
+    for(let i = 0; i < selection.clipboard.length; i++) {
+      for(let g = 0; g < selection.clipboard[i].length; g++) {
+        let currentTile = selection.clipboard[i][g]
+        if(minX > currentTile.x) minX = currentTile.x
+        if(minY > currentTile.y) minY = currentTile.y
+      }
+    }
+    let temporaryClipboard = []
+    for(let i = 0; i < selection.clipboard.length; i++) {
+      for(let g = 0; g < selection.clipboard[i].length; g++) {
+        let tile = selection.clipboard[i][g]
+        temporaryClipboard.push({
+          x: tile.x - minX,
+          y: tile.y - minY,
+          type: tile.type,
+          rotation: tile.rotation
+        })
+      }
+    }
+    selection.clipboard = temporaryClipboard
+  },
   clear: () => {
     selection.x = 0
     selection.y = 0
