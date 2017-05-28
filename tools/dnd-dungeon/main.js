@@ -174,11 +174,20 @@ let saveHandler = {
     return saveEncoded
   },
   load: (data, version) => {
-    map.clear()
-    if(data != null) {
+    try {
+      map.clear()
       saveHandler.loaders["version_" + version](data)
-    } else {
-      saveHandler.loaders.version_3("TFTTT  ")
+    } catch(e) {
+      map.clear()
+      render_walls.set(true)
+      render_corner_dots.set(false)
+      render_grid.set(false)
+      render_stripes.set(true)
+      render_shadows.set(true)
+      message("red", "Unable to load save file; save malformed.")
+      get("notes").value = ""
+      localStorage.map = saveHandler.save(map)
+      display.draw()
     }
   },
   loaders: {
@@ -208,6 +217,7 @@ let saveHandler = {
       get("notes").value = decodeURI(spaceSplitData[3])
       localStorage.map = saveHandler.save(map)
       display.draw()
+      message("green", "Save file loaded.")
     },
   }
 }
