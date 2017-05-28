@@ -4,11 +4,11 @@ var fs = require('fs')
 let webm = []
 let navyseal = []
 let siteStats = {}
-if(fs.exists("data")) {
+if(fs.existsSync("data")) {
   webm = JSON.parse(fs.readFileSync("data", "utf-8")).webm;
   navyseal = JSON.parse(fs.readFileSync("data", "utf-8")).navyseal;
 }
-if(fs.exists("site-stats.json")) {
+if(fs.existsSync("site-stats.json")) {
   siteStats = JSON.parse(fs.readFileSync("site-stats.json", "utf-8"))
 }
 
