@@ -98,7 +98,7 @@ topLayer.onmouseupdate = (x) => {
         map.remove("wall", mouse.data_x, mouse.data_y)
       }
       else {
-        map.add(currentType, mouse.data_x, mouse.data_y)
+        map.add(currentType, mouse.data_x, mouse.data_y, rotation)
       }
     }
     if(mouse.isMiddle) {
