@@ -1,7 +1,7 @@
 // Imports
-let express = require("express")
-let fs = require("fs")
-let db = require("./db.js")
+const express = require("express")
+const fs = require("fs")
+const db = require("./db.js")
 
 // Useful functions
 console.write = (input) => process.stdout.write(input)
