@@ -26,7 +26,7 @@ httpGet("/api/site-stats", (d) => {
 
         let container = `
         <div class="data-container">
-          <h4>`+i+` : `+total+`</h4>
+          <h4><a href="`+i+`">`+i+` : `+total+`</a></h4>
           <div class="data-list">
         `
         for (let q in dat) {

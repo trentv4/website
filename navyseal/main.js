@@ -1,4 +1,4 @@
-$.get("/navyseal/api/", function(d, status){
+$.get("/api/navyseal/", function(d, status){
 	for(var i = 0; i < d.length; i++)
     {
 		var obj = d[i];

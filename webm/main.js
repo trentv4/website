@@ -2,11 +2,11 @@ function setVideo(src)
 {
 	if(src != "")
 	{
-		$.get("/webm/api/request?v=" + src, function(d, status){
+		$.get("/api/webm/request?v=" + src, function(d, status){
 			$("#player")[0].src = "/webm/" + d.path + "video.webm";
 			$("#title")[0].innerHTML = d.name;
 			$("#description")[0].innerHTML = d.description
-			$("#tags")[0].innerHTML = d.tags
+			$("#tags")[0].innerHTML = "Tags: " + (d.tags.join(", "))
 		})
 	}
 	else
@@ -25,7 +25,7 @@ $("#player")[0].onvolumechange = function() {
 }
 
 //this sets the sidebar
-$.get("/webm/api/all", function(d, status){
+$.get("/api/webm/all", function(d, status){
 	var sidebar = $("#sidebar")
 	for(var i = 0; i < d.length; i++)
 	{
