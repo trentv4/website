@@ -1,0 +1,2 @@
+nodemon -e *
+pause
