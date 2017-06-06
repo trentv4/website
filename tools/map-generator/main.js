@@ -50,17 +50,34 @@ display.register("main", mapX, mapY, (mapData) => {
 
 // Actual generation goes here
 
-noise.seed(0)
+noise.seed(Math.random())
 
-noise1 = (x, y) => noise.simplex2(x,y)/2 + 0.5
+n = (x, y, frequency, amplitude) => noise.perlin2(x * frequency, y *  frequency) * amplitude
 
 function getPixel(x, y, initial) {
-  return greyscale(noise1(x, y))
+  let nx = x / mapX - 0.5
+  let ny = y / mapY - 0.5
+
+  let pixel = 0
+  pixel += n(nx, ny, 4, 0.5)
+  pixel += n(nx, ny, 8, 0.25)
+  pixel += n(nx, ny, 16, 0.125)
+  pixel += n(nx, ny, 32, 0.125)
+
+  pixel = pixel + 1 / 2
+
+  pixel = Math.pow(pixel, 2.0)
+
+  let c = greyscale(pixel)
+  if(pixel < 0.6) c.g += 64
+  if(pixel < 0.2) c.b += 128
+
+//  c = greyscale(pixel)
+  return c
 }
 
-greyscale = (i) => {
-  return {r: i*255, g: i*255, b: i*255};
-}
+color = (r,g,b) => ({r: r, g: g, b: b})
+greyscale = (i) => ({r: i*255, g: i*255, b: i*255})
 
 mapData.populate()
 display.main.draw(mapData)
