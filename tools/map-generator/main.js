@@ -12,7 +12,7 @@ let display = {
   }
 }
 
-let mapX = 800
+let mapX = 600
 let mapY = 800
 
 let mapData = {
@@ -31,14 +31,15 @@ display.register("main", mapX, mapY, () => {
 
   let imageData = c.getImageData(0, 0, mapX, mapY)
 
-  let i = 0;
-  for(let x = 0; x < mapX; x++) {
-    for(let y = 0; y < mapY; y++) {
-      i = ((x * mapX) + y) * 4
-      imageData.data[i]     = mapData.data[x][y].r
-      imageData.data[i + 1] = mapData.data[x][y].g
-      imageData.data[i + 2] = mapData.data[x][y].b
-      imageData.data[i + 3] = 255
+  for(let nx = 0; nx < mapX; nx++) {
+    for(let ny = 0; ny < mapY; ny++) {
+      let i = (ny * mapX + nx) * 4 - 1
+      let d = mapData.data[nx][ny]
+      if(d.b != 0) console.log(i)
+      imageData.data[++i]   = d.r
+      imageData.data[++i] = d.g
+      imageData.data[++i] = d.b
+      imageData.data[++i] = 255
     }
   }
 
@@ -47,13 +48,31 @@ display.register("main", mapX, mapY, () => {
 
 // Actual generation goes here
 
+noise.seed(0)
+
+noise1 = (x, y) => noise.simplex2(x,y)/2 + 0.5
+
 function getPixel(x, y, initial) {
-  let pixel = {
+  let value = noise1(x, y)
+
+  let color = {
     r: 0,
     g: 0,
     b: 0
   }
-  return pixel
+
+  if(x % 16 == 0) {
+    color.b = 255
+  }
+  if(y % 16 == 0) {
+    color.g = 255
+  }
+
+  return color
+}
+
+greyscale = (i) => {
+  return {r: i*255, g: i*255, b: i*255};
 }
 
 mapData.populate()
