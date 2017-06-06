@@ -5,38 +5,40 @@ let display = {
     object.width = x
     object.height = y
     document.getElementById("page").appendChild(object)
+    let ctx = object.getContext("2d")
+    ctx.width = x
+    ctx.height = y
     display[id] = {
-      canvas: object.getContext("2d"),
+      canvas: ctx,
       draw: drawFunc
     }
   }
 }
 
-let mapX = 600
-let mapY = 800
+let mapX = 10
+let mapY = 20
 
 let mapData = {
   data: new Array(mapX).fill(new Array(mapY).fill({r: 128, g: 0, b: 128})),
   populate: () => {
-    for(let x = 0; x < mapX; x++) {
-      for(let y = 0; y < mapY; y++) {
-        mapData.data[x][y] = getPixel(x, y, mapData.data[x][y])
+    for(let nx = 0; nx < mapX; nx++) {
+      for(let ny = 0; ny < mapY; ny++) {
+        mapData.data[nx][ny] = getPixel(nx, ny, mapData.data[nx][ny])
       }
     }
   }
 }
 
-display.register("main", mapX, mapY, () => {
+display.register("main", mapX, mapY, (mapData) => {
   let c = display.main.canvas
 
   let imageData = c.getImageData(0, 0, mapX, mapY)
-
   for(let nx = 0; nx < mapX; nx++) {
     for(let ny = 0; ny < mapY; ny++) {
       let i = (ny * mapX + nx) * 4 - 1
       let d = mapData.data[nx][ny]
-      if(d.b != 0) console.log(i)
-      imageData.data[++i]   = d.r
+
+      imageData.data[++i] = d.r
       imageData.data[++i] = d.g
       imageData.data[++i] = d.b
       imageData.data[++i] = 255
@@ -52,23 +54,21 @@ noise.seed(0)
 
 noise1 = (x, y) => noise.simplex2(x,y)/2 + 0.5
 
-function getPixel(x, y, initial) {
-  let value = noise1(x, y)
-
-  let color = {
+function getPixel(xIn, yIn, initial) {
+  let newColor = {
     r: 0,
     g: 0,
     b: 0
   }
 
-  if(x % 16 == 0) {
-    color.b = 255
+  if(yIn % 2 == 0) {
+    newColor.r = 255
   }
-  if(y % 16 == 0) {
-    color.g = 255
+  if(xIn % 2 == 0) {
+    newColor.g = 255
   }
 
-  return color
+  return newColor
 }
 
 greyscale = (i) => {
@@ -76,4 +76,4 @@ greyscale = (i) => {
 }
 
 mapData.populate()
-display.main.draw()
+display.main.draw(mapData)
