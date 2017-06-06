@@ -49,11 +49,7 @@ let mapData = {
 
         pixel = Math.pow(pixel, 2.0)
 
-        let c = greyscale(pixel)
-        if(pixel < 0.6) c.g += 64
-        if(pixel < 0.2) c.b += 128
-
-        mapData.data[x][y] = c
+        mapData.data[x][y] = pixel
       }
     }
   }
@@ -68,9 +64,16 @@ display.register("terrain2D", mapX, mapY, (mapData) => {
   for(let nx = 0; nx < mapX; nx++) {
     for(let ny = 0; ny < mapY; ny++) {
       let i = (ny * mapX + nx) * 4 - 1
-      imageData.data[++i] = mapData.data[nx][ny].r
-      imageData.data[++i] = mapData.data[nx][ny].g
-      imageData.data[++i] = mapData.data[nx][ny].b
+
+      let pixel = mapData.data[nx][ny]
+
+      let c = greyscale(pixel)
+      if(pixel < 0.6) c.g += 64
+      if(pixel < 0.2) c.b += 128
+
+      imageData.data[++i] = c.r
+      imageData.data[++i] = c.g
+      imageData.data[++i] = c.b
       imageData.data[++i] = 255
     }
   }
@@ -83,9 +86,9 @@ display.register("terrain2D", mapX, mapY, (mapData) => {
 display.register("terrain3D", mapX, mapY, (mapData) => {
   let c = display.terrain3D.canvas
 
-  
+
 }, "webgl", 0)
 
 noise.seed(Math.random()*0)
 mapData.populate()
-display.terrain3D.draw(mapData)
+display.terrain2D.draw(mapData)
