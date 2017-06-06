@@ -89,6 +89,6 @@ display.register("terrain3D", mapX, mapY, (mapData) => {
 
 }, "webgl", 0)
 
-noise.seed(Math.random()*0)
+noise.seed(Math.random())
 mapData.populate()
 display.terrain2D.draw(mapData)
