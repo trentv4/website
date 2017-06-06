@@ -1,4 +1,17 @@
 let display = {
+  index: 0,
+  register: (id, x, y) => {
+    let object = make("canvas")
+    object.id = id
+    object.width = 1000
+    object.height = 700
+    object.style = "z-index: " + display.index
+    display.index++
+    get("canvas-container").appendChild(object)
+    if(display[id] != null) {
+      display[id].canvas = object.getContext("2d")
+    }
+  },
   draw: () => {
     display.background.draw()
     display.stripes.draw()
@@ -13,7 +26,6 @@ let display = {
     display.shadows.draw()
   },
   background: {
-    canvas: document.getElementById("background").getContext("2d"),
     draw: () => {
       let c = display.background.canvas
       c.fillStyle = colors.background
@@ -21,7 +33,6 @@ let display = {
     }
   },
   stripes: {
-    canvas: document.getElementById("stripes").getContext("2d"),
     draw: () => {
       let c = display.stripes.canvas
       c.clearRect(0, 0, c.canvas.width, c.canvas.height)
@@ -40,7 +51,6 @@ let display = {
     }
   },
   grid: {
-    canvas: document.getElementById("grid").getContext("2d"),
     draw: () => {
       let c = display.grid.canvas
       c.clearRect(0, 0, c.canvas.width, c.canvas.height)
@@ -64,7 +74,6 @@ let display = {
     }
   },
   emptyCells: {
-    canvas: document.getElementById("emptyCells").getContext("2d"),
     draw: () => {
       let c = display.emptyCells.canvas
       c.clearRect(0, 0, c.canvas.width, c.canvas.height)
@@ -102,7 +111,6 @@ let display = {
     }
   },
   shadows: {
-    canvas: document.getElementById("shadows").getContext("2d"),
     draw: () => {
       let c = display.shadows.canvas
       c.clearRect(0, 0, c.canvas.width, c.canvas.height)
@@ -143,7 +151,6 @@ let display = {
     }
   },
   features: {
-    canvas: document.getElementById("features").getContext("2d"),
     draw: () => {
       let c = display.features.canvas
       c.clearRect(0, 0, c.canvas.width, c.canvas.height)
@@ -168,7 +175,6 @@ let display = {
     }
   },
   mouse: {
-    canvas: document.getElementById("mouse").getContext("2d"),
     draw: () => {
       let c = display.mouse.canvas
       c.clearRect(0, 0, c.canvas.width, c.canvas.height)
@@ -184,7 +190,6 @@ let display = {
     }
   },
   selection: {
-    canvas: document.getElementById("selection").getContext("2d"),
     draw: () => {
       let c = display.selection.canvas
       c.clearRect(0, 0, c.canvas.width, c.canvas.height)
@@ -209,3 +214,13 @@ let display = {
     c.translate(-translateX, -translateY)
   }
 }
+
+display.register("background", 1000, 700)
+display.register("stripes", 1000, 700)
+display.register("grid", 1000, 700)
+display.register("emptyCells", 1000, 700)
+display.register("shadows", 1000, 700)
+display.register("features", 1000, 700)
+display.register("mouse", 1000, 700)
+display.register("selection", 1000, 700)
+display.register("input_layer", 1000, 700)
