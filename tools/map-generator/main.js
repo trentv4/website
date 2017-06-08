@@ -2,6 +2,11 @@ perlin = (x, y, frequency, amplitude) => noise.perlin2(x * frequency, y *  frequ
 simplex = (x, y, frequency, amplitude) => noise.simplex2(x * frequency, y *  frequency) * amplitude
 color = (r,g,b) => ({r: r, g: g, b: b})
 greyscale = (i) => ({r: i*255, g: i*255, b: i*255})
+normalize = (i) => {
+  if(i > 1) return 1
+  if(i <= 0) return 0
+  return i
+}
 
 let display = {
   register: (id, x, y, drawFunc, context, z) => {
@@ -25,38 +30,67 @@ let display = {
   }
 }
 
-let mapX = 600
+let mapX = 1000
 let mapY = 800
+let rand = Math.random()
 
 let mapData = {
-  data: [],
-  populate: () => {
+  terrainData: [],
+  climateData: [],
+  riverData: [],
+  forAll: (data, func) => {
     for(let x = 0; x < mapX; x++) {
-      if(mapData.data[x] == null) mapData.data[x] = []
+      if(data[x] == null) {
+        data[x] = []
+      }
       for(let y = 0; y < mapY; y++) {
-        if(mapData.data[x][y] == null) mapData.data[x][y] = {r: 128, g: 0, b: 128}
-
+        if(data[x][y] == null) {
+          data[x][y] = 0
+        }
         let nx = x / mapX - 0.5
         let ny = y / mapY - 0.5
 
-        let pixel = 0
-        pixel += perlin(nx, ny, 4, 0.5)
-        pixel += perlin(nx, ny, 8, 0.25)
-        pixel += perlin(nx, ny, 16, 0.125)
-        pixel += perlin(nx, ny, 32, 0.125)
-
-        pixel = pixel + 1 / 2
-
-        pixel = Math.pow(pixel, 2.0)
-
-        mapData.data[x][y] = pixel
+        func(x, y, nx, ny, data)
       }
     }
+  },
+  populate: () => {
+    noise.seed(rand)
+    mapData.forAll(mapData.terrainData, (x, y, nx, ny, data) => {
+      let pixel = 0
+      pixel += perlin(nx, ny, 4, 0.5)
+      pixel += perlin(nx, ny, 8, 0.25)
+      pixel += perlin(nx, ny, 16, 0.125)
+      pixel += perlin(nx, ny, 32, 0.125)
+
+      pixel = pixel + 1 / 2
+
+      pixel = Math.pow(pixel, 2.0)
+
+      data[x][y] = pixel
+    })
+    noise.seed(rand + 1)
+    mapData.forAll(mapData.riverData, (x, y, nx, ny, data) => {
+      let pixel = 0
+
+      data[x][y] = pixel
+    })
+    noise.seed(rand + 2)
+    mapData.forAll(mapData.climateData, (x, y, nx, ny, data) => {
+      let pixel = 0
+      pixel += perlin(nx, ny, 2, 0.5)
+      pixel += perlin(nx, ny, 2, 0.25)
+      pixel += perlin(nx, ny, 4, 0.25)
+
+      pixel = pixel + 1 / 2
+
+      data[x][y] = pixel
+    })
   }
 }
 
 /* This is the 2D heightmap version */
-
+let track = 0
 display.register("terrain2D", mapX, mapY, (mapData) => {
   let c = display.terrain2D.canvas
 
@@ -65,11 +99,26 @@ display.register("terrain2D", mapX, mapY, (mapData) => {
     for(let ny = 0; ny < mapY; ny++) {
       let i = (ny * mapX + nx) * 4 - 1
 
-      let pixel = mapData.data[nx][ny]
+      let terrain = mapData.terrainData[nx][ny]
+      let river = normalize(1-mapData.riverData[nx][ny])
+      let climate = mapData.climateData[nx][ny]
 
-      let c = greyscale(pixel)
-      if(pixel < 0.6) c.g += 64
-      if(pixel < 0.2) c.b += 128
+      let waterLevel = 0.2
+      let mtnLevel = 0.6
+      let rounding = 20;
+
+      let c = greyscale(Math.round(terrain * rounding)/rounding)
+      if(rounding == 0) c = greyscale(terrain)
+
+      if(terrain < mtnLevel & terrain > waterLevel) {
+        c.g += 64
+      }
+      if(terrain < waterLevel) {
+        c.b += 180
+        c.g += 64
+      }
+
+      //c = greyscale(climate)
 
       imageData.data[++i] = c.r
       imageData.data[++i] = c.g
@@ -89,6 +138,5 @@ display.register("terrain3D", mapX, mapY, (mapData) => {
 
 }, "webgl", 0)
 
-noise.seed(Math.random())
 mapData.populate()
 display.terrain2D.draw(mapData)
