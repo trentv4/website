@@ -54,6 +54,7 @@ siteStatsRouter.get("/", (req, res) => res.send(siteStats))
 
 app.use(       "/api/site-stats", siteStatsRouter)
 loadRoute(app, "/api/navyseal",   "./routes/navyseal.js")
+loadRoute(app, "/api/minecraft/villagers",   "./routes/minecraft/villagers.js")
 loadRoute(app, "/api/webm",       "./routes/webm.js")
 loadRoute(app, "/",               "./routes/global.js")
 
