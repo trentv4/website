@@ -32,7 +32,7 @@ let display = {
 
 let mapX = 1000
 let mapY = 800
-let rand = Math.random()
+let rand = Math.random()*0
 
 let mapData = {
   terrainData: [],
@@ -105,7 +105,7 @@ display.register("terrain2D", mapX, mapY, (mapData) => {
 
       let waterLevel = 0.2
       let mtnLevel = 0.6
-      let rounding = 20;
+      let rounding = 0
 
       let c = greyscale(Math.round(terrain * rounding)/rounding)
       if(rounding == 0) c = greyscale(terrain)
@@ -117,6 +117,7 @@ display.register("terrain2D", mapX, mapY, (mapData) => {
         c.b += 180
         c.g += 64
       }
+
 
       //c = greyscale(climate)
 
