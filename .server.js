@@ -2,6 +2,8 @@
 const express = require("express")
 const fs = require("fs")
 const db = require("./db.js")
+const bodyparser = require("body-parser")
+const less = require("less")
 
 // Useful functions
 console.write = (input) => process.stdout.write(input)
@@ -34,7 +36,25 @@ siteStats.write = () => {
 let app = express()
 app.set("view engine", "ejs")
 app.set("views", "./")
+app.get("*.less", (req, res) => {
+  var path = __dirname + req.url;
+  fs.readFile(path, "utf8", function(err, data) {
+    less.render(data, (err, css) => {
+      if(err) console.log(err)
+      res.header("Content-type", "text/css");
+      if(css != null) {
+        res.send(css.css)
+      }
+      else
+      {
+        res.send("")
+      }
+    });
+  });
+});
 app.use(express.static("./"))
+app.use(bodyparser.urlencoded({ extended: false }))
+app.use(bodyparser.json())
 
 app.use("*", (req, res, next) => {
   let url = req.originalUrl
@@ -56,6 +76,7 @@ app.use(       "/api/site-stats", siteStatsRouter)
 loadRoute(app, "/api/navyseal",   "./routes/navyseal.js")
 loadRoute(app, "/api/minecraft/villagers",   "./routes/minecraft/villagers.js")
 loadRoute(app, "/api/webm",       "./routes/webm.js")
+loadRoute(app, "/api/character-sheet",       "./routes/character-sheet.js")
 loadRoute(app, "/",               "./routes/global.js")
 
 app.use((error, req, res, next) => {
