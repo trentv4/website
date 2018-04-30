@@ -87,5 +87,5 @@ app.use((error, req, res, next) => {
   siteStats.write()
 })
 
-app.listen(3000)
+app.listen(80)
 console.log("Web server started, running.")
