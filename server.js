@@ -51,7 +51,7 @@ app.use(bodyparser.json())
 app.use("*", (req, res, next) => {
 	let url = req.originalUrl
 
-	//403 forbidden
+	// 403 forbidden
 	if(excludedUrls.indexOf(url) != -1)
 	{
 		res.status("403")
@@ -61,6 +61,7 @@ app.use("*", (req, res, next) => {
 		return
 	}
 
+	// static file, skip over statistics and serving notice
 	if(fs.existsSync("." + url) && fs.statSync("." + url).isFile() && url != "/")
 	{
 		next()
@@ -83,8 +84,6 @@ app.use(express.static("./"))
 
 loadRoute(app, "/api/navyseal", "./routes/navyseal.js")
 loadRoute(app, "/api/villagers", "./routes/minecraft/villagers.js")
-loadRoute(app, "/api/webm", "./routes/webm.js")
-//loadRoute(app, "/api/character-sheet", "./routes/character-sheet.js")
 loadRoute(app, "/", "./routes/global.js")
 
 app.use((error, req, res, next) => {
