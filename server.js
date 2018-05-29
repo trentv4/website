@@ -71,6 +71,9 @@ app.use("*", (req, res, next) => {
 		return
 	}
 
+	if(url.charAt(url.length-1) == "/")
+		url = url.substring(0, url.length-1)
+
 	console.write("\nServing: " + url)
 
 	sql.query("select * from stats where page='" + url + "'", (e, rows, fields) => {
