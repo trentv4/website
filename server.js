@@ -5,10 +5,13 @@ const bodyparser = require("body-parser")
 const less = require("less")
 const sql = require("./global/sql.js")
 
-const excludedUrls = ["/server.js", "/package.json", "/package-lock.json", "/.build.sh"]
+const excludedUrls = []
 let gitignore = fs.readFileSync(".gitignore").toString().split("\n")
 for(let i = 0; i < gitignore.length; i++)
 	excludedUrls.push("/" + gitignore[i])
+let forbidden = fs.readFileSync(".forbidden").toString().split("\n")
+for(let i = 0; i < forbidden.length; i++)
+	excludedUrls.push("/" + forbidden[i])
 
 // Useful functions
 console.write = (input) => process.stdout.write(input)
