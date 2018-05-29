@@ -3,8 +3,8 @@
 	<head>
 		<title>Projects</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link id="style" rel="stylesheet" type="text/css" href="/stylesheet.css">
-		<link id="style" rel="stylesheet" type="text/css" href="stylesheet.css">
+		<link id="style" rel="stylesheet" type="text/css" href="/global/stylesheet.less">
+		<link id="style" rel="stylesheet" type="text/css" href="stylesheet.less">
 	</head>
 
 	<body>
@@ -13,50 +13,17 @@
 			<h1>Projects</h1>
 			<p>Here you can see every single one of my projects. If you want to see the ones I have selected for my portfolio, head to the <a href="/">index page</a> for the ones I'm currently showcasing.</p>
 
-			<div class="separator">
-				<img class="small" src="java.png">
-				<h1>Java</h1>
-			</div>
-			<div class="image-container">
-				<a class="text" href="/tds/">
-					<h1>Top-down shooter</h1>
-				</a>
-				<a class="text" href="/roguelike/">
-					<h1>Everwood Dungeon</h1>
-					<p>A traditional roguelike game, similar to Nethack but far smaller in scope.</p>
-				</a>
-				<a class="text" href="https://www.jamieswhiteshirt.com/minecraft/mods/gases/">
-					<h1>Glenn's Gases maintainer</h1>
-				</a>
-				<a class="text" href="/advanced-darkness/">
-					<h1>Advanced Darkness</h1>
-				</a>
+			<div class="block-container">
+				<a href="/projects/advanced-darkness">Advanced Darkness</a>
+				<a href="/projects/brainfuck">Brainfuck Interpreter</a>
+				<a href="/projects/character-sheet">Character Sheet</a>
+				<a href="/projects/dnd-dungeon">Dungeon Mapper</a>
+				<a href="/projects/map-generator">Map Generator</a>
+				<a href="/projects/navyseal">Navy Seal repository</a>
+				<a href="/projects/roguelike">Roguelike</a>
+				<a href="/projects/tds">Top down shooter</a>
 			</div>
 
-			<div class="separator">
-				<img class="small" src="web.png">
-				<h1>Web</h1>
-			</div>
-			<div class="image-container">
-        <a class="text" href="/tools/narrative-writer/">
-					<h1>EMS Narrative Writer</h1>
-				</a>
-        <a class="text" href="/tools/map-generator/">
-					<h1>Map Generator</h1>
-				</a>
-        <a class="text" href="/navyseal/">
-					<h1>Navy Seals Copypasta</h1>
-				</a>
-				<a class="text" href="/brainfuck/">
-					<h1>Brainfuck Interpreter</h1>
-				</a>
-				<a class="text" href="/tools/dnd-dungeon/">
-					<h1>DnD Dungeon Creator</h1>
-				</a>
-				<a class="text" href="/webm/">
-					<h1>.webm archive</h1>
-				</a>
-			</div>
 		</div>
 		<% include ../global/footer.ejs %>
 	</body>

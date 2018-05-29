@@ -1,11 +1,11 @@
 let express = require("express")
 let router = express.Router()
-let db = require("../db.js")
-
-let navyseal = db("data", {navyseal: []}).navyseal
+let sql = require("../global/sql.js")
 
 router.get("/", (req, res) => {
-  res.send(navyseal)
+	sql.query("select title,content from navyseal", (err, rows, fields) => {
+		res.send(rows)
+	})
 })
 
 module.exports = router
