@@ -4,6 +4,7 @@ const fs = require("fs")
 const bodyparser = require("body-parser")
 const less = require("less")
 const sql = require("./global/sql.js")
+const htmljs = require("./global/htmljs.js")
 
 const excludedUrls = []
 let gitignore = fs.readFileSync(".gitignore").toString().split("\n")
@@ -31,52 +32,13 @@ function loadRoute(app, directory, routeFile) {
 let app = express()
 
 app.engine("htmljs", (path, options, callback) => {
-	let output = fs.readFileSync(path, "utf8")
-	let currentScript = ""
-	let currentPage = ""
-	let findingScript = false;
-
-	for(let i = 0; i < output.length; i++) {
-		if(output[i] == '<' && output[i+1] == '%') {
-			i += 2
-			findingScript = true
-		}
-		if(output[i] == '%' && output[i+1] == '>') {
-			findingScript = false
-			i += 2
-
-			let objDocument = {
-				write: (o) => {
-					currentPage += o
-				}
-			}
-
-			try {
-				(Function("document", "sql", currentScript))(objDocument, sql)
-			} catch(e)
-			{
-				console.error("Error executing script in " + path + ":")
-				console.error(e)
-			}
-
-			currentScript = ""
-		}
-
-		if(findingScript)
-		{
-			currentScript += output[i]
-		}
-		else
-		{
-			currentPage += output[i]
-		}
-	}
-
-	callback(null, currentPage)
+	let output = htmljs.parse(path)
+	callback(null, output)
 })
 
 app.set("view engine", "htmljs")
 app.set("view engine", "ejs")
+
 app.set("views", "./")
 app.get("*.less", (req, res) => {
 	var path = __dirname + req.url;
@@ -117,7 +79,7 @@ app.use("*", (req, res, next) => {
 		return
 	}
 
-	if(url.charAt(url.length-1) == "/")
+	if(url.charAt(url.length-1) == "/" && url.length != 1)
 		url = url.substring(0, url.length-1)
 
 	console.write("\nServing: " + url)
@@ -140,12 +102,9 @@ loadRoute(app, "/api/villagers", "./routes/minecraft/villagers.js")
 loadRoute(app, "/", "./routes/global.js")
 
 app.use((error, req, res, next) => {
-	console.write("\n\n")
-	console.write(": unable to serve.")
-	res.end()
-	return
 	res.status("404")
 	res.render("global/404")
+	console.write(": unable to serve.")
 })
 
 app.listen(80)
