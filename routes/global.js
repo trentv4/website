@@ -1,8 +1,11 @@
 const express = require("express")
+const fs = require("fs")
 let router = express.Router()
 
 router.get("*", (req, res) => {
-	res.render(req._parsedUrl.pathname.substring(1), {req: req, res: res})
+	let url = req.originalUrl.substring(1)
+	if(fs.existsSync(url + ".htmljs")) url += ".htmljs"
+	res.render(url, {req: req, res: res})
 })
 
 module.exports = router

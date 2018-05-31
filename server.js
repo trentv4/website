@@ -28,8 +28,54 @@ function loadRoute(app, directory, routeFile) {
 }
 
 //Express app
-
 let app = express()
+
+app.engine("htmljs", (path, options, callback) => {
+	let output = fs.readFileSync(path, "utf8")
+	let currentScript = ""
+	let currentPage = ""
+	let findingScript = false;
+
+	for(let i = 0; i < output.length; i++) {
+		if(output[i] == '<' && output[i+1] == '%') {
+			i += 2
+			findingScript = true
+		}
+		if(output[i] == '%' && output[i+1] == '>') {
+			findingScript = false
+			i += 2
+
+			let objDocument = {
+				write: (o) => {
+					currentPage += o
+				}
+			}
+
+			try {
+				(Function("document", "sql", currentScript))(objDocument, sql)
+			} catch(e)
+			{
+				console.error("Error executing script in " + path + ":")
+				console.error(e)
+			}
+
+			currentScript = ""
+		}
+
+		if(findingScript)
+		{
+			currentScript += output[i]
+		}
+		else
+		{
+			currentPage += output[i]
+		}
+	}
+
+	callback(null, currentPage)
+})
+
+app.set("view engine", "htmljs")
 app.set("view engine", "ejs")
 app.set("views", "./")
 app.get("*.less", (req, res) => {
@@ -75,7 +121,8 @@ app.use("*", (req, res, next) => {
 		url = url.substring(0, url.length-1)
 
 	console.write("\nServing: " + url)
-
+	next()
+	return
 	sql.query("select * from stats where page='" + url + "'", (e, rows, fields) => {
 		if(rows.length != 0)
 			sql.query("update stats set count='" + (rows[0].count + 1) + "' where page='" + url + "'")
@@ -93,7 +140,10 @@ loadRoute(app, "/api/villagers", "./routes/minecraft/villagers.js")
 loadRoute(app, "/", "./routes/global.js")
 
 app.use((error, req, res, next) => {
+	console.write("\n\n")
 	console.write(": unable to serve.")
+	res.end()
+	return
 	res.status("404")
 	res.render("global/404")
 })
