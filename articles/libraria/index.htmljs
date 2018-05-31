@@ -1,15 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>The Making of Libraria</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="/global/stylesheet.less">
+		<link rel="stylesheet" type="text/css" href="stylesheet.less">
+	</head>
+	<body>
+		<% document.require("global/header.htmljs") %>
+		<div id="page">
+		<%
 function parse(str) {
+	let total = ""
     let g = str.split("\n")
     for(a in g) {
         if(g[a] != "") {
             let splitentry = g[a].split(" ")
             let type = splitentry[0].replace("!", "");
-            document.getElementById("page").innerHTML += `<` + type + `>` + g[a].replace(splitentry[0] + " ", "") + `</` + type + `>`
+            document.write(`<` + type + `>` + g[a].replace(splitentry[0] + " ", "") + `</` + type + `>`)
+            total += (`<` + type + `>` + g[a].replace(splitentry[0] + " ", "") + `</` + type + `>\n`)
         }
     }
+    //document.write("<script>console.log(`" + total + "`)</script>")
 }
 
 parse(`
+!h1 The Making of Libraria
+
 !p <i>Written on January 3, 2018 by Trentv4</i>
 
 !center <img src="images/libraria.png"/>
@@ -93,3 +110,9 @@ parse(`
 
 // Fuck off and stop being nosy. I'm just using this to write easier, and it'll be exported to proper HTML tags later.
 // REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+
+		%>
+		</div>
+        <% document.require("global/footer.htmljs") %>
+	</body>
+</html>

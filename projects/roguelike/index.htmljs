@@ -8,7 +8,7 @@
 	</head>
 
 	<body>
-		<% include ../../global/header.ejs %>
+		<% document.require("global/header.htmljs") %>
 		<div id="page">
 			<div class="separator">
 				<img src="potion_hp.png">
@@ -53,6 +53,6 @@
 			<li>Move item: ENTER</li>
 			<li>Use item: E</li>
 		</div>
-		<% include ../../global/footer.ejs %>
+		<% document.require("global/footer.htmljs") %>
 	</body>
 </html>

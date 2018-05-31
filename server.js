@@ -32,9 +32,7 @@ function loadRoute(app, directory, routeFile) {
 let app = express()
 
 app.engine("htmljs", htmljs.engine)
-
 app.set("view engine", "htmljs")
-app.set("view engine", "ejs")
 app.set("views", "./")
 
 app.use(bodyparser.urlencoded({ extended: false }))
@@ -57,7 +55,7 @@ app.use("*", (req, res, next) => {
 	if(excludedUrls.indexOf(url) != -1)
 	{
 		res.status("403")
-		res.render("global/403")
+		res.render("global/403.htmljs")
 		res.end()
 		console.write("Serving: " + url + ": 403 forbidden.")
 		return
@@ -74,6 +72,12 @@ app.use("*", (req, res, next) => {
 		url = url.substring(0, url.length-1)
 
 	console.write("\nServing: " + url)
+
+	if(false)
+	{
+		next()
+		return
+	}
 
 	sql.query("select * from stats where page='" + url + "'", (e, rows, fields) => {
 		if(rows.length != 0)
@@ -93,7 +97,7 @@ loadRoute(app, "/", "./routes/global.js")
 
 app.use((error, req, res, next) => {
 	res.status("404")
-	res.render("global/404")
+	res.render("global/404.htmljs")
 	console.write(": unable to serve.")
 })
 
