@@ -4,11 +4,11 @@
 		<title>Everwood Dungeon</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link id="style" rel="stylesheet" type="text/css" href="/global/stylesheet.less">
-		<link id="style" rel="stylesheet" type="text/css" href="stylesheet.css">
+		<link id="style" rel="stylesheet" type="text/css" href="stylesheet.less">
 	</head>
 
 	<body>
-		<% include ../../global/header.ejs %>
+		<% document.require("global/header.htmljs") %>
 		<div id="page">
 			<div class="separator">
 				<img src="potion_hp.png">
@@ -53,6 +53,6 @@
 			<li>Move item: ENTER</li>
 			<li>Use item: E</li>
 		</div>
-		<% include ../../global/footer.ejs %>
+		<% document.require("global/footer.htmljs") %>
 	</body>
 </html>

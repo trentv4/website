@@ -7,12 +7,11 @@
 	</head>
 
 	<body>
-		<% include header.ejs %>
+		<% document.require("global/header.htmljs") %>
 		<div id="page">
-
-			<h1>I messed up!</h1>
+			<h1>404 not found</h1>
 			<p>There's nothing on this page, so you got dropped off here at this 404 page. Maybe head to the <a href="/">index page?</a></p>
 		</div>
-		<% include footer.ejs %>
+		<% document.require("global/footer.htmljs") %>
 	</body>
 </html>

@@ -8,7 +8,7 @@
 	</head>
 
 	<body>
-		<% include ../../global/header.ejs %>
+		<% document.require("global/header.htmljs") %>
 
 		<div id="page">
 			<div class="separator">
@@ -49,6 +49,6 @@
 				<a href="images/nether_big.png"><img src="images/nether.png"/></a>
 			</div>
 		</div>
-		<% include ../../global/footer.ejs %>
+		<% document.require("global/footer.htmljs") %>
 	</body>
 </html>
