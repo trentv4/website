@@ -8,7 +8,7 @@
 	</head>
 
 	<body>
-		<% include ../global/header.ejs %>
+		<% document.require("global/header.htmljs") %>
 		<div id="page">
 			<h1>Projects</h1>
 			<p>Here you can see every single one of my projects. If you want to see the ones I have selected for my portfolio, head to the <a href="/">index page</a> for the ones I'm currently showcasing.</p>
@@ -21,10 +21,10 @@
 				<a href="/projects/map-generator">Map Generator</a>
 				<a href="/projects/navyseal">Navy Seal repository</a>
 				<a href="/projects/roguelike">Roguelike</a>
-				<a href="/projects/tds">Top down shooter</a>
+				<a href="/projects/tds">Top Down Shooter</a>
 			</div>
 
 		</div>
-		<% include ../global/footer.ejs %>
+		<% document.require("global/footer.htmljs") %>
 	</body>
 </html>

@@ -4,11 +4,11 @@
 		<title>Navy Seal Copypasta</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" type="text/css" href="/global/stylesheet.less">
-		<link rel="stylesheet" type="text/css" href="stylesheet.css">
+		<link rel="stylesheet" type="text/css" href="stylesheet.less">
 	</head>
 
 	<body>
-		<% include ../../global/header.ejs %>
+		<% document.require("global/header.htmljs") %>
 		<div id="page">
 			<div id="table-of-contents">
 				<p>WHAT THE FUCK DID YOU JUST SAY ABOUT ME YOU LITTLE BITCH?</p>
@@ -22,6 +22,6 @@
 			</div>
 		</div>
 		<script src="main.js" type="text/javascript"></script>
-		<% include ../../global/footer.ejs %>
+		<% document.require("global/footer.htmljs") %>
 	</body>
 </html>
