@@ -74,8 +74,7 @@ app.use("*", (req, res, next) => {
 		url = url.substring(0, url.length-1)
 
 	console.write("\nServing: " + url)
-	next()
-	return
+
 	sql.query("select * from stats where page='" + url + "'", (e, rows, fields) => {
 		if(rows.length != 0)
 			sql.query("update stats set count='" + (rows[0].count + 1) + "' where page='" + url + "'")
