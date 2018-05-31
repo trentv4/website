@@ -1,8 +1,8 @@
 const fs = require("fs")
 const sql = require("./sql.js")
+
 const htmljs = {
 	parse: (path) => {
-
 		let output = fs.readFileSync(path, "utf8")
 		let currentScript = ""
 		let currentPage = ""
@@ -38,6 +38,9 @@ const htmljs = {
 				currentPage += output[i]
 		}
 		return currentPage
+	},
+	engine: (path, option, callback) => {
+		callback(null, htmljs.parse(path))
 	}
 }
 

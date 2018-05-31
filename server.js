@@ -31,33 +31,24 @@ function loadRoute(app, directory, routeFile) {
 //Express app
 let app = express()
 
-app.engine("htmljs", (path, options, callback) => {
-	let output = htmljs.parse(path)
-	callback(null, output)
-})
+app.engine("htmljs", htmljs.engine)
 
 app.set("view engine", "htmljs")
 app.set("view engine", "ejs")
-
 app.set("views", "./")
-app.get("*.less", (req, res) => {
-	var path = __dirname + req.url;
-	fs.readFile(path, "utf8", function(err, data) {
-		less.render(data, (err, css) => {
-			if(err) console.log(err)
-			res.header("Content-type", "text/css");
-			if(css != null) {
-				res.send(css.css)
-			}
-			else
-			{
-				res.send("")
-			}
-		});
-	});
-});
+
 app.use(bodyparser.urlencoded({ extended: false }))
 app.use(bodyparser.json())
+
+app.get("*.less", (req, res) => {
+	let path = __dirname + req.url;
+	let data = fs.readFileSync(path, "utf8")
+	less.render(data, (err, css) => {
+		if(err) console.log(err)
+		res.header("Content-type", "text/css");
+		res.send(css != null ? css.css : "")
+	});
+});
 
 app.use("*", (req, res, next) => {
 	let url = req.originalUrl
