@@ -10,11 +10,14 @@
 		<% document.require("global/header.htmljs") %>
 		<div id="page">
 			<table>
+			<th>Page</th>
+			<th>Hits</th>
+			<th>State</th>
 			<%
 			let data = sql.querySync("select * from traffic order by hits desc")
 			for(let i = 0; i < data.length; i++) {
 				document.write("<tr>")
-				document.write("<td>" + data[i].page + "</td>")
+				document.write("<td class='page-entry'>" + data[i].page + "</td>")
 				document.write("<td>" + data[i].hits + "</td>")
 				document.write("<td>" + data[i].state + "</td>")
 				document.write("</tr>")

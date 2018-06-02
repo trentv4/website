@@ -30,6 +30,7 @@ function loadRoute(app, directory, routeFile) {
 }
 
 function sendQuery(url_unsafe, state) {
+	return;
 	let url = sql.mysql.escape(url_unsafe)
 	sql.query("select * from traffic where page="+ url +"").then(rows => {
 		let query = ""
@@ -91,6 +92,7 @@ app.use("*", (req, res, next) => {
 	if(fs.existsSync("." + url) && fs.statSync("." + url).isFile() && url != "/")
 	{
 		sendQuery(url, "file")
+		console.write(": file.")
 		next()
 		return
 	}
