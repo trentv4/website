@@ -7,12 +7,13 @@ const sql = require("./global/sql.js")
 const htmljs = require("./global/htmljs.js")
 
 const excludedUrls = []
-let gitignore = fs.readFileSync(".gitignore").toString().split("\n")
-for(let i = 0; i < gitignore.length; i++)
-	excludedUrls.push("/" + gitignore[i])
 let forbidden = fs.readFileSync(".forbidden").toString().split("\n")
 for(let i = 0; i < forbidden.length; i++)
 	excludedUrls.push("/" + forbidden[i])
+let gitignore = fs.readFileSync(".gitignore").toString().split("\n")
+for(let i = 0; i < gitignore.length; i++)
+	excludedUrls.push("/" + gitignore[i])
+
 
 // Useful functions
 console.write = (input) => process.stdout.write(input)
@@ -26,6 +27,20 @@ function loadRoute(app, directory, routeFile) {
 	else {
 		console.log("route file not found.")
 	}
+}
+
+function sendQuery(url_unsafe, state) {
+	let url = encodeURI(url_unsafe)
+	sql.query("select * from traffic where page='"+ url +"'").then(rows => {
+		if(rows == undefined || rows.length == 0)
+		{
+			sql.query("insert into traffic values ('"+ url +"', 1, '"+ state +"')")
+		}
+		else
+		{
+			sql.query(`update traffic set hits='`+ (rows[0].hits+1) +`', state='`+ state +`' where page='`+ url +`'`)
+		}
+	})
 }
 
 //Express app
@@ -49,41 +64,45 @@ app.get("*.less", (req, res) => {
 });
 
 app.use("*", (req, res, next) => {
+	if(req.originalUrl.charAt(req.originalUrl.length-1) == "/" && req.originalUrl.length != 1)
+		req.originalUrl = req.originalUrl.substring(0, req.originalUrl.length-1)
+
 	let url = req.originalUrl
 
+	console.write("\nServing: " + url)
+
+	console.log(excludedUrls)
 	// 403 forbidden
 	if(excludedUrls.indexOf(url) != -1)
 	{
 		res.status("403")
 		res.render("global/403.htmljs")
 		res.end()
-		console.write("Serving: " + url + ": 403 forbidden.")
+		console.write(": 403 forbidden.")
+		sendQuery(url, "forbidden")
 		return
 	}
 
 	// static file, skip over statistics and serving notice
 	if(fs.existsSync("." + url) && fs.statSync("." + url).isFile() && url != "/")
 	{
+		sendQuery(url, "file")
 		next()
 		return
 	}
 
-	if(url.charAt(url.length-1) == "/" && url.length != 1)
-		url = url.substring(0, url.length-1)
-
-	console.write("\nServing: " + url)
-
-	if(false)
-	{
-		next()
-		return
-	}
+	sendQuery(url, "valid")
 
 	sql.query("select * from stats where page='" + url + "'", (e, rows, fields) => {
+		if(e) console.log(e)
 		if(rows.length != 0)
-			sql.query("update stats set count='" + (rows[0].count + 1) + "' where page='" + url + "'")
+			sql.query("update stats set count='" + (rows[0].count + 1) + "' where page='" + url + "'", (e) => {
+				if(e) console.log(e)
+			})
 		else
-			sql.query("insert into stats values('" + url + "', 1)")
+			sql.query("insert into stats values('" + url + "', 1)", (e) => {
+				if(e) console.log(e)
+			})
 	})
 	
 	next()
@@ -99,6 +118,8 @@ app.use((error, req, res, next) => {
 	res.status("404")
 	res.render("global/404.htmljs")
 	console.write(": unable to serve.")
+	sendQuery(req.originalUrl, "missing")
+
 })
 
 app.listen(80)

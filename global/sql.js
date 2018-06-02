@@ -1,15 +1,24 @@
-const sql = require("mysql")
 const fs = require("fs")
+let sqlSync, sqlAsync
+try {
+sqlSync = new (require("sync-mysql"))(JSON.parse(fs.readFileSync("./sql-credentials.txt")))
+sqlAsync = require("mysql").createConnection(JSON.parse(fs.readFileSync("./sql-credentials.txt")))
 
-const connection = sql.createConnection(JSON.parse(fs.readFileSync("./sql-credentials.txt")))
+} catch(e)
+{
+	console.log(e)
+}
 
-connection.connect((err) => {
-	if(err)
-	{
-		console.log(err)
-		return;
+let sql = {
+	querySync: (i) => {
+		return sqlSync.query(i)
+	},
+	query: (i) => {
+		return new Promise((resolve, reject) => {
+			sqlAsync.query(i, (e, rows, fields) => {
+				resolve(rows)
+			})
+		})
 	}
-	console.log("Connected to MariaDB") 
-})
-
-module.exports = connection
+}
+module.exports = sql

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Index</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link id="style" rel="stylesheet" type="text/css" href="/global/stylesheet.less">
+	</head>
+
+	<body>
+		<% document.require("global/header.htmljs") %>
+		<div id="page">
+			<table>
+			<%
+			let data = sql.querySync("select * from stats order by count desc")
+			for(let i = 0; i < data.length; i++) {
+				document.write("<tr>")
+				document.write("<td>" + data[i].page + "</td>")
+				document.write("<td>" + data[i].count + "</td>")
+				document.write("</tr>")
+			}
+			%>
+			</table>
+		</div>
+		<% document.require("global/footer.htmljs") %>
+	</body>
+</html>
