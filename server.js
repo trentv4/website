@@ -31,7 +31,6 @@ function loadRoute(app, directory, routeFile) {
 
 function sendQuery(url_unsafe, state) {
 	let url = sql.mysql.escape(url_unsafe)
-	console.log("\nSQL: " + url)
 	sql.query("select * from traffic where page="+ url +"").then(rows => {
 		let query = ""
 		if(rows == undefined || rows.length == 0)
@@ -39,9 +38,12 @@ function sendQuery(url_unsafe, state) {
 		else
 			query = (`update traffic set hits=`+ (rows[0].hits+1) +`, state='`+ state +`' where page=`+ url +``)
 
-		console.log(query)
-		sql.query(query, (e, rows, fields) => {
-			console.error(e)
+		sql.query(query).then(rows => {
+			sql.query("select * from traffic where page="+ url).then(rows => {
+				if(rows.length == 2) {
+					sql.query("delete from traffic where page=" + url + ' and state="valid"')
+				}
+			})
 		})
 	})
 }
@@ -94,18 +96,6 @@ app.use("*", (req, res, next) => {
 	}
 
 	sendQuery(url, "valid")
-
-	sql.query("select * from stats where page='" + url + "'", (e, rows, fields) => {
-		if(e) console.log(e)
-		if(rows.length != 0)
-			sql.query("update stats set count='" + (rows[0].count + 1) + "' where page='" + url + "'", (e) => {
-				if(e) console.log(e)
-			})
-		else
-			sql.query("insert into stats values('" + url + "', 1)", (e) => {
-				if(e) console.log(e)
-			})
-	})
 	
 	next()
 })
@@ -121,7 +111,6 @@ app.use((error, req, res, next) => {
 	res.render("global/404.htmljs")
 	console.write(": unable to serve.")
 	sendQuery(req.originalUrl, "missing")
-	sql.query("delete from traffic where page=" + sql.mysql.escape(req.originalUrl) + ' and state="valid"')
 })
 
 app.listen(80)
