@@ -30,7 +30,6 @@ function loadRoute(app, directory, routeFile) {
 }
 
 function sendQuery(url_unsafe, state) {
-	return;
 	let url = sql.mysql.escape(url_unsafe)
 	sql.query("select * from traffic where page="+ url +"").then(rows => {
 		let query = ""
