@@ -121,7 +121,7 @@ app.use((error, req, res, next) => {
 	res.render("global/404.htmljs")
 	console.write(": unable to serve.")
 	sendQuery(req.originalUrl, "missing")
-
+	sql.query("delete from traffic where page=" + sql.mysql.escape(req.originalUrl) + ' and state="valid"')
 })
 
 app.listen(80)
