@@ -35,11 +35,11 @@ function sendQuery(url_unsafe, state) {
 	sql.query("select * from traffic where page='"+ url +"'").then(rows => {
 		if(rows == undefined || rows.length == 0)
 		{
-			sql.query("insert into traffic values ('"+ url +"', 1, '"+ state +"')")
+			sql.query("insert into traffic values (?, ?)", url, state)
 		}
 		else
 		{
-			sql.query(`update traffic set hits='`+ (rows[0].hits+1) +`', state='`+ state +`' where page='`+ url +`'`)
+			sql.query(`update traffic set hits=?, state=? where page=?`, (rows[0].hits+1), state, url)
 		}
 	})
 }
