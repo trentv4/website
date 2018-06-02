@@ -31,6 +31,7 @@ function loadRoute(app, directory, routeFile) {
 
 function sendQuery(url_unsafe, state) {
 	let url = encodeURI(url_unsafe)
+	console.log("\nSQL: " + url)
 	sql.query("select * from traffic where page='"+ url +"'").then(rows => {
 		if(rows == undefined || rows.length == 0)
 		{
