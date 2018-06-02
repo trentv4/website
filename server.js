@@ -71,7 +71,6 @@ app.use("*", (req, res, next) => {
 
 	console.write("\nServing: " + url)
 
-	console.log(excludedUrls)
 	// 403 forbidden
 	if(excludedUrls.indexOf(url) != -1)
 	{
