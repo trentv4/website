@@ -30,17 +30,19 @@ function loadRoute(app, directory, routeFile) {
 }
 
 function sendQuery(url_unsafe, state) {
-	let url = encodeURI(url_unsafe)
+	let url = sql.mysql.escape(url_unsafe)
 	console.log("\nSQL: " + url)
-	sql.query("select * from traffic where page='"+ url +"'").then(rows => {
+	sql.query("select * from traffic where page="+ url +"").then(rows => {
+		let query = ""
 		if(rows == undefined || rows.length == 0)
-		{
-			sql.query("insert into traffic values (?, ?)", url, state)
-		}
+			query = "insert into traffic values ("+ url +", 1, '"+ state +"')"
 		else
-		{
-			sql.query(`update traffic set hits=?, state=? where page=?`, (rows[0].hits+1), state, url)
-		}
+			query = (`update traffic set hits=`+ (rows[0].hits+1) +`, state='`+ state +`' where page=`+ url +``)
+
+		console.log(query)
+		sql.query(query, (e, rows, fields) => {
+			console.error(e)
+		})
 	})
 }
 

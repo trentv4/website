@@ -1,13 +1,6 @@
 const fs = require("fs")
-let sqlSync, sqlAsync
-try {
-sqlSync = new (require("sync-mysql"))(JSON.parse(fs.readFileSync("./sql-credentials.txt")))
-sqlAsync = require("mysql").createConnection(JSON.parse(fs.readFileSync("./sql-credentials.txt")))
-
-} catch(e)
-{
-	console.log(e)
-}
+const sqlSync = new (require("sync-mysql"))(JSON.parse(fs.readFileSync("./sql-credentials.txt")))
+const sqlAsync = require("mysql").createConnection(JSON.parse(fs.readFileSync("./sql-credentials.txt")))
 
 let sql = {
 	querySync: (i) => {
@@ -19,6 +12,7 @@ let sql = {
 				resolve(rows)
 			})
 		})
-	}
+	},
+	mysql: sqlAsync
 }
 module.exports = sql
