@@ -65,6 +65,8 @@ app.engine("htmljs", htmljs.engine)
 app.set("view engine", "htmljs")
 app.set("views", "./")
 
+app.enable("trust proxy")
+
 app.use(bodyparser.urlencoded({ extended: false }))
 app.use(bodyparser.json())
 
@@ -79,6 +81,7 @@ app.get("*.less", (req, res) => {
 });
 
 app.use("*", (req, res, next) => {
+	if(ssl.cert != "" && !req.secure) res.redirect("https://" + req.headers.host + req.url)
 	if(req.originalUrl.charAt(req.originalUrl.length-1) == "/" && req.originalUrl.length != 1)
 		req.originalUrl = req.originalUrl.substring(0, req.originalUrl.length-1)
 
