@@ -16,7 +16,6 @@ try {
 	ssl.key = fs.readFileSync("./ssl/privkey.pem")
 } catch(e){}
 
-console.log(ssl)
 const excludedUrls = []
 let forbidden = fs.readFileSync(".forbidden").toString().split("\n")
 for(let i = 0; i < forbidden.length; i++)
@@ -125,6 +124,6 @@ app.use((error, req, res, next) => {
 	sendQuery(req.originalUrl, "missing")
 })
 
-//app.listen(80)
+app.listen(80)
 https.createServer(ssl, app).listen(443)
 console.log("Web server started, running.")
