@@ -115,7 +115,6 @@ app.use(express.static("./"))
 
 loadRoute(app, "/api/navyseal", "./routes/navyseal.js")
 loadRoute(app, "/api/villagers", "./routes/minecraft/villagers.js")
-loadRoute(app, "/.well-known/acme-challenge", "./routes/certbot.js")
 loadRoute(app, "/", "./routes/global.js")
 
 app.use((error, req, res, next) => {
