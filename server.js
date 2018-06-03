@@ -124,6 +124,6 @@ app.use((error, req, res, next) => {
 	sendQuery(req.originalUrl, "missing")
 })
 
-app.listen(80)
+//app.listen(80)
 https.createServer(ssl, app).listen(443)
 console.log("Web server started, running.")
