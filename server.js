@@ -5,6 +5,16 @@ const bodyparser = require("body-parser")
 const less = require("less")
 const sql = require("./global/sql.js")
 const htmljs = require("./global/htmljs.js")
+const https = require("https")
+
+let ssl = {
+	cert: "",
+	key: ""
+}
+try {
+	sslCerts.cert = fs.readFileSync("./ssl/fullchain.pem")
+	sslCerts.key = fs.readFileSync("./ssl/privkey.pem")
+} catch(e){}
 
 const excludedUrls = []
 let forbidden = fs.readFileSync(".forbidden").toString().split("\n")
@@ -105,6 +115,7 @@ app.use(express.static("./"))
 
 loadRoute(app, "/api/navyseal", "./routes/navyseal.js")
 loadRoute(app, "/api/villagers", "./routes/minecraft/villagers.js")
+loadRoute(app, "/.well-known/acme-challenge", "./routes/certbot.js")
 loadRoute(app, "/", "./routes/global.js")
 
 app.use((error, req, res, next) => {
@@ -115,4 +126,5 @@ app.use((error, req, res, next) => {
 })
 
 app.listen(80)
+https.createServer(ssl, app).listen(443)
 console.log("Web server started, running.")

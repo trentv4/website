@@ -1,5 +1,7 @@
 server.js
 package.json
+ssl/fullchain.pem
+ssl/privkey.pem
 http://104.196.107.93:80/phpmyadmin/
 http://104.196.107.93:80/PMA/
 http://104.196.107.93:80/dbadmin/
