@@ -12,10 +12,11 @@ let ssl = {
 	key: ""
 }
 try {
-	sslCerts.cert = fs.readFileSync("./ssl/fullchain.pem")
-	sslCerts.key = fs.readFileSync("./ssl/privkey.pem")
+	ssl.cert = fs.readFileSync("./ssl/fullchain.pem")
+	ssl.key = fs.readFileSync("./ssl/privkey.pem")
 } catch(e){}
 
+console.log(ssl)
 const excludedUrls = []
 let forbidden = fs.readFileSync(".forbidden").toString().split("\n")
 for(let i = 0; i < forbidden.length; i++)
