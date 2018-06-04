@@ -4,6 +4,7 @@
 		<title>Index</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link id="style" rel="stylesheet" type="text/css" href="/global/stylesheet.less">
+		<link id="style" rel="stylesheet" type="text/css" href="stylesheet.less">
 	</head>
 
 	<body>
@@ -13,18 +14,27 @@
 			<th>Page</th>
 			<th>Hits</th>
 			<th>State</th>
+<!--			<th>Commands</th>-->
 			<%
 			let data = sql.querySync("select * from traffic order by hits desc")
 			for(let i = 0; i < data.length; i++) {
 				document.write("<tr>")
-				document.write("<td class='page-entry'>" + data[i].page + "</td>")
+				document.write("<td class='page-entry'><a href='"+ data[i].page +"'>"+ data[i].page +"</a></td>")
 				document.write("<td>" + data[i].hits + "</td>")
 				document.write("<td>" + data[i].state + "</td>")
+				/*
+				document.write("<td>")
+				document.write(`<pre onclick='send("forbid", "`+data[i].page+`")'>[forbid]</pre>`)
+				document.write(`<pre onclick='send("delete", "`+data[i].page+`")'>[delete]</pre>`)
+				document.write(`<pre onclick='send("allow", "`+data[i].page+`")'>[allow]</pre>`)
+				document.write("</td>")
+				*/
 				document.write("</tr>")
 			}
 			%>
 			</table>
 		</div>
+		<script src="main.js" type="text/javascript"></script>
 		<% document.require("global/footer.htmljs") %>
 	</body>
 </html>

@@ -7,23 +7,14 @@ const sql = require("./global/sql.js")
 const htmljs = require("./global/htmljs.js")
 const https = require("https")
 
-let ssl = {
-	cert: "",
-	key: ""
-}
-try {
-	ssl.cert = fs.readFileSync("./ssl/fullchain.pem")
-	ssl.key = fs.readFileSync("./ssl/privkey.pem")
-} catch(e){}
+const isLive = fs.existsSync("./ssl/fullchain.pem")
 
-const excludedUrls = []
-let forbidden = fs.readFileSync(".forbidden").toString().split("\n")
-for(let i = 0; i < forbidden.length; i++)
-	excludedUrls.push("/" + forbidden[i])
-let gitignore = fs.readFileSync(".gitignore").toString().split("\n")
-for(let i = 0; i < gitignore.length; i++)
-	excludedUrls.push("/" + gitignore[i])
+let ssl = isLive? {
+	cert: fs.readFileSync("./ssl/fullchain.pem"),
+	key: fs.readFileSync("./ssl/privkey.pem")
+} : undefined
 
+let forbiddenUrls = []
 
 // Useful functions
 console.write = (input) => process.stdout.write(input)
@@ -39,7 +30,19 @@ function loadRoute(app, directory, routeFile) {
 	}
 }
 
+
+function loadForbiddenUrls() {
+	sql.query("select * from forbidden;").then(rows => {
+		let newUrls = []
+		rows.forEach(e => {
+			newUrls.push(e.page)
+		})
+		forbiddenUrls = newUrls
+	}).catch(e => { console.error(e) })
+}
+
 function sendQuery(url_unsafe, state) {
+	if(!isLive) return
 	let url = sql.mysql.escape(url_unsafe)
 	sql.query("select * from traffic where page="+ url +"").then(rows => {
 		let query = ""
@@ -59,6 +62,8 @@ function sendQuery(url_unsafe, state) {
 }
 
 //Express app
+loadForbiddenUrls()
+
 let app = express()
 
 app.engine("htmljs", htmljs.engine)
@@ -81,7 +86,7 @@ app.get("*.less", (req, res) => {
 });
 
 app.use("*", (req, res, next) => {
-	if(ssl.cert != "" && !req.secure)
+	if(isLive && !req.secure)
 	{
 		res.redirect("https://" + req.headers.host + req.url)
 		return
@@ -94,7 +99,7 @@ app.use("*", (req, res, next) => {
 	console.write("\nServing: " + url)
 
 	// 403 forbidden
-	if(excludedUrls.indexOf(url) != -1)
+	if(forbiddenUrls.indexOf(url.substring(1, url.length)) != -1)
 	{
 		res.status("403")
 		res.render("global/403.htmljs")
@@ -118,9 +123,15 @@ app.use("*", (req, res, next) => {
 	next()
 })
 
+app.get("/api/reload-forbidden", (req, res, next) => {
+	loadForbiddenUrls()
+	res.end()
+})
+
 app.use(express.static("./"))
 
 loadRoute(app, "/api/navyseal", "./routes/navyseal.js")
+loadRoute(app, "/api/traffic", "./routes/traffic.js")
 loadRoute(app, "/api/villagers", "./routes/minecraft/villagers.js")
 loadRoute(app, "/", "./routes/global.js")
 
