@@ -141,6 +141,7 @@ loadRoute(app, "/api/villagers", "./routes/minecraft/villagers.js")
 loadRoute(app, "/", "./routes/global.js")
 
 app.use((error, req, res, next) => {
+	if(req.originalUrl.substring(0, 5) == "/api/") return
 	res.status("404")
 	res.render("global/404.htmljs")
 	console.write(": unable to serve.")
