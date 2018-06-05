@@ -55,6 +55,7 @@ function sendQuery(url_unsafe, state) {
 			sql.query("select * from traffic where page="+ url).then(rows => {
 				if(rows.length == 2) {
 					sql.query("delete from traffic where page=" + url + ' and state="valid"')
+					sql.query("delete from traffic where page=" + url + ' and state="api"')
 				}
 			})
 		})
@@ -118,8 +119,12 @@ app.use("*", (req, res, next) => {
 		return
 	}
 
-	sendQuery(url, "valid")
-	
+	if(url.substring(0, 5) == "/api/") {
+		sendQuery(url, "api")
+	} else {
+		sendQuery(url, "valid")
+	}
+
 	next()
 })
 

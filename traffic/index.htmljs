@@ -46,15 +46,18 @@
 			let file = []
 			let missing = []
 			let forbidden = []
+			let api = []
 	
 			all.forEach(e => {
 				if(e.state == "valid") valid.push(e)
 				if(e.state == "file") file.push(e)
 				if(e.state == "missing") missing.push(e)
 				if(e.state == "forbidden") forbidden.push(e)
+				if(e.state == "api") api.push(e)
 			})
 			buildTable(valid)
 			buildTable(file)
+			buildTable(api)
 			buildTable(missing)
 			buildTable(forbidden)
 			%>
