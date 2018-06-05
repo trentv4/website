@@ -49,7 +49,7 @@ function sendQuery(url_unsafe, state) {
 		if(rows == undefined || rows.length == 0)
 			query = "insert into traffic values ("+ url +", 1, '"+ state +"')"
 		else
-			query = (`update traffic set hits=`+ (rows[0].hits+1) +`, state='`+ state +`' where page=`+ url +``)
+			query = (`update traffic set hits=hits+1, state='`+ state +`' where page=`+ url +``)
 
 		sql.query(query).then(rows => {
 			sql.query("select * from traffic where page="+ url).then(rows => {
@@ -72,7 +72,7 @@ app.set("views", "./")
 
 app.enable("trust proxy")
 
-app.use(bodyparser.urlencoded({ extended: false }))
+app.use(bodyparser.urlencoded({ extended: true }))
 app.use(bodyparser.json())
 
 app.get("*.less", (req, res) => {
@@ -99,7 +99,7 @@ app.use("*", (req, res, next) => {
 	console.write("\nServing: " + url)
 
 	// 403 forbidden
-	if(forbiddenUrls.indexOf(url.substring(1, url.length)) != -1)
+	if(forbiddenUrls.indexOf(url) != -1)
 	{
 		res.status("403")
 		res.render("global/403.htmljs")

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Index</title>
+		<title>Site Traffic</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link id="style" rel="stylesheet" type="text/css" href="/global/stylesheet.less">
 		<link id="style" rel="stylesheet" type="text/css" href="stylesheet.less">
@@ -10,11 +10,17 @@
 	<body>
 		<% document.require("global/header.htmljs") %>
 		<div id="page">
+			<div id="credentials">
+				<p>Username: </p>
+				<textarea id="un"></textarea>
+				<p>Password: </p>
+				<input type="password" id="pw"></textarea>
+			</div>
 			<table>
 			<th>Page</th>
 			<th>Hits</th>
 			<th>State</th>
-<!--			<th>Commands</th>-->
+			<th>Commands</th>
 			<%
 			let data = sql.querySync("select * from traffic order by hits desc")
 			for(let i = 0; i < data.length; i++) {
@@ -22,13 +28,13 @@
 				document.write("<td class='page-entry'><a href='"+ data[i].page +"'>"+ data[i].page +"</a></td>")
 				document.write("<td>" + data[i].hits + "</td>")
 				document.write("<td>" + data[i].state + "</td>")
-				/*
+				
 				document.write("<td>")
-				document.write(`<pre onclick='send("forbid", "`+data[i].page+`")'>[forbid]</pre>`)
-				document.write(`<pre onclick='send("delete", "`+data[i].page+`")'>[delete]</pre>`)
-				document.write(`<pre onclick='send("allow", "`+data[i].page+`")'>[allow]</pre>`)
+				document.write(`<a href="" onclick='send("/api/traffic/forbid/", "`+escape(data[i].page)+`")'>[forbid]</a>`)
+				document.write(`<a href="" onclick='send("/api/traffic/delete/", "`+escape(data[i].page)+`")'>[delete]</a>`)
+				document.write(`<a href="" onclick='send("/api/traffic/allow/", "`+escape(data[i].page)+`")'>[allow]</a>`)
 				document.write("</td>")
-				*/
+				
 				document.write("</tr>")
 			}
 			%>
