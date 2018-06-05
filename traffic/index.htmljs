@@ -17,26 +17,46 @@
 				<input type="password" id="pw"></textarea>
 			</div>
 			<table>
-			<th>Page</th>
-			<th>Hits</th>
-			<th>State</th>
-			<th>Commands</th>
 			<%
-			let data = sql.querySync("select * from traffic order by hits desc")
-			for(let i = 0; i < data.length; i++) {
-				document.write("<tr>")
-				document.write("<td class='page-entry'><a href='"+ data[i].page +"'>"+ data[i].page +"</a></td>")
-				document.write("<td>" + data[i].hits + "</td>")
-				document.write("<td>" + data[i].state + "</td>")
-				
-				document.write("<td>")
-				document.write(`<a href="" onclick='send("/api/traffic/forbid/", "`+escape(data[i].page)+`")'>[forbid]</a>`)
-				document.write(`<a href="" onclick='send("/api/traffic/delete/", "`+escape(data[i].page)+`")'>[delete]</a>`)
-				document.write(`<a href="" onclick='send("/api/traffic/allow/", "`+escape(data[i].page)+`")'>[allow]</a>`)
-				document.write("</td>")
-				
-				document.write("</tr>")
+
+			function buildTable(data, name) {
+				document.write("<th>Page</th>")
+				document.write("<th>Hits</th>")
+				document.write("<th>State</th>")
+				document.write("<th>Commands</th>")
+				for(let i = 0; i < data.length; i++) {
+					document.write("<tr>")
+					document.write("<td class='page-entry'><a href='"+ data[i].page +"'>"+ data[i].page +"</a></td>")
+					document.write("<td>" + data[i].hits + "</td>")
+					document.write("<td>" + data[i].state + "</td>")
+					
+					document.write("<td>")
+					document.write(`<pre href="" onclick='send("/api/traffic/forbid/", "`+escape(data[i].page)+`")'>[forbid]</pre>`)
+					document.write(`<pre href="" onclick='send("/api/traffic/delete/", "`+escape(data[i].page)+`")'>[delete]</pre>`)
+					document.write(`<pre href="" onclick='send("/api/traffic/allow/", "`+escape(data[i].page)+`")'>[allow]</pre>`)
+					document.write("</td>")
+					
+					document.write("</tr>")
+				}
+				document.write("<tr id='table-splitter'></tr>")
 			}
+
+			let all = sql.querySync("select * from traffic order by hits desc")
+			let valid = []
+			let file = []
+			let missing = []
+			let forbidden = []
+	
+			all.forEach(e => {
+				if(e.state == "valid") valid.push(e)
+				if(e.state == "file") file.push(e)
+				if(e.state == "missing") missing.push(e)
+				if(e.state == "forbidden") forbidden.push(e)
+			})
+			buildTable(valid)
+			buildTable(file)
+			buildTable(missing)
+			buildTable(forbidden)
 			%>
 			</table>
 		</div>
