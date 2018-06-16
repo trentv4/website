@@ -53,7 +53,7 @@ function sendQuery(url_unsafe, state) {
 
 		sql.query(query).then(rows => {
 			sql.query("select * from traffic where page="+ url).then(rows => {
-				if(rows.length == 2) {
+				if(rows != 0 && rows.length == 2) {
 					sql.query("delete from traffic where page=" + url + ' and state="valid"')
 					sql.query("delete from traffic where page=" + url + ' and state="api"')
 				}
