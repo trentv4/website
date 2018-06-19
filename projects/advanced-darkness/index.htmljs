@@ -18,25 +18,27 @@
 			<p>This is Advanced Darkness. It creates a more interesting and dangerous experience in Minecraft by reducing the overall power and effectiveness of light sources. This is done by enforcing a far lower than normal gamma, reducing your world to pitch black with no lights and slightly less with lights around. Fear not, however, because you can mitigate this effect to an extent by crafting Comforting Lanterns, to be used around your home to brighten up the place. Good luck, and don't forget to carry a light with you!</p>
 			<img style="width: initial; height: initial;" src="images/comforting-lantern.png"/>
 			<div class="separator">
-				<h1>Changelog (1.0 -> 1.1)</h1>
+				<h1>Changelog (1.2 -> 1.3)</h1>
 			</div>
 
 			<div class="codestyle">
-				<p>Advanced Darkness 1.2 for Minecraft 1.10.2</p>
+				<p>Advanced Darkness 1.3 for Minecraft 1.12.2</p>
+				<p>Changes:</p>
+				<li>Update to 1.12.2 courtesy of TheRealp455w0rd</li>
 				<p>Additions:</p>
-				<li>Added a new block to boost gamma in the world. It's called the Comforting Lantern and crafted using glowstone and iron.</li>
-				<li>Added a new configuration option: maxLightLevel. This regulates the maximum gamma you may be set to using Comforting Lanterns.</li>
+				<li>Add ingame configuration menu using Forge mod options</li>
 			</div>
 
 			<div class="separator">
 				<h1>Advanced Downloads</h1>
 			</div>
-
+advanced_darkness-1.12-1.3
+			<a href="downloads/advanced_darkness-1.12.2-1.3.jar"><li>v1.3: for Minecraft 1.12.2</li></a>
 			<a href="downloads/advanced-darkness-1.10.2-1.2.jar"><li>v1.2: for Minecraft 1.10.2</li></a>
 			<a href="downloads/advanced-darkness-1.10.2-1.1.jar"><li>v1.1: for Minecraft 1.10.2</li></a>
 			<a href="downloads/advanced-darkness-1.10.2-1.0.jar"><li>v1.0: for Minecraft 1.10.2</li></a>
-			<a href="https://minecraft.curseforge.com/projects/advanced-darkness"><li>Download it on CurseForge</li>
 
+			<a href="https://minecraft.curseforge.com/projects/advanced-darkness">Advanced Darkness on CurseForge</a>
 			<a href="https://bitbucket.org/trentv4/advanced-darkness/overview">Advanced Darkness on Bitbucket</a>
 
 			<div class="separator">
