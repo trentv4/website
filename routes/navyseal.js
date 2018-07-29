@@ -4,7 +4,14 @@ let sql = require("../global/sql.js")
 
 router.get("/", (req, res) => {
 	sql.query("select title,content from navyseal").then(rows => {
-		res.send(rows)
+		let out = []
+		rows.forEach(e => {
+			out.push({
+				title: e.title,
+				content: e.content
+			})
+		})
+		res.send(out)
 	})
 })
 
