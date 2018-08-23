@@ -44,22 +44,24 @@ function loadForbiddenUrls() {
 function sendQuery(url_unsafe, state) {
 	if(!isLive) return
 	let url = sql.mysql.escape(url_unsafe)
-	sql.query("select * from traffic where page="+ url +"").then(rows => {
-		let query = ""
-		if(rows == undefined || rows.length == 0)
-			query = "insert into traffic values ("+ url +", 1, '"+ state +"')"
-		else
-			query = (`update traffic set hits=hits+1, state='`+ state +`' where page=`+ url +``)
+	try {
+		sql.query("select * from traffic where page="+ url +"").then(rows => {
+			let query = ""
+			if(rows == undefined || rows.length == 0)
+				query = "insert into traffic values ("+ url +", 1, '"+ state +"')"
+			else
+				query = (`update traffic set hits=hits+1, state='`+ state +`' where page=`+ url +``)
 
-		sql.query(query).then(rows => {
-			sql.query("select * from traffic where page="+ url).then(rows => {
-				if(rows != 0 && rows.length == 2) {
-					sql.query("delete from traffic where page=" + url + ' and state="valid"')
-					sql.query("delete from traffic where page=" + url + ' and state="api"')
-				}
+			sql.query(query).then(rows => {
+				sql.query("select * from traffic where page="+ url).then(rows => {
+					if(rows != 0 && rows.length == 2) {
+						sql.query("delete from traffic where page=" + url + ' and state="valid"')
+						sql.query("delete from traffic where page=" + url + ' and state="api"')
+					}
+				})
 			})
 		})
-	})
+	} catch(e) { console.error(e)}
 }
 
 //Express app
