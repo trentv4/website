@@ -12,7 +12,7 @@ router.get("/", (req, res) => {
 			})
 		})
 		res.send(out)
-	})
+	}).error(console.error)
 })
 
 module.exports = router
