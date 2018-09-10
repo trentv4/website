@@ -58,9 +58,9 @@ function sendQuery(url_unsafe, state) {
 						sql.query("delete from traffic where page=" + url + ' and state="valid"')
 						sql.query("delete from traffic where page=" + url + ' and state="api"')
 					}
-				})
-			})
-		})
+				}).catch(e => console.error)
+			}).catch(e => console.error)
+		}).catch(e => console.error)
 	} catch(e) { console.error(e)}
 }
 
