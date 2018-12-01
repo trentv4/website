@@ -89,6 +89,11 @@ app.get("*.less", (req, res) => {
 });
 
 app.use("*", (req, res, next) => {
+	if(isLive && !req.secure && req.originalUrl.substring(0, 13) != "/.well-known/")
+	{
+		res.redirect("https://" + req.headers.host + req.url)
+		return
+	}
 	if(req.originalUrl.charAt(req.originalUrl.length-1) == "/" && req.originalUrl.length != 1)
 		req.originalUrl = req.originalUrl.substring(0, req.originalUrl.length-1)
 
