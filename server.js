@@ -89,11 +89,6 @@ app.get("*.less", (req, res) => {
 });
 
 app.use("*", (req, res, next) => {
-	if(isLive && !req.secure)
-	{
-		res.redirect("https://" + req.headers.host + req.url)
-		return
-	}
 	if(req.originalUrl.charAt(req.originalUrl.length-1) == "/" && req.originalUrl.length != 1)
 		req.originalUrl = req.originalUrl.substring(0, req.originalUrl.length-1)
 
@@ -140,10 +135,12 @@ app.use(express.static("./"))
 loadRoute(app, "/api/navyseal", "./routes/navyseal.js")
 loadRoute(app, "/api/traffic", "./routes/traffic.js")
 loadRoute(app, "/api/villagers", "./routes/minecraft/villagers.js")
+loadRoute(app, "/projects/rpg-mapper", "./routes/rpg-mapper.js")
 loadRoute(app, "/", "./routes/global.js")
 
 app.use((error, req, res, next) => {
 	if(req.originalUrl.substring(0, 5) == "/api/") return
+	if(req.originalUrl.substring())
 	res.status("404")
 	res.render("global/404.htmljs")
 	console.write(": unable to serve.")
