@@ -8,7 +8,7 @@
 
 	<body>
 		<% document.require("global/header.htmljs") %>
-		<div id="page">
+		<div style="max-width: 75em; margin: 0 auto;">
 			<h1>403 forbidden</h1>
 			<p>You do not have permission to access this file.</a></p>
 		</div>

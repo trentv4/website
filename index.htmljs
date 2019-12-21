@@ -1,49 +1,41 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Index</title>
+		<title>Trentv</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link id="style" rel="stylesheet" type="text/css" href="/global/stylesheet.less">
+		<link id="style" rel="stylesheet" type="text/css" href="index.less">
 	</head>
 
 	<body>
 		<% document.require("global/header.htmljs") %>
-		<div id="page">
-			<div class="separator">
-				<img src="index-resources/assault.png">
-				<h1>Trentv.net</h1>
+		<div id="index-page">
+			<div id="index-header">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam efficitur ultrices quam sollicitudin fermentum. In non nibh quis velit semper vestibulum eget quis enim. Sed molestie metus risus, vel pretium nisi tincidunt quis. Nunc sagittis libero sit amet tincidunt imperdiet. Nulla maximus sed nisl in fringilla. Sed id varius sem. Nullam pulvinar eros ac sapien auctor tempus. Nullam felis quam, viverra a dapibus in, rutrum id orci.</p>
+				<img src="/global/avatar.png"/>
 			</div>
 
-			<p>Welcome! This is my personal website, where I can showcase my recent work and other projects. Right below you can see the projects I've highlighted on display, and up in the corner you can find some navigational links. The 'Resume/CV' link will bring you to my professional resume and portfolio for potential employers. 'All Projects' shows a list of every project, organized by technology. If you want to get ahold of me, you can find out how in 'Contact'. Enjoy!</p>
-
-			<div class="separator">
-				<img src="index-resources/head.png">
-				<h1>Projects on display</h1>
+			<div id="index-container">
+				<%
+				function prefab(header, img, desc, links) {
+					document.write(`
+						<div class="index-project">
+							<img src="${img}"></img>
+							<h1>${header}</h1>
+							<p>${desc}</p>
+							<div id="links">
+								${links}
+							</div>
+						</div>
+					`)
+				}
+				prefab("Navy Seal Repository", "/projects/navyseal/thumbnail.png", "Have you ever wanted to put someone in their place in <i>so many different ways?</i>", `<a class="link" href="/projects/navyseal/">Project page</a>`);
+				prefab("Title", "pistol.png", "Description", "links here")
+				prefab("Title", "pistol.png", "Description", "links here")
+				%>
 			</div>
 
-			<div class="block-container">
-				<a href="/articles/">Articles</a>
-				<a href="/projects/advanced-darkness">Advanced Darkness</a>
-				<a href="/projects/dnd-dungeon">Dungeon Mapper</a>
-				<a href="/projects/navyseal">Navy Seal Pasta</a>
-				<a href="/projects/tds">Top Down Shooter</a>
-			</div>
-
-			<div class="separator">
-				<img src="index-resources/scroll.png">
-				<h1>Articles</h1>
-			</div>
-
-			<p>Here is a short list of all of the recent articles I've written on this site.</p>
-			<a href="/articles/libraria">The making of Libraria world generation</a>
-
-			<div class="separator">
-				<img src="index-resources/alert.png">
-				<h1>Announcements</h1>
-			</div>
-
-			<p>May 31, 2018</p>
-			<p>Almost to the day since last year, I reworked the backend to one of my own design. ejs, meet htmljs. Now most of the pages on this site use javascript server-side processing like you would in PHP, cutting down on boilerplate and increasing flexibility when writing it.</p>
+			<a class="link" href="/projects/">See all projects</a>		
 		</div>
 		<% document.require("global/footer.htmljs") %>
 	</body>

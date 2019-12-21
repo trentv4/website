@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Navy Seal Copypasta</title>
+		<title>Navy Seal Repository</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" type="text/css" href="/global/stylesheet.less">
-		<link rel="stylesheet" type="text/css" href="stylesheet.less">
+		<link id="style" rel="stylesheet" type="text/css" href="/global/stylesheet.less">
+		<link id="style" rel="stylesheet" type="text/css" href="stylesheet.less">
 	</head>
 
 	<body>
 		<% document.require("global/header.htmljs") %>
 		<div id="page">
+			<% document.require("projects/sidebar.htmljs") %>
+			<div id="content">
 			<%
 				let values = sql.querySync("select title,content from navyseal")
 
@@ -41,6 +43,7 @@
 					</div>
 				`)
 			%>
+			</div>
 		</div>
 		<% document.require("global/footer.htmljs") %>
 	</body>

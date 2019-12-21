@@ -1,7 +1,7 @@
 <div id="header">
+	<img src="/global/avatar.png"></img>
 	<h1><a href="/">Trentv.net</a></h1>
-	<div>
-		<a href="/projects/">All Projects</a>
-		<a href="/articles/">Articles</a>
+	<div id="header-right">
+		<a class="link" href="/contact/">Contact</a>
 	</div>
 </div>

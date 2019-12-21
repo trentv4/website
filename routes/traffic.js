@@ -5,9 +5,10 @@ const fs = require("fs")
 let express = require("express")
 let router = express.Router()
 
-let credentials = [{username: "trentv4", password: "orCFZaiZMS4L5n+u4n1Dy2w7xM2H5KoSaZdoeT1LbFs="}]
+let credentials = [{username: "trentv4", password: "NJ6sEmd5k/VC9hJY7nDUgi5LSJGBIuQ9YrbJREzK+Ys="}]
 
 function isValidUser(username, password) {
+	console.write(crypto.createHash('sha256').update(password).digest('base64'))
 	let hashedPassword = crypto.createHash('sha256').update(password).digest('base64')
 	for(let i = 0; i < credentials.length; i++) {
 		if(username == credentials[i].username && hashedPassword == credentials[i].password) {

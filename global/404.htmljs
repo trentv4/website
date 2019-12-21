@@ -8,7 +8,7 @@
 
 	<body>
 		<% document.require("global/header.htmljs") %>
-		<div id="page">
+		<div style="max-width: 75em; margin: 0 auto;">
 			<h1>404 not found</h1>
 			<p>There's nothing on this page, so you got dropped off here at this 404 page. Maybe head to the <a href="/">index page?</a></p>
 		</div>

@@ -10,20 +10,22 @@
 	<body>
 		<% document.require("global/header.htmljs") %>
 		<div id="page">
-			<h1>Projects</h1>
-			<p>Here you can see every single one of my projects. If you want to see the ones I have selected for my portfolio, head to the <a href="/">index page</a> for the ones I'm currently showcasing.</p>
+			<% document.require("projects/sidebar.htmljs") %>
+			<div id="content">
+				<h1>Web Development</h1>
+				<h2><a href="/projects/navyseal/">Navy Seal Repository</a></h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam efficitur ultrices quam sollicitudin fermentum. In non nibh quis velit semper vestibulum eget quis enim. Sed molestie metus risus, vel pretium nisi tincidunt quis. Nunc sagittis libero sit amet tincidunt imperdiet. Nulla maximus sed nisl in fringilla. Sed id varius sem. Nullam pulvinar eros ac sapien auctor tempus. Nullam felis quam, viverra a dapibus in, rutrum id orci.</p>
 
-			<div class="block-container">
-				<a href="/projects/advanced-darkness">Advanced Darkness</a>
-				<a href="/projects/brainfuck">Brainfuck Interpreter</a>
-				<a href="/projects/character-sheet">Character Sheet</a>
-				<a href="/projects/dnd-dungeon">Dungeon Mapper</a>
-				<a href="/projects/map-generator">Map Generator</a>
-				<a href="/projects/navyseal">Navy Seal repository</a>
-				<a href="/projects/roguelike">Roguelike</a>
-				<a href="/projects/tds">Top Down Shooter</a>
+				<h2><a href="/projects/navyseal/">Navy Seal Repository</a></h2>				
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam efficitur ultrices quam sollicitudin fermentum. In non nibh quis velit semper vestibulum eget quis enim. Sed molestie metus risus, vel pretium nisi tincidunt quis. Nunc sagittis libero sit amet tincidunt imperdiet. Nulla maximus sed nisl in fringilla. Sed id varius sem. Nullam pulvinar eros ac sapien auctor tempus. Nullam felis quam, viverra a dapibus in, rutrum id orci.</p>
+
+				<h1>Web Development</h1>
+				<h2><a href="/projects/navyseal/">Navy Seal Repository</a></h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam efficitur ultrices quam sollicitudin fermentum. In non nibh quis velit semper vestibulum eget quis enim. Sed molestie metus risus, vel pretium nisi tincidunt quis. Nunc sagittis libero sit amet tincidunt imperdiet. Nulla maximus sed nisl in fringilla. Sed id varius sem. Nullam pulvinar eros ac sapien auctor tempus. Nullam felis quam, viverra a dapibus in, rutrum id orci.</p>
+
+				<h2><a href="/projects/navyseal/">Navy Seal Repository</a></h2>				
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam efficitur ultrices quam sollicitudin fermentum. In non nibh quis velit semper vestibulum eget quis enim. Sed molestie metus risus, vel pretium nisi tincidunt quis. Nunc sagittis libero sit amet tincidunt imperdiet. Nulla maximus sed nisl in fringilla. Sed id varius sem. Nullam pulvinar eros ac sapien auctor tempus. Nullam felis quam, viverra a dapibus in, rutrum id orci.</p>
 			</div>
-
 		</div>
 		<% document.require("global/footer.htmljs") %>
 	</body>
