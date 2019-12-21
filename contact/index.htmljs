@@ -11,7 +11,6 @@
 		<% document.require("global/header.htmljs") %>
 		<div id="contact-page">
 			<img src="/global/avatar.png"/>
-			<p>Are you looking to get in contact with me? There is a variety of ways to contact me depending on what you're looking for.</p>
 			<div id="index-header">
 				<p>If you're looking to contact me for professional or commercial reasons, please email me at trent(a)trentv.net. The @ has been replaced for spam purposes.</p>
 				<p>If you are looking to contact me for non-commercial, including education or other assistance, please contact me using <a href="https://steamcommunity.com/id/trentv4/">Steam</a>, or Discord (Trentv4#6969).</p>
