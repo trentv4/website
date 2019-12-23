@@ -14,17 +14,7 @@
 			<div id="content">
 				<h1>Web Development</h1>
 				<h2><a href="/projects/navyseal/">Navy Seal Repository</a></h2>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam efficitur ultrices quam sollicitudin fermentum. In non nibh quis velit semper vestibulum eget quis enim. Sed molestie metus risus, vel pretium nisi tincidunt quis. Nunc sagittis libero sit amet tincidunt imperdiet. Nulla maximus sed nisl in fringilla. Sed id varius sem. Nullam pulvinar eros ac sapien auctor tempus. Nullam felis quam, viverra a dapibus in, rutrum id orci.</p>
-
-				<h2><a href="/projects/navyseal/">Navy Seal Repository</a></h2>				
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam efficitur ultrices quam sollicitudin fermentum. In non nibh quis velit semper vestibulum eget quis enim. Sed molestie metus risus, vel pretium nisi tincidunt quis. Nunc sagittis libero sit amet tincidunt imperdiet. Nulla maximus sed nisl in fringilla. Sed id varius sem. Nullam pulvinar eros ac sapien auctor tempus. Nullam felis quam, viverra a dapibus in, rutrum id orci.</p>
-
-				<h1>Web Development</h1>
-				<h2><a href="/projects/navyseal/">Navy Seal Repository</a></h2>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam efficitur ultrices quam sollicitudin fermentum. In non nibh quis velit semper vestibulum eget quis enim. Sed molestie metus risus, vel pretium nisi tincidunt quis. Nunc sagittis libero sit amet tincidunt imperdiet. Nulla maximus sed nisl in fringilla. Sed id varius sem. Nullam pulvinar eros ac sapien auctor tempus. Nullam felis quam, viverra a dapibus in, rutrum id orci.</p>
-
-				<h2><a href="/projects/navyseal/">Navy Seal Repository</a></h2>				
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam efficitur ultrices quam sollicitudin fermentum. In non nibh quis velit semper vestibulum eget quis enim. Sed molestie metus risus, vel pretium nisi tincidunt quis. Nunc sagittis libero sit amet tincidunt imperdiet. Nulla maximus sed nisl in fringilla. Sed id varius sem. Nullam pulvinar eros ac sapien auctor tempus. Nullam felis quam, viverra a dapibus in, rutrum id orci.</p>
+				<p>Ever needed to be an internet tough guy, but not sure what exactly to say? Perhaps you don't think the traditional fits the particular target. Maybe you aren't feeling the "tough guy" persona, and would rather try pretending to be competent? Check the repository for the the best comebacks in every situation to put that pesky nobody in their place!</p>
 			</div>
 		</div>
 		<% document.require("global/footer.htmljs") %>
