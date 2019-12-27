@@ -15,6 +15,12 @@
 				<h1>Web Development</h1>
 				<h2><a href="/projects/navyseal/">Navy Seal Repository</a></h2>
 				<p>Ever needed to be an internet tough guy, but not sure what exactly to say? Perhaps you don't think the traditional fits the particular target. Maybe you aren't feeling the "tough guy" persona, and would rather try pretending to be competent? Check the repository for the the best comebacks in every situation to put that pesky nobody in their place!</p>
+
+				<h1>CNC and Machining</h1>
+				<h2><a href="/projects/router/">CNC Router</a></h2>
+				<p>I spent more than a year and a half experimenting with different designs for a CNC router using off-the-shelf parts. This is the results of my experimentation: a custom designed Cartesian router with an integrated slotted table, full bed access gantry design, and enough stability to machine non-ferrous metals such as brass or aluminum.</p>
+				<h2><a href="/projects/electroetching/">Saltwater electroetching</a></h2>
+				<p>Using nothing but some 9-volt batteries, saltwater, and vinyl cutouts, you can create moderately clean markings with appreciable depth in metals. I show this in practice on bare aluminum here.</p>
 			</div>
 		</div>
 		<% document.require("global/footer.htmljs") %>

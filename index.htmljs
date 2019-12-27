@@ -29,9 +29,15 @@
 						</div>
 					`)
 				}
-				prefab("Navy Seal Repository", "/projects/navyseal/thumbnail.png", "Have you ever wanted to put someone in their place in <i>so many different ways?</i>", `<a class="link" href="/projects/navyseal/">Project page</a>`);
-				prefab("Title", "pistol.png", "Description", "links here")
-				prefab("Title", "pistol.png", "Description", "links here")
+				prefab("Navy Seal Repository", 
+				       "/projects/navyseal/thumbnail.png", 
+				       "Have you ever wanted to put someone in their place in <i>so many different ways?</i>", `<a class="link" href="/projects/navyseal/">Project page</a>`);
+				prefab("CNC Router", 
+				       "/projects/router/thumbnail.png", 
+				       "A homebrew build of a CNC router capable of milling non-ferrous metals.", `<a class="link" href="/projects/router/">Project page</a>`)
+				prefab("Saltwater Electroetching", 
+				       "/projects/electroetching/5.png", 
+				       "Etching firearms receivers by 9 volts and corrosive saltwater.", `<a class="link" href="/projects/electroetching/">Project page</a>`)
 				%>
 			</div>
 
