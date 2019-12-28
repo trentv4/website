@@ -4,21 +4,17 @@
 @blue: #3178A6;
 
 #index-page {
-	width: 90%;
-	max-width:75em;
-	margin: 0 auto;
-	padding: 10px;
 	text-align: center;
 
 	#index-header {
 		display: flex;
 		align-items: center;
-		margin-bottom: 1em;
+		margin: 10px auto 1em;
 		justify-content: space-evenly;
+		max-width:75em;
 
 		p {
 			font-size: 1.2em;
-			vertical-align: center;
 			max-width: 40em;
 		}
 
@@ -31,18 +27,17 @@
 	}
 
 	#index-container {
+		background-color: #EEE;
 		display: flex;
 		margin: 0 auto 1em;
-		justify-content: space-evenly;
+		justify-content: center;
 		flex-wrap: wrap;
 
 		.index-project {
-			margin: .25em;
 			background-color: #EEE;
-			border-radius: .75em;
 			width: 20em;
-			height: 30em;
-			padding: 1em 1em 1em 1em;
+			padding: .5em;
+			margin: .25em 1em;
 
 			img {
 				width: 16em;
@@ -55,9 +50,6 @@
 			div {
 				display: flex;
 				justify-content: center;
-				* {
-					margin: 0 .25em;
-				}
 			}
 		}
 	}
