@@ -2,6 +2,7 @@
 	<img src="/global/avatar.png"></img>
 	<h1><a href="/">Trentv.net</a></h1>
 	<div id="header-right">
+		<a class="link" href="/projects/">Projects</a>
 		<a class="link" href="/contact/">Contact</a>
 	</div>
 </div>
