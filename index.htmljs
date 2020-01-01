@@ -36,7 +36,7 @@
 				       "/projects/router/thumbnail.png", 
 				       "A homebrew build of a CNC router capable of milling non-ferrous metals.", `<a class="link" href="/projects/router/">Project page</a>`)
 				prefab("Saltwater Electroetching", 
-				       "/projects/electroetching/5.png", 
+				       "/projects/electroetching/5.webp", 
 				       "Etching firearm receivers with 9-volt batteries and saltwater", `<a class="link" href="/projects/electroetching/">Project page</a>`)
 				%>
 			</div>
