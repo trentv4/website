@@ -12,7 +12,6 @@
 
 body {
 	background-color: @grey;
-
 }
 
 #page {
@@ -71,6 +70,7 @@ body {
 
 	img {
 		border-radius: 50%;
+		border: 1px solid black;
 		height: 2em;
 		margin-right: 1em;
 	}
@@ -142,12 +142,30 @@ a {
 	#index-header {
 		flex-direction: column !important;
 
+		#header-right {
+			margin: 0 auto;
+		}
+
 		img {
 			display: none !important; 
 		}
 
 		p {
 			max-width: 90% !important;
+		}
+	}
+}
+
+@media only screen and (max-width: 425px) {
+	#header {
+		flex-direction: column !important;
+
+		#header-right {
+			margin: 0 auto !important;
+		}
+
+		img {
+			display: none !important; 
 		}
 	}
 }
