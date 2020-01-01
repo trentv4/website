@@ -39,7 +39,7 @@ body {
 
 	#content {
 		margin-left: 1em;
-		width: 56em;
+		max-width: 56em;
 
 		h1, h2 {
 			margin: .5em 0;
@@ -78,7 +78,11 @@ body {
 	#header-right { 
 		margin-left: auto;
 		display: flex;
-		* { color: @grey; }
+
+		* { 
+			margin-left: 0.5em;
+			color: @grey;
+		}
 	}
 }
 
@@ -128,4 +132,22 @@ a {
 	padding: .25em;
 	background-color: #EADFD1;
 	font-family: monospace;
+}
+
+@media only screen and (max-width: 710px) {
+	#sidebar {
+		display: none !important;
+	}
+
+	#index-header {
+		flex-direction: column !important;
+
+		img {
+			display: none !important; 
+		}
+
+		p {
+			max-width: 90% !important;
+		}
+	}
 }
