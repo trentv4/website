@@ -1,0 +1,7 @@
+<div id="sidebar">
+	<li style="margin-bottom: 1em"><a href="/academia/">Academia Index</a></li>
+	<li><a href="/academia/anatomy-and-physiology/">Anatomy &amp Physiology</a></li>
+	<ul>
+		<li><a href="/academia/anatomy-and-physiology/metabolism">Metabolism</a></li>
+	</ul>
+</div>

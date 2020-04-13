@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Academia</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link id="style" rel="stylesheet" type="text/css" href="/global/stylesheet.less">
+		<link id="style" rel="stylesheet" type="text/css" href="stylesheet.less">
+	</head>
+
+	<body>
+		<% document.require("global/header.htmljs") %>
+		<div id="page">
+			<div id="content">
+				<p>This page contains records of all the major college courses I've taken since sophomore year at SUNY Polytechnic Institute. Each class features an article lecture, short-form notes, and printable flash cards for each chapter. These classes follow the syllabus for the college course to a large degree, however in some places the format or structure of chapters has been altered. All available departments are biology, computer science, chemistry, and miscellaneous humanities.</p>
+				<p>Note: all credits are estimated. In the case of classes with labs, the credits given are for lecture alone.<p>
+				<h1>Biology</h1>
+				<hr>
+				<div class="class-title"><a href="/academia/anatomy-and-physiology/">Anatomy &amp Physiology</a><h3>Credits: 6</div>
+				<p>Undergraduate Anatomy &amp Physiology of the human body. Covers the various systems of the human body. Includes: anatomy and physiology of cells, the integumentary system, musculoskeletal system, nervous system, circulatory system, respiratory system, urinary system, acid-base balance, electrolyes, endocrine system, and reproductive system. </p>
+<!--
+				<h1>Computer Science</h1>
+				<hr>
+				<div class="class-title"><a href="/academia/computer-graphics/">Computer Graphics</a><h3>Difficulty: 3/5 | Est. credits: 4</div>
+				<p>Introductory computer graphics using C++ and OpenGL. Covers dependencies, the graphics pipeline, vectors, matrices and matrix transformations, basic shading, barycentric coordinates, texture mapping, cameras, lighting, and model loading.</p>
+				<div class="class-title"><a href="/academia/popl">Principles of Programming Languages</a><h3>Difficulty: 3/5 | Est. credits: 4</div>
+				<p>This course fosters a disciplined approach to the design of programs. Through carefully chosen assignments, the need for certain data structures and programming language features is made apparent. Several different programming languages are used. Topics include: structured programming, functional programming, recursion, and string processing. Prerequisite: CS 240</p>
+
+				<h1>Chemistry</h1>
+				<hr>
+				<div class="class-title"><a href="/academia/intro-chemistry">Introductory Chemistry</a><h3>Difficulty: 3/5 | Est. credits: 3</div>
+				<p>Introductory chemistry from ground up. Second course in a two semester sequence of college-level introductory chemistry for students in the sciences or related technology programs.  Topics include: properties of solution, periodic patterns in the chemical table, organic compounds, chemical kinetics, equilibrium and chemical reactions, acid/base equilibria, ionic equilibria, thermodynamics, electrochemistry, coordination compounds.  Prerequisite: CHE 130 or equivalent.</p>
+
+				<h1>Miscellaneous</h1>
+				<hr>
+				<div class="class-title"><a href="/academia/report-writing">Report Writing</a><h3>Difficulty: 3/5 | Est. credits: 4</div>
+				<p>Report writing and technical communication. Students will learn to communicate more effectively in a professional environment through ample practicewith individual as well as group composed documents (e.g., memos, letters, instructions, proposals, and analytical reports) and the oral presentation of a formal report. Students are required to work in Microsoft Office, so word processing and computer graphics are used to enhance the course assignments. Meets Upper Division Writing Requirement. </p>
+				<br>-->
+			</div>
+		</div>
+		<% document.require("global/footer.htmljs") %>
+	</body>
+</html>

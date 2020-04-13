@@ -1,37 +1,10 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>CNC Router</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link id="style" rel="stylesheet" type="text/css" href="/global/stylesheet.less">
-		<link id="style" rel="stylesheet" type="text/css" href="stylesheet.less">
-	</head>
+<% document.article(`
 
-	<body>
-		<% document.require("global/header.htmljs") %>
-		<div id="page">
-			<% document.require("projects/sidebar.htmljs") %>
-			<div id="content">
-			<%
-				(function(input) {
-					let splitInput = input.split("\n")
-					for(let i = 0; i < splitInput.length; i++) {
-						let line = splitInput[i].replace(/\t/g, "")
-						if(line == "") continue;
-						line[0] == "<" ? document.write(line) : document.write(`<p>${line}</p>`)
-					}
-				})(`
+<h1>CNC Router</h1>
+I built a CNC machine. It's only taken me about 6 different designs and rebuilds. 
+(insert final picture here)
+I built this using off-the-shelf parts from the amazing Openbuild site, which is a site dedicated to projects just like this. 
+<img src="router-cad.png"></img>
+Paragraph ending
 
-				<h1>CNC Router</h1>
-				I built a CNC machine. It's only taken me about 6 different designs and rebuilds. 
-				(insert final picture here)
-				I built this using off-the-shelf parts from the amazing Openbuild site, which is a site dedicated to projects just like this. 
-				<img src="router-cad.png"></img>
-				Paragraph ending
-				`)
-			%>
-			</div>
-		</div>
-		<% document.require("global/footer.htmljs") %>
-	</body>
-</html>
+`, "projects", "Template") %>

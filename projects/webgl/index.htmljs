@@ -1,0 +1,6 @@
+<% document.article(`
+
+<canvas id="render" width=640 height=480></canvas>
+<script type="text/javascript" src="main.js"></script>
+
+`, "projects", "Template") %>

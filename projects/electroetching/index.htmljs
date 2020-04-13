@@ -1,46 +1,19 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Saltwater Electroetching</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link id="style" rel="stylesheet" type="text/css" href="/global/stylesheet.less">
-		<link id="style" rel="stylesheet" type="text/css" href="stylesheet.less">
-	</head>
+<% document.article(`
 
-	<body>
-		<% document.require("global/header.htmljs") %>
-		<div id="page">
-			<% document.require("projects/sidebar.htmljs") %>
-			<div id="content">
-			<%
-				(function(input) {
-					let splitInput = input.split("\n")
-					for(let i = 0; i < splitInput.length; i++) {
-						let line = splitInput[i].replace(/\t/g, "")
-						if(line == "") continue;
-						line[0] == "<" ? document.write(line) : document.write(`<p>${line}</p>`)
-					}
-				})(`
+<h1>Saltwater electroetching</h1>
+When I was looking for methods to engrave manufacturers markings for some replica firearms receivers, using saltwater to etch was one of the easier and more interesting methods. In essence, you can use the water in combination with a vinyl stencil to corrode the inverse of the stencil. 
+The supplies you will need for this is a 9 volt battery, a pair of electrical leads, a number of Q-Tips, and premixed salt water. The object you engrave must be metal, and must be free of any coatings. Such coatings would be hard-coat anodizing in aluminum, cerakote or other finishes, or similar. The material must be free to corrode.
+<img src="1.webp"></img>
+Shown above is the preparation stage. Notice three things: the stencil (which I obtained from <a href="http://www.dogfightink.com/stencils.html">here</a>) I applied cleanly and evenly, the electrical tape isolating any other metal from the saltwater, and the dam formed with tape and extra q-tip stems. I would also recommend cleaning the metal thoroughly with either degreaser, acetone, or clean soapy water (effectivenss in that order). In my case, vinyl stickers are the only appropriate option for masking off the markings, but if you wish to do this on another project you could certainly use a sharp knife to cut out a design from vinyl or electrical tape.
+<img src="2.webp"></img>
+This is the entire setup. The saltwater is mixed by adding salt until it no longer dissolves. Add some of the saltwater to the dammed area. I attach one lead to the etched object, and attach the other lead to a Q-tip and dip it in saltwater. Then, simply place the q-tip into the pool. The q-tip is used to distribute the current over a wider area, which helps to prevent irregular depth of etch. You should move the q-tip from position to position as well. 
+It may take a while to start etching depending on the metal. Aluminum forms an oxide in room air quickly which prevents corrosion for a short time. 
+<img src="3.webp"></img>
+Shown is the etching in action. As you corrode more and more of the material away, the saltwater will become cloudy and dirty, making the etch inconsistent and difficult to keep track of. I recommend cleaning and replacing the water every so often. 
+<img src="4.webp"></img>
+This is after three passes. Measuring the depth of etch is difficult and the only way I've done it before is by feel. I compare the depth of an engraving with a finger and compare it to my target. Be very sure you have the right depth. Too much will distort your markings, and too little will create a shallow etch which may not be satisfactory. Most of the time, you can only try the stencil once.
+<img src="5.webp"></img>
+Final result shown. This is about as good as the process can give you. Be sure to clean it after you're done. The markings are clean and sharp until you get to the very small markings, such as the fourth symbol on the second row. A problem that frequently arises as you get to increasing depth is that the vinyl will lift up and move on isolated islands. 
+Finishing the engraving is up to you. I would recommend either paint filling, anodizing, parkerizing, or whatever you want to increase contrast. 
 
-				<h1>Saltwater electroetching</h1>
-				When I was looking for methods to engrave manufacturers markings for some replica firearms receivers, using saltwater to etch was one of the easier and more interesting methods. In essence, you can use the water in combination with a vinyl stencil to corrode the inverse of the stencil. 
-				The supplies you will need for this is a 9 volt battery, a pair of electrical leads, a number of Q-Tips, and premixed salt water. The object you engrave must be metal, and must be free of any coatings. Such coatings would be hard-coat anodizing in aluminum, cerakote or other finishes, or similar. The material must be free to corrode.
-				<img src="1.webp"></img>
-				Shown above is the preparation stage. Notice three things: the stencil (which I obtained from <a href="http://www.dogfightink.com/stencils.html">here</a>) I applied cleanly and evenly, the electrical tape isolating any other metal from the saltwater, and the dam formed with tape and extra q-tip stems. I would also recommend cleaning the metal thoroughly with either degreaser, acetone, or clean soapy water (effectivenss in that order). In my case, vinyl stickers are the only appropriate option for masking off the markings, but if you wish to do this on another project you could certainly use a sharp knife to cut out a design from vinyl or electrical tape.
-				<img src="2.webp"></img>
-				This is the entire setup. The saltwater is mixed by adding salt until it no longer dissolves. Add some of the saltwater to the dammed area. I attach one lead to the etched object, and attach the other lead to a Q-tip and dip it in saltwater. Then, simply place the q-tip into the pool. The q-tip is used to distribute the current over a wider area, which helps to prevent irregular depth of etch. You should move the q-tip from position to position as well. 
-				It may take a while to start etching depending on the metal. Aluminum forms an oxide in room air quickly which prevents corrosion for a short time. 
-				<img src="3.webp"></img>
-				Shown is the etching in action. As you corrode more and more of the material away, the saltwater will become cloudy and dirty, making the etch inconsistent and difficult to keep track of. I recommend cleaning and replacing the water every so often. 
-				<img src="4.webp"></img>
-				This is after three passes. Measuring the depth of etch is difficult and the only way I've done it before is by feel. I compare the depth of an engraving with a finger and compare it to my target. Be very sure you have the right depth. Too much will distort your markings, and too little will create a shallow etch which may not be satisfactory. Most of the time, you can only try the stencil once.
-				<img src="5.webp"></img>
-				Final result shown. This is about as good as the process can give you. Be sure to clean it after you're done. The markings are clean and sharp until you get to the very small markings, such as the fourth symbol on the second row. A problem that frequently arises as you get to increasing depth is that the vinyl will lift up and move on isolated islands. 
-				Finishing the engraving is up to you. I would recommend either paint filling, anodizing, parkerizing, or whatever you want to increase contrast. 
-				`)
-			%>
-			</div>
-		</div>
-		<% document.require("global/footer.htmljs") %>
-	</body>
-</html>
+`, "projects", "Saltwater electroetching") %>

@@ -11,7 +11,7 @@
 		<% document.require("global/header.htmljs") %>
 		<div id="index-page">
 			<div id="index-header">
-				<p>I'm currently a student studying computer science and biology in the wasteland of central New York. Currently I am occupied with my studies and full time EMS job. Most of my time is occupied with casual programming, CNC machining, and emergency medicine. If needed, I am often available for education.</p>
+				<p>I'm currently a student studying computer science and biology in the wasteland of central New York. Currently I am occupied with my studies and full time EMS job. Most of my time is occupied with casual programming, CNC machining, and emergency medicine. I create courses from my classes to learn from and store them here, free for any use.</p>
 				<img src="/global/avatar.png"/>
 			</div>
 
@@ -41,7 +41,8 @@
 				%>
 			</div>
 
-			<a class="link" href="/projects/">See all projects</a>		
+			<a class="link" href="/projects/">See all projects</a>
+			<a class="link" href="/academia/">See all academia</a>
 		</div>
 		<% document.require("global/footer.htmljs") %>
 	</body>

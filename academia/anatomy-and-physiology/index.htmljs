@@ -1,0 +1,22 @@
+<% document.article(`
+
+<h1>Anatomy &amp Physiology</h1>
+<div class="synopsis">Undergraduate Anatomy &amp Physiology of the human body. Covers the various systems of the human body. Includes: anatomy and physiology of cells, the integumentary system, musculoskeletal system, nervous system, circulatory system, respiratory system, urinary system, acid-base balance, electrolyes, endocrine system, and reproductive system.</div>
+
+Note from the author: <i>This course can be very difficult due to the large amount of information available. I wouldn't recommend using cramming as your study technique. A fair bit of the material covered here cross-links with other information, such as the types of tissues and where they are found. That being said - you should be able to hop into a specific chapter out of order, for the most part. -- Trent VanSlyke</i>
+
+<h2>Chapters</h2>
+<ol>
+	<li><a href="metabolism">Metabolism</a></strike></li>
+
+	<li><strike><a href="">Anatomy &amp physiology of cells</a></strike></li>
+	<li><strike><a href="">The Integumentary System</a></strike></li>
+	<li><strike><a href="">Skeletal Tissues</a></strike></li>
+	<li><strike><a href="">Joints</a></strike></li>
+	<li><strike><a href="">The Endocrine System</a></strike></li>
+	<li><strike><a href="">The Skeletal System</a></strike></li>
+	<li><strike><a href="">Muscles</a></strike></li>
+	<li><strike><a href="">The Digestive System</a></strike></li>
+</ol>
+
+`, "academia/anatomy-and-physiology", "Anatomy &amp Physiology Index") %>
