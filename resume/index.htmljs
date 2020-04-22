@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Resume - Trent VanSlyke</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link id="style" rel="stylesheet" type="text/css" href="/global/stylesheet.less">
+		<link id="style" rel="stylesheet" type="text/css" href="stylesheet.less">
+	</head>
+
+	<body>
+		<% document.require("global/header.htmljs") %>
+		<div id="page" class="vertical">
+			<div id="resume-header">
+				<div>
+					<h2>Trent VanSlyke</h2>
+					<p>Independent and extremely well-rounded computer scientist and biologist. Wide background in IT, biology, and computer aided design. Experienced in leadership and critical decision-making in high stress situations. Currently searching for a full or part time entry-level programming job in web design or business systems.</p>
+				</div>
+				<div id="resume-contact">
+					<p>trent@trentv.net</p>
+					<p>518-844-9069</p>
+					<p>Little Falls, NY</p>
+					<p><a href="www.linkedin.com/in/trentvanslyke">www.linkedin.com/in/trentvanslyke</p>
+					<p><a href="www.trentv.net">www.trentv.net</p>
+					<p><a href="www.github.com/trentv4">www.github.com/trentv4</a></p>
+				</div>
+			</div>
+			<!-- content -->
+			<div class="horizontal">
+				<!-- left side -->
+				<div>
+					<h1>EXPERIENCE</h1>
+
+					<h2>Emergency Medical Services</h2>
+					<ul>
+						<li>Full-time EMT-B at St. Johnsville Volunteer Ambulance Corps (SAVAC) (2017 - Now)</li>
+						<li>Part-time EMT-B at Greater Amsterdam Volunteer Ambulance Corps (GAVAC) (2018 - Now)</li>
+					</ul>
+
+					<h2>Programming</h2>
+					<ul>
+						<li>Game modding in Java: code review, maintenance, bug-fixing in 3k+ LOC codebase (2017 - 2018)</li>
+						<li>Hobbyist Java programming: game design, OpenGL, data processing (2016 - Now)</li>
+					</ul>
+
+					<h2>Education</h2>
+					<ul>
+						<li>BSc Computer/Information Science - SUNY Polytechnic University (ongoing - est. 2022)</li>
+						<li>AAS Biology - SUNY Polytechnic University (ongoing - est. 2022)</li>
+						<li>AAS Computer Science - Fulton Montgomery Community College (grad. 2018)</li>
+					</ul>
+
+					<h2>Volunteer &amp Miscellaneous</h2>
+					<ul>
+						<li>Volunteer for St. Johnsville Fire Department annual "Fireman's Fair" setup and teardown (2016 - Now)</li>
+						<li>Intermittent preceptor for new EMT graduates with on-site training at GAVAC (2019)</li>
+						<li>Design and fabrication of parts using computer-aided design and manufacturing, 3d milling and FDM (2019 - Now)</li>
+					</ul>
+				</div>
+
+				<!-- right side -->
+				<div>
+					<h1>TECHNICAL SKILLS</h1>
+					<h2>High Proficiency (3+ yr experience)</h2>
+					<div class="blue-box">
+						<p>Java</p>
+						<p>Git & Github</p>
+						<p>Eclipse</p>
+						<p>NodeJS, Javascript</p>
+						<p>Express</p>
+						<p>HTML, CSS, LESS</p>
+						<p>SQL</p>
+						<p>MVC design</p>
+						<p>Microsoft Word</p>
+						<p>Microsoft Excel</p>
+						<p>Microsoft Powerpoint</p>
+						<p>Photoshop</p>
+						<p>SQL</p>
+					</div>
+					<h2>Familiarity (6mo - 2 yr experience)</h2>
+					<div class="blue-box">
+						<p>Python</p>
+						<p>Julia</p>
+						<p>C</p>
+						<p>C++</p>
+						<p>PHP</p>
+						<p>Google Cloud</p>
+						<p>Google Compute</p>
+						<p>Fusion 360</p>
+						<p>Computer Aided Design</p>
+						<p>Computer Aided Manufacturing</p>
+						<p>3-axis CNC machining</p>
+					</div>
+
+					<h2>Soft skills</h2>
+					<div class="blue-box">
+						<p>Technical Communication</p>
+						<p>Flexibility</p>
+						<p>Novel Problem Solving</p>
+						<p>High Stress Decision-making</p>
+						<p>Self-management</p>
+						<p>Efficiency and Optimization</p>
+						<p>Customer Service</p>
+						<p>Multitasking</p>
+						<p>Safety-conscious</p>
+						<p>Risk Management</p>
+						<p>Attention to Detail</p>
+					</div>
+
+					<h2>Significant Classes</h2>
+					<ul>
+						<li>Software Engineering</li>
+						<li>Computer Graphics</li>
+						<li>Networking Concepts</li>
+						<li>Object Oriented Programming</li>
+						<li>Principles of Programming Languages</li>
+						<li>Anatomy &amp Physiology</li>
+						<li>Advanced Physiology</li>
+					</ul>
+					<p id="see-more">Interested in more? Visit www.trentv.net/resume to see all my projects or download another copy of this resume</p>
+				</div>
+			</div>
+		<% document.require("global/footer.htmljs") %>
+	</body>
+</html>
