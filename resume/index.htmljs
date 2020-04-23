@@ -24,7 +24,7 @@
 					<h2>Education</h2>
 					<ul>
 						<li><p>Est. graduation 2022</p>BSc Computer/Information Science - SUNY Polytechnic University</li>
-						<li><p>Est. graduation 2022</p>AAS Biology - SUNY Polytechnic University</li>
+						<li><p>Est. graduation 2022</p>AS Biology - SUNY Polytechnic University</li>
 						<li><p>Graduated 2018</p>AAS Computer Science - Fulton Montgomery Community College</li>
 					</ul>
 
@@ -43,8 +43,9 @@
 					<h2>Volunteer &amp Miscellaneous</h2>
 					<ul>
 						<li><p>2016 - Now</p>Volunteer for St. Johnsville Fire Department annual "Fireman's Fair" setup and teardown</li>
+						<li><p>April 2020</p>Volunteer parade driver for those with birthdays affected by COVID-19 quarantine</li>
 						<li><p>2019</p>Intermittent preceptor for new EMT graduates with on-site training at GAVAC</li>
-						<li><p>2019 - Now</p>Design and fabrication of parts using computer-aided design and manufacturing, 3d milling and FDM</li>
+						<li><p>2019 - Now</p>Design and fabrication of parts using CAD, CAM, 3d milling, and FDM</li>
 					</ul>
 				</div>
 
@@ -66,7 +67,7 @@
 						<p>Microsoft Excel</p><p>•</p>
 						<p>Microsoft Powerpoint</p><p>•</p>
 						<p>Photoshop</p><p>•</p>
-						<p>SQL</p>
+						<p>MariaDB</p>
 					</div>
 					<h2>Familiarity (6mo - 2 yr experience)</h2>
 					<div class="blue-box">
@@ -79,22 +80,23 @@
 						<p>Google Compute</p><p>•</p>
 						<p>Fusion 360</p><p>•</p>
 						<p>Computer Aided Design</p><p>•</p>
+						<p>Video editing</p><p>•</p>
 						<p>Computer Aided Manufacturing</p><p>•</p>
 						<p>3-axis CNC machining</p>
 					</div>
 
 					<h2>Soft skills</h2>
 					<div class="blue-box">
-						<p>Technical Communication</p>
-						<p>Flexibility</p>
-						<p>Novel Problem Solving</p>
-						<p>High Stress Decision-making</p>
-						<p>Self-management</p>
-						<p>Efficiency and Optimization</p>
-						<p>Customer Service</p>
-						<p>Multitasking</p>
-						<p>Safety-conscious</p>
-						<p>Risk Management</p>
+						<p>Technical Communication</p><p>•</p>
+						<p>Flexibility</p><p>•</p>
+						<p>Novel Problem Solving</p><p>•</p>
+						<p>High Stress Decision-making</p><p>•</p>
+						<p>Self-management</p><p>•</p>
+						<p>Efficiency and Optimization</p><p>•</p>
+						<p>Customer Service</p><p>•</p>
+						<p>Multitasking</p><p>•</p>
+						<p>Safety-conscious</p><p>•</p>
+						<p>Risk Management</p><p>•</p>
 						<p>Attention to Detail</p>
 					</div>
 
