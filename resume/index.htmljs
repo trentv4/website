@@ -11,18 +11,9 @@
 		<% document.require("global/header.htmljs") %>
 		<div id="page" class="vertical">
 			<div id="resume-header">
-				<div>
-					<h2>Trent VanSlyke</h2>
-					<p>Independent and extremely well-rounded computer scientist and biologist. Wide background in IT, biology, and computer aided design. Experienced in leadership and critical decision-making in high stress situations. Currently searching for a full or part time entry-level programming job in web design or business systems.</p>
-				</div>
-				<div id="resume-contact">
-					<p>trent@trentv.net</p>
-					<p>518-844-9069</p>
-					<p>Little Falls, NY</p>
-					<p><a href="www.linkedin.com/in/trentvanslyke">www.linkedin.com/in/trentvanslyke</p>
-					<p><a href="www.trentv.net">www.trentv.net</p>
-					<p><a href="www.github.com/trentv4">www.github.com/trentv4</a></p>
-				</div>
+				<h1>Trent VanSlyke</h1>
+				<p>Independent and well-rounded computer scientist / biologist.</p>
+				<p>trent@trentv.net - 518-844-9069 - <a href="https://www.trentv.net">trentv.net</a> - Little Falls, NY - <a href="https://www.linkedin.com/in/trentvanslyke">LinkedIn</a> - <a href="https://www.github.com/trentv4">Github</a></p>
 			</div>
 			<!-- content -->
 			<div class="horizontal">
@@ -30,30 +21,30 @@
 				<div>
 					<h1>EXPERIENCE</h1>
 
-					<h2>Emergency Medical Services</h2>
+					<h2>Education</h2>
 					<ul>
-						<li>Full-time EMT-B at St. Johnsville Volunteer Ambulance Corps (SAVAC) (2017 - Now)</li>
-						<li>Part-time EMT-B at Greater Amsterdam Volunteer Ambulance Corps (GAVAC) (2018 - Now)</li>
+						<li><p>Est. graduation 2022</p>BSc Computer/Information Science - SUNY Polytechnic University</li>
+						<li><p>Est. graduation 2022</p>AAS Biology - SUNY Polytechnic University</li>
+						<li><p>Graduated 2018</p>AAS Computer Science - Fulton Montgomery Community College</li>
 					</ul>
 
 					<h2>Programming</h2>
 					<ul>
-						<li>Game modding in Java: code review, maintenance, bug-fixing in 3k+ LOC codebase (2017 - 2018)</li>
-						<li>Hobbyist Java programming: game design, OpenGL, data processing (2016 - Now)</li>
+						<li><p>2017 - 2018</p>Game modding in Java: code review, maintenance, bug-fixing in 3k+ LOC codebase</li>
+						<li><p>2015 - Now</p>Hobbyist Java programming: game design, OpenGL, data processing</li>
 					</ul>
 
-					<h2>Education</h2>
+					<h2>Emergency Medical Services</h2>
 					<ul>
-						<li>BSc Computer/Information Science - SUNY Polytechnic University (ongoing - est. 2022)</li>
-						<li>AAS Biology - SUNY Polytechnic University (ongoing - est. 2022)</li>
-						<li>AAS Computer Science - Fulton Montgomery Community College (grad. 2018)</li>
+						<li><p>2017 - Now</p>EMT-B - Full time at St. Johnsville Volunteer Ambulance Corps (SAVAC)</li>
+						<li><p>2018 - Now</p>EMT-B - Part time at Greater Amsterdam Volunteer Ambulance Corps (GAVAC)</li>
 					</ul>
 
 					<h2>Volunteer &amp Miscellaneous</h2>
 					<ul>
-						<li>Volunteer for St. Johnsville Fire Department annual "Fireman's Fair" setup and teardown (2016 - Now)</li>
-						<li>Intermittent preceptor for new EMT graduates with on-site training at GAVAC (2019)</li>
-						<li>Design and fabrication of parts using computer-aided design and manufacturing, 3d milling and FDM (2019 - Now)</li>
+						<li><p>2016 - Now</p>Volunteer for St. Johnsville Fire Department annual "Fireman's Fair" setup and teardown</li>
+						<li><p>2019</p>Intermittent preceptor for new EMT graduates with on-site training at GAVAC</li>
+						<li><p>2019 - Now</p>Design and fabrication of parts using computer-aided design and manufacturing, 3d milling and FDM</li>
 					</ul>
 				</div>
 
@@ -62,32 +53,33 @@
 					<h1>TECHNICAL SKILLS</h1>
 					<h2>High Proficiency (3+ yr experience)</h2>
 					<div class="blue-box">
-						<p>Java</p>
-						<p>Git & Github</p>
-						<p>Eclipse</p>
-						<p>NodeJS, Javascript</p>
-						<p>Express</p>
-						<p>HTML, CSS, LESS</p>
-						<p>SQL</p>
-						<p>MVC design</p>
-						<p>Microsoft Word</p>
-						<p>Microsoft Excel</p>
-						<p>Microsoft Powerpoint</p>
-						<p>Photoshop</p>
+						<p>Java</p><p>•</p>
+						<p>Git & Github</p><p>•</p>
+						<p>Eclipse</p><p>•</p>
+						<p>NodeJS</p><p>•</p>
+						<p>Javascript</p><p>•</p>
+						<p>Express</p><p>•</p>
+						<p>HTML, CSS, LESS</p><p>•</p>
+						<p>SQL</p><p>•</p>
+						<p>MVC design</p><p>•</p>
+						<p>Microsoft Word</p><p>•</p>
+						<p>Microsoft Excel</p><p>•</p>
+						<p>Microsoft Powerpoint</p><p>•</p>
+						<p>Photoshop</p><p>•</p>
 						<p>SQL</p>
 					</div>
 					<h2>Familiarity (6mo - 2 yr experience)</h2>
 					<div class="blue-box">
-						<p>Python</p>
-						<p>Julia</p>
-						<p>C</p>
-						<p>C++</p>
-						<p>PHP</p>
-						<p>Google Cloud</p>
-						<p>Google Compute</p>
-						<p>Fusion 360</p>
-						<p>Computer Aided Design</p>
-						<p>Computer Aided Manufacturing</p>
+						<p>Python</p><p>•</p>
+						<p>Julia</p><p>•</p>
+						<p>C</p><p>•</p>
+						<p>C++</p><p>•</p>
+						<p>PHP</p><p>•</p>
+						<p>Google Cloud</p><p>•</p>
+						<p>Google Compute</p><p>•</p>
+						<p>Fusion 360</p><p>•</p>
+						<p>Computer Aided Design</p><p>•</p>
+						<p>Computer Aided Manufacturing</p><p>•</p>
 						<p>3-axis CNC machining</p>
 					</div>
 
@@ -107,7 +99,7 @@
 					</div>
 
 					<h2>Significant Classes</h2>
-					<ul>
+					<ul class="big-blue-box">
 						<li>Software Engineering</li>
 						<li>Computer Graphics</li>
 						<li>Networking Concepts</li>
@@ -119,6 +111,5 @@
 					<p id="see-more">Interested in more? Visit www.trentv.net/resume to see all my projects or download another copy of this resume</p>
 				</div>
 			</div>
-		<% document.require("global/footer.htmljs") %>
 	</body>
 </html>
