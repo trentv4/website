@@ -178,12 +178,20 @@ a {
 	}
 }
 
-@media only screen and (max-width: 425px) {
+@media only screen and (max-width: 40em) {
 	#header {
 		flex-direction: column !important;
 
 		#header-right {
 			margin: 0 auto !important;
+			justify-content: space-around;
+			width: 70%;
+			flex-wrap: wrap;
+
+			a {
+				margin-left: auto;
+				margin-top: 0.5em;
+			}
 		}
 
 		img {
