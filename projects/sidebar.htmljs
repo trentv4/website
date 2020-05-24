@@ -1,5 +1,6 @@
 <div id="sidebar">
-	<li style="margin-bottom: 1em"><a href="/projects/">Project Index</a></li>
+	<li><a href="/projects/">Project Index</a></li>
+	<hr>
 	<li>Web Development</li>
 	<ul>
 		<li><a href="/projects/navyseal/">Navy Seal Repository</a></li>

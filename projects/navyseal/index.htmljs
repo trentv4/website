@@ -22,9 +22,7 @@
 					let seal = values[i]
 					tableOfContents += `<a href='#${seal.title}'><p>${seal.title}</p></a>`
 					content += `
-						<div class='separator'>
-							<h1 id='${seal.title}'>${seal.title}</h1>
-						</div>
+						<h1 id='${seal.title}'>${seal.title}</h1>
 						<p>${seal.content}</p>
 						<a href="#header"><p>Back to the table of contents</p></a>
 					`
@@ -38,12 +36,11 @@
 						</div>
 						${tableOfContents}
 					</div>
-					<div id="content">
-						${content}
-					</div>
+					${content}
 				`)
 			%>
 			</div>
+			<div style="background-color: #EEEEEE" id="sidebar"></div>
 		</div>
 		<% document.require("global/footer.htmljs") %>
 	</body>

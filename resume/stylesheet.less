@@ -4,6 +4,19 @@
 @red: #E91A17;
 @blue: #3178A6;
 
+@content: #FAFAFA;
+@background: #EEEEEE;
+@text: #373737;
+@blue: #3178A6;
+@paper: #EADFD1;
+
+#page {
+	max-width: 90em;
+	background-color: @content;
+	margin: 0 auto;
+	padding: 1em;
+}
+
 .horizontal {
 	display: flex;
 	flex-direction: row;
@@ -94,9 +107,23 @@ h2 {
 	color: grey;
 }
 
+@media screen {
+	#resume-header {
+		border-bottom: 0em @blue solid;
+	}	
+}
+
 @media print {
 	#header {
 		display: none;
+		
+		p {
+			margin-top: 0em;
+		}
+	}
+
+	h2 {
+		margin-top: 0.5em;
 	}
 
 	#page {

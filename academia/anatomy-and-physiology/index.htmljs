@@ -1,7 +1,7 @@
 <% document.article(`
 
 <h1>Anatomy &amp Physiology</h1>
-<div class="synopsis">Undergraduate Anatomy &amp Physiology of the human body. Covers the various systems of the human body. Includes: anatomy and physiology of cells, the integumentary system, musculoskeletal system, nervous system, circulatory system, respiratory system, urinary system, acid-base balance, electrolyes, endocrine system, and reproductive system.</div>
+<div class="highlight">Undergraduate Anatomy &amp Physiology of the human body. Covers the various systems of the human body. Includes: anatomy and physiology of cells, the integumentary system, musculoskeletal system, nervous system, circulatory system, respiratory system, urinary system, acid-base balance, electrolyes, endocrine system, and reproductive system.</div>
 
 Recommended book: Human Anatomy &amp Physiology, 9th ed., by E. Marieb, K. Hoehn. ISBN 978-0-321-74326-8
 

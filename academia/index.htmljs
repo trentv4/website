@@ -17,14 +17,14 @@
 				<hr>
 				<div class="class-title"><a href="/academia/anatomy-and-physiology/">Anatomy &amp Physiology</a><h3>Credits: 6</div>
 				<p>Undergraduate Anatomy &amp Physiology of the human body. Covers the various systems of the human body. Includes: anatomy and physiology of cells, the integumentary system, musculoskeletal system, nervous system, circulatory system, respiratory system, urinary system, acid-base balance, electrolyes, endocrine system, and reproductive system. </p>
-<!--
 				<h1>Computer Science</h1>
 				<hr>
-				<div class="class-title"><a href="/academia/computer-graphics/">Computer Graphics</a><h3>Difficulty: 3/5 | Est. credits: 4</div>
+				<div class="class-title"><a href="/academia/computer-graphics/">Computer Graphics</a><h3>Credits: 4</div>
 				<p>Introductory computer graphics using C++ and OpenGL. Covers dependencies, the graphics pipeline, vectors, matrices and matrix transformations, basic shading, barycentric coordinates, texture mapping, cameras, lighting, and model loading.</p>
-				<div class="class-title"><a href="/academia/popl">Principles of Programming Languages</a><h3>Difficulty: 3/5 | Est. credits: 4</div>
+				<div class="class-title"><a href="/academia/popl">Principles of Programming Languages</a><h3>Credits: 4</div>
 				<p>This course fosters a disciplined approach to the design of programs. Through carefully chosen assignments, the need for certain data structures and programming language features is made apparent. Several different programming languages are used. Topics include: structured programming, functional programming, recursion, and string processing. Prerequisite: CS 240</p>
 
+<!--
 				<h1>Chemistry</h1>
 				<hr>
 				<div class="class-title"><a href="/academia/intro-chemistry">Introductory Chemistry</a><h3>Difficulty: 3/5 | Est. credits: 3</div>

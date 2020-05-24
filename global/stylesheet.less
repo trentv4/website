@@ -1,31 +1,61 @@
-@grey: #FAFAFA;
-@darkgrey: #EEEEEE;
-@verydark: #373737;
-@red: #E91A17;
+@content: #FAFAFA;
+@background: #EEEEEE;
+@text: #373737;
 @blue: #3178A6;
+@paper: #EADFD1;
+
+// Major page elements ////////////////////////////////////////////////////////
+
+body {
+	background-color: @background;
+}
 
 * {
 	margin: 0;
 	font-family: Trebuchet MS, sans-serif;
-	color: @verydark;
+	color: @text;
 }
 
-body {
-	background-color: @grey;
+#header {
+	padding: 0.5em 0 0.5em 0;
+	border-bottom: 10px #3178A6 solid;
+	background-color: @content;
+
+	#container {
+		margin: 0 auto;
+		max-width: 60em;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-wrap: wrap;
+
+		* { // So the title doesn't appear as a link (darker)
+			color: @text;
+			display: flex;
+		}
+
+		img {
+			border-radius: 50%;
+			border: 1px solid black;
+			height: 2em;
+			margin-right: 1em;
+		}
+	}
 }
 
 #page {
-	max-width:90em;
-	margin: 0 auto;
-	padding: .5em;
 	display: flex;
 	align-items: flex-start;
+	justify-content: center;
+	padding-bottom: 10em;
 
 	#sidebar {
-		background-color: @darkgrey;
-		width: 14em;
+		background-color: @content;
+		max-width: 12em;
+		width: 12em;
 		padding: 1em;
 		border-radius: 0.2em;
+		margin: 0 1em;
 
 		ul {
 			margin-bottom: 1em;
@@ -34,11 +64,17 @@ body {
 		li {
 			list-style-type: none;
 		}
+
+		hr {
+			margin-bottom: 0.5em;
+			width: 12em;
+		}
 	}
 
 	#content {
-		margin-left: 1em;
-		max-width: 56em;
+		max-width: 50%;
+		padding: 0 1em 2em;
+		background-color: @content;
 
 		h1, h2 {
 			margin: .5em 0;
@@ -54,81 +90,12 @@ body {
 			display: block;
 			margin: 0 auto;
 		}
-
-		.synopsis {
-			background-color: @darkgrey;
-			padding: 2em;
-			font-style: italic;
-		}
 	}
 }
-
-#page-nosidebar {
-	&:extend(#page);
-
-	flex-direction: column;
-}
-
-#header {
-	margin: 0 auto;
-	padding: 0.5em 1em 1em 1em;
-	max-width: 85em;
-	display: flex;
-	align-items: center;
-
-	* {
-		color: @verydark;
-	}
-
-	img {
-		border-radius: 50%;
-		border: 1px solid black;
-		height: 2em;
-		margin-right: 1em;
-	}
-
-	#header-right { 
-		margin-left: auto;
-		display: flex;
-
-		* { 
-			margin-left: 0.5em;
-			color: @grey;
-		}
-	}
-}
-
-#academia-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-
-	a {
-		margin-left: 0.5em;
-	}
-}
-
-.link {
-	padding: .4em 1em;
-	color: @grey;
-	background-color: @blue;
-	border-radius: .25em;
-}
-
-.invalid { text-decoration: line-through; }
 
 p { 
 	padding: 0.5em;
 	line-height: 1.4em;
-}
-
-.separator {
-	padding: 10px;
-
-	* {
-		display: inline-block;
-		padding-right: 10px;
-	}
 }
 
 a {
@@ -140,62 +107,56 @@ a {
 	}	
 }
 
+// Unique page elements styling ///////////////////////////////////////////////
 
-.code {
+#article-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.link {
+	padding: .4em 1em;
+	margin: auto 0.25em;
+	color: @content !important;
+	background-color: @blue;
+	border-radius: .25em;
+}
+
+.highlight {
 	margin-top: 1em;
-	padding: 15px;
-	tab-size: 4;
-	font-family: monospace;
-	background-color: #EADFD1;
+	padding: 1em;
+	background-color: @paper;
+	font-style: italic;
 }
 
-.small-code {
-	display: inline-block;
-	padding: .25em;
-	background-color: #EADFD1;
-	font-family: monospace;
+.highlight-code {
+	&:extend(.highlight);
+	font-style: normal;
+
+	p {
+		font-family: monospace;
+	}
 }
 
-@media only screen and (max-width: 710px) {
+// Removes the sidebar when the content is at risk of being compressed ////////
+
+@media only screen and (max-width: 59em) {
 	#sidebar {
 		display: none !important;
 	}
 
-	#index-header {
-		flex-direction: column !important;
-
-		#header-right {
-			margin: 0 auto;
-		}
-
-		img {
-			display: none !important; 
-		}
-
-		p {
-			max-width: 90% !important;
-		}
+	#content {
+		max-width: 100% !important;
 	}
 }
 
+// Stops header from overlapping //////////////////////////////////////////////
+
 @media only screen and (max-width: 40em) {
 	#header {
-		flex-direction: column !important;
-
-		#header-right {
+		div {
 			margin: 0 auto !important;
-			justify-content: space-around;
-			width: 70%;
-			flex-wrap: wrap;
-
-			a {
-				margin-left: auto;
-				margin-top: 0.5em;
-			}
-		}
-
-		img {
-			display: none !important; 
 		}
 	}
 }

@@ -21,19 +21,39 @@ const htmljs = {
 				let functions = {
 					write: (o) =>   { currentPage += o },
 					require: (o) => { currentPage += htmljs.parse(o)},
-					article: (articleContents, directory, title) => {
+					article: (articleContents, directory, title, showTableOfContents) => {
 						// Usage: <% document.article(`<content>`, "projects/academia")
+						if(showTableOfContents == undefined) showTableOfContents = true
 						let template = htmljs.parse("global/article-template.htmljs")
 						template = template.replace(/%%%title%%%/g, title)
-						template = template.replace(/%%%sidebar%%%/g, htmljs.parse(`${directory}/sidebar.htmljs`))
+						template = template.replace(/%%%sidebarL%%%/g, htmljs.parse(`${directory}/sidebar.htmljs`))
 						let pageData = ""
 						let splitInput = articleContents.split("\n")
+						let hrefs = []
 						for(let i = 0; i < splitInput.length; i++) {
 							let line = splitInput[i].replace(/\t/g, "")
 							if(line == "") continue;
+							if(line.includes("<h2>") && showTableOfContents) {
+								let header = line.replace(/<h2>|<\/h2>/g, "")
+								line = line.replace(/<h2>/g, `<h2 id='${header}'>`)
+								hrefs.push(header)
+							}
 							line[0] == "<" ? pageData += line : pageData += `<p>${line}</p>`
 						}
 						template = template.replace(/%%%articleContents%%%/g, pageData)
+						let sidebarR = `<div style="background-color: #EEEEEE" id="sidebar"></div>`
+						if(hrefs.length > 1 && showTableOfContents) {
+							let h2List = `<div id="sidebar">
+							              <li>Table of Contents</li>
+							              <hr>
+							              <li><a href="#header">Top</a></li>
+							              `
+							for(let i = 0; i < hrefs.length; i++) {
+								h2List += `<li><a href="#${hrefs[i]}">${hrefs[i]}</a></li>`
+							}
+							sidebarR = `${h2List}</div>`
+						}
+						template = template.replace(/%%%sidebarR%%%/g, sidebarR)
 						currentPage += template
 						
 					}

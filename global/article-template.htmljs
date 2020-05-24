@@ -10,10 +10,11 @@
 	<body>
 		<% document.require("global/header.htmljs") %>
 		<div id="page">
-			%%%sidebar%%%
+			%%%sidebarL%%%
 			<div id="content">
 			%%%articleContents%%%
 			</div>
+			%%%sidebarR%%%
 		</div>
 		<% document.require("global/footer.htmljs") %>
 	</body>
