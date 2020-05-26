@@ -44,6 +44,5 @@
 			<a class="link" href="/projects/">See all projects</a>
 			<a class="link" href="/academia/">See all academia</a>
 		</div>
-		<% document.require("global/footer.htmljs") %>
 	</body>
 </html>

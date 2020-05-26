@@ -1,0 +1,37 @@
+<% document.article(`
+
+<div id="article-header">
+	<h1>Test Page</h1>
+	<div>
+		<a class="link" href="">Header Link 1</a>
+		<a class="link" href="">Header Link 2</a>
+	</div>
+</div>
+
+<h2>Subtopic 1</h2>
+In all the scenes so far we've been extensively abusing our little container friend in many ways, but over time even our best friends could get a little boring. In practical graphics applications there are usually lots of complicated and interesting models that are much prettier to look at than a static container. However, unlike the container object, we can't really manually define all the vertices, normals and texture coordinates of complicated shapes like houses, vehicles or human-like characters. What we want instead is to import these models into the application; models that were carefully designed by 3D artists in tools like Blender, 3DS Max or Maya.
+
+<h2>Subtopic 2</h2>
+<div class="highlight">
+These so called 3D modeling tools allow artists to create 
+complicated shapes and apply textures to them via a process called uv-mapping. The tools then automatically 
+
+generate all the vertex coordinates, vertex 
+</div>
+
+<div class="highlight-code">
+	.highlight {
+		margin-top: 1em;
+	}
+</div>
+It is thus our job to parse these exported model files and extract all the relevant information so we can store them in a format that OpenGL understands. A common issue is however that there are dozens of different file formats where each exports the model data in its own unique way. Model formats like the 
+
+<h2>Subtopic 3</h2>
+These so called 3D modeling tools allow artists to create complicated shapes and apply textures to them via a process called uv-mapping. The tools then automatically generate all the vertex coordinates, vertex normals and texture coordinates while exporting them to a model file format. This way, artists have an extensive toolkit to create high quality models without having to care too much about the technical details. All the technical aspects are hidden in the exported model file. We, as graphics programmers, do have to care about these technical details though.
+
+It is thus our job to parse these exported model files and extract all the relevant information so we can store them in a format that OpenGL understands. A common issue is however that there are dozens of different file formats where each exports the model data in its own unique way. Model formats like the Wavefront .obj only contains model data with minor material information like model colors and diffuse/specular maps, while model formats like the XML-based Collada file format are extremely extensive and contain models, lights, many types of materials, animation data, cameras, complete scene information and much more. The wavefront object format is generally 
+
+<h2>Subtopic 4</h2>
+considered to be an easy-to-parse model format. It is recommended to visit the Wavefront's wiki page at least once to see how such a file format's data is structured. This should give you a basic perception of how model file formats are generally structured.
+
+`, "projects", "Test Page") %>

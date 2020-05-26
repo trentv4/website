@@ -37,6 +37,5 @@
 				<br>-->
 			</div>
 		</div>
-		<% document.require("global/footer.htmljs") %>
 	</body>
 </html>

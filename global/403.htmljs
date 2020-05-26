@@ -12,6 +12,5 @@
 			<h1>403 forbidden</h1>
 			<p>You do not have permission to access this file.</a></p>
 		</div>
-		<% document.require("global/footer.htmljs") %>
 	</body>
 </html>

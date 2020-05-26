@@ -1,7 +1,0 @@
-<% document.article(`
-
-<h1>Header</h1>
-Body
-<img src="image-source.png"></img>
-
-`, "academia/anatomy-and-physiology", "Template") %>

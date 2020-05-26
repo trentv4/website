@@ -16,7 +16,6 @@
 			</div>
 			%%%sidebarR%%%
 		</div>
-		<% document.require("global/footer.htmljs") %>
 	</body>
 </html>
 

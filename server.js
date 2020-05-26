@@ -16,19 +16,7 @@ let ssl = isLive? {
 
 let forbiddenUrls = []
 
-// Useful functions
 console.write = (input) => process.stdout.write(input)
-
-function loadRoute(app, directory, routeFile) {
-	console.write("Loading route: " + routeFile + "... ")
-	if(fs.existsSync(routeFile)) {
-		app.use(directory, require(routeFile))
-		console.log("loaded.")
-	}
-	else {
-		console.log("route file not found.")
-	}
-}
 
 sql.query("select * from forbidden;").then(rows => {
 	let newUrls = []
