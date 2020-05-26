@@ -30,42 +30,13 @@ function loadRoute(app, directory, routeFile) {
 	}
 }
 
-
-function loadForbiddenUrls() {
-	sql.query("select * from forbidden;").then(rows => {
-		let newUrls = []
-		rows.forEach(e => {
-			newUrls.push(e.page)
-		})
-		forbiddenUrls = newUrls
-	}).catch(e => { console.error(e) })
-}
-
-function sendQuery(url_unsafe, state) {
-	if(!isLive) return
-	let url = sql.mysql.escape(url_unsafe)
-	try {
-		sql.query("select * from traffic where page="+ url +"").then(rows => {
-			let query = ""
-			if(rows == undefined || rows.length == 0)
-				query = "insert into traffic values ("+ url +", 1, '"+ state +"')"
-			else
-				query = (`update traffic set hits=hits+1, state='`+ state +`' where page=`+ url +``)
-
-			sql.query(query).then(rows => {
-				sql.query("select * from traffic where page="+ url).then(rows => {
-					if(rows != 0 && rows.length == 2) {
-						sql.query("delete from traffic where page=" + url + ' and state="valid"')
-						sql.query("delete from traffic where page=" + url + ' and state="api"')
-					}
-				}).catch(e => console.error)
-			}).catch(e => console.error)
-		}).catch(e => console.error)
-	} catch(e) { console.error(e)}
-}
-
-//Express app
-loadForbiddenUrls()
+sql.query("select * from forbidden;").then(rows => {
+	let newUrls = []
+	rows.forEach(e => {
+		newUrls.push(e.page)
+	})
+	forbiddenUrls = newUrls
+}).catch(e => { console.error(e) })
 
 let app = express()
 
@@ -91,7 +62,7 @@ app.get("*.less", (req, res) => {
 app.use("*", (req, res, next) => {
 	if(isLive && !req.secure && req.originalUrl.substring(0, 13) != "/.well-known/")
 	{
-		res.redirect("https://" + req.headers.host + req.url)
+		res.redirect("https://" + req.headers.host + req.originalUrl)
 		return
 	}
 	if(req.originalUrl.charAt(req.originalUrl.length-1) == "/" && req.originalUrl.length != 1)
@@ -108,48 +79,39 @@ app.use("*", (req, res, next) => {
 		res.render("global/403.htmljs")
 		res.end()
 		console.write(": 403 forbidden.")
-		sendQuery(url, "forbidden")
 		return
 	}
 
 	// static file, skip over statistics and serving notice
 	if(fs.existsSync("." + url) && fs.statSync("." + url).isFile() && url != "/")
-	{
-		sendQuery(url, "file")
 		console.write(": file.")
-		next()
-		return
-	}
-
-	if(url.substring(0, 5) == "/api/") {
-		sendQuery(url, "api")
-	} else {
-		sendQuery(url, "valid")
-	}
 
 	next()
 })
 
-app.get("/api/reload-forbidden", (req, res, next) => {
-	loadForbiddenUrls()
-	res.end()
-})
-
 app.use(express.static("./"))
 
-loadRoute(app, "/api/navyseal", "./routes/navyseal.js")
-loadRoute(app, "/api/traffic", "./routes/traffic.js")
-loadRoute(app, "/api/villagers", "./routes/minecraft/villagers.js")
-loadRoute(app, "/projects/rpg-mapper", "./routes/rpg-mapper.js")
-loadRoute(app, "/", "./routes/global.js")
+app.use("/api/navyseal/", (req, res) => {
+	sql.query("select title,content from navyseal").then(rows => {
+		let out = []
+		rows.forEach(e => {
+			out.push({
+				title: e.title,
+				content: e.content
+			})
+		})
+		res.send(out)
+	}).error(console.error)
+})
+
+app.use("*", (req, res) => {
+	res.render(req.originalUrl.substring(1), {req: req, res: res})
+})
 
 app.use((error, req, res, next) => {
-	if(req.originalUrl.substring(0, 5) == "/api/") return
-	if(req.originalUrl.substring())
 	res.status("404")
 	res.render("global/404.htmljs")
 	console.write(": unable to serve.")
-	sendQuery(req.originalUrl, "missing")
 })
 
 app.listen(80)
