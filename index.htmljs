@@ -16,29 +16,26 @@
 			</div>
 
 			<div id="index-container">
-				<%
-				function prefab(header, img, desc, links) {
-					document.write(`
-						<div class="index-project">
-							<img src="${img}"></img>
-							<h1>${header}</h1>
-							<p>${desc}</p>
-							<div id="links">
-								${links}
-							</div>
-						</div>
-					`)
-				}
-				prefab("Navy Seal Repository", 
-				       "/projects/navyseal/thumbnail.png", 
-				       "Have you ever wanted to put someone in their place in <i>so many different ways?</i>", `<a class="link" href="/projects/navyseal/">Project page</a>`);
-				prefab("CNC Router", 
-				       "/projects/router/thumbnail.png", 
-				       "A homebrew build of a CNC router capable of milling non-ferrous metals.", `<a class="link" href="/projects/router/">Project page</a>`)
-				prefab("Saltwater Electroetching", 
-				       "/projects/electroetching/5.webp", 
-				       "Etching firearm receivers with 9-volt batteries and saltwater", `<a class="link" href="/projects/electroetching/">Project page</a>`)
-				%>
+				<div class="index-project">
+					<img src="/projects/navyseal/thumbnail.png">
+					<h1>Navy Seal Repository</h1>
+					<p>Have you ever wanted to put someone in their place in <i>so many different ways?</i></p>
+					<a class="link" href="/projects/navyseal/">Project page</a>
+				</div>
+
+				<div class="index-project">
+					<img src="/projects/router/thumbnail.png">
+					<h1>CNC Router</h1>
+					<p>A homebrew build of a CNC router capable of milling non-ferrous metals.</i></p>
+					<a class="link" href="/projects/router/">Project page</a>
+				</div>
+
+				<div class="index-project">
+					<img src="/projects/electroetching/5.webp">
+					<h1>Saltwater Electroetching</h1>
+					<p>Etching firearm receivers with 9-volt batteries and saltwater</i></p>
+					<a class="link" href="/projects/electroetching/">Project page</a>
+				</div>
 			</div>
 
 			<a class="link" href="/projects/">See all projects</a>
