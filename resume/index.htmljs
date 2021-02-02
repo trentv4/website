@@ -12,7 +12,7 @@
 		<div id="page" class="vertical">
 			<div id="resume-header">
 				<h1>Trent VanSlyke</h1>
-				<p>Independent and well-rounded computer scientist / biologist.</p>
+				<p>Independent and well-rounded computer scientist / medicine student.</p>
 				<p>trent@trentv.net - 518-844-9069 - <a href="https://www.trentv.net">trentv.net</a> - Little Falls, NY - <a href="https://www.linkedin.com/in/trentvanslyke">LinkedIn</a> - <a href="https://www.github.com/trentv4">Github</a></p>
 			</div>
 			<!-- content -->
@@ -32,6 +32,7 @@
 					<ul>
 						<li><p>2017 - 2018</p>Game modding in Java: code review, maintenance, bug-fixing in 3k+ LOC codebase</li>
 						<li><p>2015 - Now</p>Hobbyist Java programming: game design, OpenGL, data processing</li>
+						<li><p>2019 - Now</p>Hobbyist C# programming: graphics programming, high-performance optimization</li>
 					</ul>
 
 					<h2>Emergency Medical Services</h2>
@@ -53,6 +54,7 @@
 				<div>
 					<h1>TECHNICAL SKILLS</h1>
 					<h2>High Proficiency (3+ yr experience)</h2>
+					<p class="blue-box-iso">Computer Science:</p>
 					<div class="blue-box">
 						<p>Java</p><p>•</p>
 						<p>Git & Github</p><p>•</p>
@@ -63,11 +65,19 @@
 						<p>HTML, CSS, LESS</p><p>•</p>
 						<p>SQL</p><p>•</p>
 						<p>MVC design</p><p>•</p>
-						<p>Microsoft Word</p><p>•</p>
-						<p>Microsoft Excel</p><p>•</p>
-						<p>Microsoft Powerpoint</p><p>•</p>
+						<p>Microsoft Office</p><p>•</p>
 						<p>Photoshop</p><p>•</p>
 						<p>MariaDB</p>
+					</div>
+					<p class="blue-box-iso">Medicine:</p>
+					<div class="blue-box">
+						<p>Complicated extrications</p><p>•</p>
+						<p>Emergency scene coordination</p><p>•</p>
+						<p>Safe transport</p><p>•</p>
+						<p>Cardiac arrest management</p><p>•</p>
+						<p>Basic Life Support + CPR continuous certification</p><p>•</p>
+						<p>Respiratory crisis management</p><p>•</p>
+						<p>Blood-borne disease safety</p>
 					</div>
 					<h2>Familiarity (6mo - 2 yr experience)</h2>
 					<div class="blue-box">
@@ -90,25 +100,20 @@
 						<p>Technical Communication</p><p>•</p>
 						<p>Flexibility</p><p>•</p>
 						<p>Novel Problem Solving</p><p>•</p>
-						<p>High Stress Decision-making</p><p>•</p>
+						<p>High-stress decision-making</p><p>•</p>
 						<p>Self-management</p><p>•</p>
 						<p>Efficiency and Optimization</p><p>•</p>
 						<p>Customer Service</p><p>•</p>
 						<p>Multitasking</p><p>•</p>
-						<p>Safety-conscious</p><p>•</p>
-						<p>Risk Management</p><p>•</p>
-						<p>Attention to Detail</p>
+						<p>Risk Management</p>
 					</div>
 
 					<h2>Significant Classes</h2>
 					<ul class="big-blue-box">
-						<li>Software Engineering</li>
 						<li>Computer Graphics</li>
 						<li>Networking Concepts</li>
 						<li>Object Oriented Programming</li>
-						<li>Principles of Programming Languages</li>
 						<li>Anatomy &amp Physiology</li>
-						<li>Advanced Physiology</li>
 					</ul>
 					<p id="see-more">Interested in more? Visit <a href="https://trentv.net/resume">trentv.net/resume</a> to see all my projects or download another copy of this resume</p>
 				</div>
