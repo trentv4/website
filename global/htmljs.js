@@ -38,10 +38,15 @@ const htmljs = {
 								line = line.replace(/<h2>/g, `<h2 id='${header}'>`)
 								hrefs.push(header)
 							}
+							if(line.includes("<h1>") && showTableOfContents) {
+								let header = line.replace(/<h1>|<\/h1>/g, "")
+								line = line.replace(/<h1>/g, `<h1 id='${header}'>`)
+								hrefs.push(`<b>${header}</b>`)
+							}
 							line[0] == "<" ? pageData += line : pageData += `<p>${line}</p>`
 						}
 						template = template.replace(/%%%articleContents%%%/g, pageData)
-						let sidebarR = `<div style="background-color: #EEEEEE" id="sidebar"></div>`
+						let sidebarR = ``
 						if(hrefs.length > 1 && showTableOfContents) {
 							let h2List = `<div id="sidebar">
 							              <li>Table of Contents</li>
@@ -49,7 +54,7 @@ const htmljs = {
 							              <li><a href="#header">Top</a></li>
 							              `
 							for(let i = 0; i < hrefs.length; i++) {
-								h2List += `<li><a href="#${hrefs[i]}">${hrefs[i]}</a></li>`
+								h2List += `<li><a href="#${hrefs[i].replace(/<b>|<\/b>/g, "")}">${hrefs[i]}</a></li>`
 							}
 							sidebarR = `${h2List}</div>`
 						}

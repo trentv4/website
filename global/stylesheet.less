@@ -17,29 +17,24 @@ body {
 }
 
 #header {
-	padding: 0.5em 0 0.5em 0;
+	padding: 0.5em 25% 0.5em 25%;
 	border-bottom: 10px #3178A6 solid;
 	background-color: @content;
+	max-width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 
-	#container {
-		margin: 0 auto;
-		max-width: 60em;
+	* { // So the title doesn't appear as a link (darker)
+		color: @text;
 		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		flex-wrap: wrap;
+	}
 
-		* { // So the title doesn't appear as a link (darker)
-			color: @text;
-			display: flex;
-		}
-
-		img {
-			border-radius: 50%;
-			border: 1px solid black;
-			height: 2em;
-			margin-right: 1em;
-		}
+	img {
+		border-radius: 50%;
+		border: 1px solid black;
+		height: 2em;
+		margin-right: 1em;
 	}
 }
 
@@ -48,11 +43,12 @@ body {
 	align-items: flex-start;
 	justify-content: center;
 	padding-bottom: 10em;
+	max-width: 75%;
+	margin: 0 auto;
 
 	#sidebar {
 		background-color: @content;
 		max-width: 12em;
-		width: 12em;
 		padding: 1em;
 		border-radius: 0.2em;
 		margin: 0 1em;
@@ -72,7 +68,6 @@ body {
 	}
 
 	#content {
-		max-width: 50%;
 		padding: 0 1em 2em;
 		background-color: @content;
 

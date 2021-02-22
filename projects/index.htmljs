@@ -6,8 +6,6 @@ Ever needed to be an internet tough guy, but not sure what exactly to say? Perha
 
 <h1>CNC and Machining</h1>
 <hr>
-<h2><a href="/projects/router/">CNC Router</a></h2>
-<p>I spent more than a year and a half experimenting with different designs for a CNC router using off-the-shelf parts. This is the results of my experimentation: a custom designed Cartesian router with an integrated slotted table, full bed access gantry design, and enough stability to machine non-ferrous metals such as brass or aluminum.</p>
 <h2><a href="/projects/electroetching/">Saltwater electroetching</a></h2>
 Using nothing but some 9-volt batteries, saltwater, and vinyl cutouts, you can create moderately clean markings with appreciable depth in metals. I show this in practice on bare aluminum here.
 `, "projects", "Projects", false) %>

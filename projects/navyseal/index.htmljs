@@ -1,44 +1,15 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Navy Seal Repository</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link id="style" rel="stylesheet" type="text/css" href="/global/stylesheet.less">
-		<link id="style" rel="stylesheet" type="text/css" href="stylesheet.less">
-	</head>
+<% 
+let content = ""
+let values = sql.querySync("select title, content from navyseal")
 
-	<body>
-		<% document.require("global/header.htmljs") %>
-		<div id="page">
-			<% document.require("projects/sidebar.htmljs") %>
-			<%
-				let values = sql.querySync("select title,content from navyseal")
+for(let i in values) {
+	let seal = values[i]
+	content += `
+		<h2>${seal.title}</h2>
+		<p>${seal.content}</p>
+		<a href="#header">Table of Contents</a>
+	`
+}
 
-				let tableOfContents = ``
-				let content = ``
-
-				for(let i in values) {
-					let seal = values[i]
-					tableOfContents += `<li><a href='#${seal.title}'>${seal.title}</a><li>`
-					content += `
-						<h1 id='${seal.title}'>${seal.title}</h1>
-						<p>${seal.content}</p>
-						<a href="#header"><p>Back to the table of contents</p></a>
-					`
-				}
-
-				document.write(`
-					<div id="content">
-					${content}
-					</div>
-
-					<div id="sidebar">
-						<li>Table of Contents</li>
-						<hr>
-						${tableOfContents}
-					</div>
-				`)
-			%>
-		</div>
-	</body>
-</html>
+document.article(content, "projects", "Test Page") 
+%>

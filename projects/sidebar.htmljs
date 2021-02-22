@@ -1,13 +1,19 @@
 <div id="sidebar">
 	<li><a href="/projects/">Project Index</a></li>
 	<hr>
+	
 	<li>Web Development</li>
 	<ul>
 		<li><a href="/projects/navyseal/">Navy Seal Repository</a></li>
 	</ul>
-	<li>CNC and Machining
+
+	<li>CNC and Machining</li>
 	<ul>
-		<li><a href="/projects/router/">CNC Router</a></li>
 		<li><a href="/projects/electroetching/">Saltwater electroetching</a></li>
+	</ul>
+
+	<li>Miscellaneous</li>
+	<ul>
+		<li><a href="/projects/recipes/">Recipes</a></li>
 	</ul>
 </div>

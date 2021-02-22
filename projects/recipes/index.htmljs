@@ -1,0 +1,112 @@
+<% 
+let content = `
+<div id="article-header">
+	<h1>Cookbook</h1>
+</div>
+
+This is my place to keep all "completed" recipes. I cook very methodically and consistently, and therefore these recipes have been perfected to my taste.\n
+`
+
+function recipe(r) {
+	let split = r.split("\n")
+	let title = split[0]
+	let description = split[1]
+	let emptyLine = 0
+	for(let i = 1; i < split.length; i++) {
+		if(split[i] == "") {
+			emptyLine = i
+			break
+		}
+	}
+
+	let ingredients = split.slice(2, emptyLine)
+	let steps = split.slice(emptyLine+1, split.length)
+
+	let output = `\n<h2>${title}</h2>\n`
+	output += `${description}\n`
+	output += "Ingredients: <ul>"
+	for(let i = 0; i < ingredients.length; i++) {
+		output += `<li>${ingredients[i]}</li>`
+	}
+	output += "</ul>\nProcedure: <ol>"
+	for(let i = 0; i < steps.length; i++) {
+		output += `<li>${steps[i]}</li>`
+	}
+	output += "</ol>\n"
+	content += output
+}
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+
+content += "<h1>Dinner</h1>"
+
+
+recipe(`Apple Cabbage Stew
+Surprisingly tasty. Originally sourced from Skyrim Cookbook.
+2 tablespoons unsalted butter
+1 whole yellow onion
+1/2 head of green cabbage
+1 teaspoon dried thyme
+6 cups chicken broth
+1 or 2 whole apples, cored and diced
+
+Melt the butter in a large pan over medium-high heat and add the onions. Cook until the onions are soft and just starting to brown.
+Add cabbage, and cook for around 10 minutes until the cabbage has softened.
+Add the thyme, broth, and apple. Cook for another 15 minutes or so, until the apple has softened.`)
+
+recipe(`Taco Meat
+This will provide meat suitable for around 16 tacos.
+1 lb 85% lean ground beef
+1 tablespoon chili powder
+1 teaspoon salt
+1/2 teaspoon oregano
+1 teaspoon garlic powder
+1/2 teaspoon crushed red pepper flakes
+1 teaspoon ground black pepper
+2 diced small tomatoes
+1/2 teaspoon paprika
+1/2 teaspoon onion powder
+1 can red kidney beans
+1 can corn
+1 large yellow onion's worth of carmelized onions
+
+Add beef to a large skillet over medium-high heat. Add the seasoning and stir well. Cook until the meat is cooked through.
+Reduce heat to medium. Add all other additives (corn, beans, etc). Do not drain the fat!
+When the additives are cooked through, remove with a strainer-spoon and place into a bowl to serve. Top with carmelized onions.`);
+
+
+content += "<h1>Desserts</h1>"
+
+
+recipe(`Pound Cake
+This is absolutely delicious. It makes enough for about 8 decent-sized slices of cake.
+1 cup / 2 sticks unsalted butter (softened)
+1 3/4 cup granulated sugar
+6 eggs
+1/2 tablespoon vanilla extract
+1/2 teaspoon salt
+1 3/4 cup all-purpose flower
+
+Place the butter in a large bowl and beat it until it's creamy and smooth. Add sugar to the bowl, and mix until it's well combined, light, and fluffy.
+In a second bowl, combine 3 whole eggs, 3 egg yolks, vanilla extract, and salt. Mix them together thoroughly ensuring yolks are broken up.
+Add the egg mixture to the butter/sugar bowl in thirds, mixing thoroughly before adding the next third.
+Add the flour to the batter slowly while mixing thoroughly. Add it slowly unless you want to get absolutely coated in flour.
+Spread the batter into a baking dish, and spread the top as well as possible.
+Bake at 350F in the oven for about an hour. Insert a toothpick to see if it come out clean, at which point pull it out and let it cool. Be careful to test early and multiple times - letting it overcook will dry it out.
+Invert onto a cooling rack after about 20 minutes.`)
+
+
+content += "<h1>Cocktails</h1>"
+
+recipe(`Stimpack
+This is a light, tasty mix using some of the best things a Wastelander could reasonably scrounge up.
+1 part vodka
+1 part Limoncello
+2 part agave syrup
+4 part Sprite
+
+Mix and serve as shots. I recommend making up a large batch at once, to limit how messy the sticky agave syrup can get. The alcohol should be around 5% by volume.`)
+
+
+document.article(content, "projects", "Saltwater electroetching") %>
