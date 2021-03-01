@@ -12,13 +12,14 @@ body {
 
 * {
 	margin: 0;
-	font-family: Trebuchet MS, sans-serif;
+	line-height:1.5;
+	font-family: 'Segoe UI', sans-serif;
 	color: @text;
 }
 
 #header {
 	padding: 0.5em 25% 0.5em 25%;
-	border-bottom: 10px #3178A6 solid;
+	border-bottom: 10px @blue solid;
 	background-color: @content;
 	max-width: 100%;
 	display: flex;
@@ -28,6 +29,11 @@ body {
 	* { // So the title doesn't appear as a link (darker)
 		color: @text;
 		display: flex;
+		line-height: 1em;
+	}
+
+	h1 {
+		font-weight: 500;
 	}
 
 	img {
@@ -43,40 +49,53 @@ body {
 	align-items: flex-start;
 	justify-content: center;
 	padding-bottom: 10em;
-	max-width: 75%;
 	margin: 0 auto;
 
 	#sidebar {
 		background-color: @content;
-		max-width: 12em;
+		min-width: 10em;
 		padding: 1em;
 		border-radius: 0.2em;
 		margin: 0 1em;
 
-		ul {
-			margin-bottom: 1em;
+		* {
+			font-size:0.95em;
+			list-style-type: none;
 		}
 
-		li {
-			list-style-type: none;
+		ul {
+			margin-bottom: 1em;
+			padding-left: 0.5em;
 		}
 
 		hr {
 			margin-bottom: 0.5em;
-			width: 12em;
 		}
 	}
 
 	#content {
-		padding: 0 1em 2em;
+		padding: 1em 2em;
 		background-color: @content;
+		width: 70em;
 
-		h1, h2 {
-			margin: .5em 0;
+		h1 {
+			margin: 0em 0 0.5em;
+			border-bottom: 10px @blue solid;
+			font-weight: 500;
+		}
+
+		h2 {
+			margin: 0 0 0.5em;
+			font-weight: 500;
 		}
 
 		p {
-			margin: auto 2em;
+			line-height: 1.25em;
+			padding: 0 0 0.5em;
+		}
+
+		ul {
+			margin-bottom: 0.5em;
 		}
 
 		img {
@@ -86,11 +105,6 @@ body {
 			margin: 0 auto;
 		}
 	}
-}
-
-p { 
-	padding: 0.5em;
-	line-height: 1.4em;
 }
 
 a {

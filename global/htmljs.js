@@ -46,18 +46,18 @@ const htmljs = {
 							line[0] == "<" ? pageData += line : pageData += `<p>${line}</p>`
 						}
 						template = template.replace(/%%%articleContents%%%/g, pageData)
-						let sidebarR = ``
+						let sidebarR = `<div id="sidebar">
+											<li>Table of Contents</li>
+											<hr>
+											<li><a href="#header">Top</a></li>`
 						if(hrefs.length > 1 && showTableOfContents) {
-							let h2List = `<div id="sidebar">
-							              <li>Table of Contents</li>
-							              <hr>
-							              <li><a href="#header">Top</a></li>
-							              `
+							let h2List = ``
 							for(let i = 0; i < hrefs.length; i++) {
 								h2List += `<li><a href="#${hrefs[i].replace(/<b>|<\/b>/g, "")}">${hrefs[i]}</a></li>`
 							}
-							sidebarR = `${h2List}</div>`
+							sidebarR += `${h2List}`
 						}
+						sidebarR += `</div>`
 						template = template.replace(/%%%sidebarR%%%/g, sidebarR)
 						currentPage += template
 						

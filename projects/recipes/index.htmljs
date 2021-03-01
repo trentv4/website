@@ -1,10 +1,7 @@
 <% 
 let content = `
-<div id="article-header">
-	<h1>Cookbook</h1>
-</div>
-
-This is my place to keep all "completed" recipes. I cook very methodically and consistently, and therefore these recipes have been perfected to my taste.\n
+<h1>VanSlyke Cookbook</h1>
+This is my place to keep all "completed" recipes. I shoot for consistency; these are good cooked exactly as written.\n
 `
 
 function recipe(r) {
@@ -109,4 +106,4 @@ This is a light, tasty mix using some of the best things a Wastelander could rea
 Mix and serve as shots. I recommend making up a large batch at once, to limit how messy the sticky agave syrup can get. The alcohol should be around 5% by volume.`)
 
 
-document.article(content, "projects", "Saltwater electroetching") %>
+document.article(content, "projects", "VanSlyke Cookbook") %>
